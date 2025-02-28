@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import { Geist, Geist_Mono, Poppins, MuseoModerno } from "next/font/google";
 import "@/app/_styles/globals.css";
 import Navbar from "./_components/Navbar";
 import Footer from "./_components/Footer";
@@ -9,7 +9,7 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-
+const museoModerno = MuseoModerno({weight: "400", subsets: ["latin"]})
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -34,11 +34,12 @@ export default function RootLayout({
         className={`
           ${geistSans.variable} 
           ${geistMono.variable} 
-          ${poppins.className} 
+          
+          ${museoModerno.className} 
           antialiased
           
            min-h-screen
-            text-green`}
+          text-green`}
       >
         <Navbar />
         {children}
