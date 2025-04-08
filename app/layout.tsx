@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Poppins, MuseoModerno } from "next/font/google";
+import { Geist, Geist_Mono, MuseoModerno } from "next/font/google";
 import "@/app/_styles/globals.css";
 import Navbar from "./_components/Navbar";
 import Footer from "./_components/Footer";
@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const poppins = Poppins({weight: "400", subsets: ["latin"]});
+// const poppins = Poppins({weight: "400", subsets: ["latin"]});
 
 export const metadata: Metadata = {
   title: "Cabinly",

@@ -15,7 +15,7 @@ export default function About() {
       <p className="text-lg">
         At Cabinly, we believe that the best getaways happen in the most breathtaking places. 
         Our platform makes it easy for travelers to discover and book stunning cabins nestled in 
-        nature—whether it's a cozy retreat in the mountains, a lakeside escape, or a secluded 
+        nature—whether it&#39;s a cozy retreat in the mountains, a lakeside escape, or a secluded 
         forest hideaway.
       </p>
 
@@ -23,21 +23,21 @@ export default function About() {
 
         <div className="flex-1 space-y-8">
           <p>
-            Where nature's beauty and comfortable living blend seamlessly.
+            Where nature&#39;s beauty and comfortable living blend seamlessly.
             Hidden away in the heart of the Italian Dolomites, this is your
-            paradise away from home. But it's not just about the luxury cabins.
-            It's about the experience of reconnecting with nature and enjoying
+            paradise away from home. But it&#39;s not just about the luxury cabins.
+            It&#39;s about the experience of reconnecting with nature and enjoying
             simple pleasures with family.
           </p>
           <p>
             Our luxury cabins provide a cozy base, but the real freedom and
-            peace you'll find in the surrounding mountains. Wander through lush
+            peace you&#39;ll find in the surrounding mountains. Wander through lush
             forests, breathe in the fresh air, and watch the stars twinkle above
             from the warmth of a campfire or your hot tub.
           </p>
           <p>
-            This is where memorable moments are made, surrounded by nature's
-            splendor. It's a place to slow down, relax, and feel the joy of
+            This is where memorable moments are made, surrounded by nature&#39;s
+            splendor. It&#39;s a place to slow down, relax, and feel the joy of
             being together in a beautiful setting.
           </p>
         </div>
@@ -72,10 +72,11 @@ export default function About() {
             dedication to creating a warm, welcoming environment.
           </p>
           <p>
-            Over the years, we've maintained the essence of The Cabins,
+            Over the years, we&#39;ve maintained the essence of The Cabins,
             blending the timeless beauty of the mountains with the personal
-            touch only a family business can offer. Here, you're not just a
-            guest; you're part of our extended family. So join us at The Cabins soon, where tradition meets tranquility, and every visit is
+            touch only a family business can offer. Here, you&#39;re not just a
+            guest; you&#39;re part of our extended family. 
+            So join us at The Cabins soon, where tradition meets tranquility, and every visit is
             like coming home.
           </p>
         </div>

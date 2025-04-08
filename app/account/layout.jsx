@@ -1,10 +1,13 @@
-import { TiFlowChildren } from "react-icons/ti";
-import SideNavigation from '../_components/SideNavigation'
-export default function AccountLayout({children}){
+'use client'
 
+import { UserProvider } from "../contexts/UserContext";
+
+
+export default function AccountLayout({ children }) {
     return (
-    <div className="flex flex-row justify-start w-full gap-10">
-        <SideNavigation />
-        <div className="flex h-full py-1">{children}</div>
-    </div>)
+        <UserProvider>
+            <div className="h-lvh">
+                <div className="flex h-full py-1">{children}</div>
+            </div>
+        </UserProvider>)
 }

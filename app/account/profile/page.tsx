@@ -1,9 +1,21 @@
-import SelectCountry from "@/app/_components/SelectCountry";
+
+'use client'
+import Image from "next/image";
+import { useUserContext } from "../../contexts/UserContext"
+import Link from "next/link";
 
 export default function Page() {
+
+    const { user } = useUserContext()
+    console.log(user)
+  
+      if (!user?.authanticated) {
+         return  <Link href='/account/log-in'>Log in</Link>
+      }
+
   // CHANGE
-  const countryFlag = "pt.jpg";
-  const nationality = "portugal";
+  // const countryFlag = "pt.jpg";
+  // const nationality = "portugal";
 
   return (
     <div>
@@ -36,19 +48,21 @@ export default function Page() {
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <label htmlFor="nationality">Where are you from?</label>
-            <img
+            {/* <Image
               src={countryFlag}
               alt="Country flag"
               className="h-5 rounded-sm"
-            />
+              width={10}
+              height={10}
+            /> */}
           </div>
 
-          <SelectCountry
+          {/* <SelectCountry
             name="nationality"
             id="nationality"
             className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
             defaultCountry={nationality}
-          />
+          /> */}
         </div>
 
         <div className="space-y-2">

@@ -1,12 +1,12 @@
-import ReservationCard from "../../_components/ReservationCard";
+// import ReservationCard from "../../_components/ReservationCard";
 
 export default function Page() {
   // CHANGE
-  const bookings = [];
+  // const bookings = [];
 
   return (
     <div>
-      <h2 className="font-semibold text-2xl text-accent-400 mb-7">
+      {/* <h2 className="font-semibold text-2xl text-accent-400 mb-7">
         Your reservations
       </h2>
 
@@ -23,7 +23,7 @@ export default function Page() {
             <ReservationCard booking={booking} key={booking.id} />
           ))}
         </ul>
-      )}
+      )} */}
     </div>
   );
 }
