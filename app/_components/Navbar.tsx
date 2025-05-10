@@ -1,9 +1,13 @@
+'use client'
 import Link from "next/link";
 import cabinlyLogo from '@/app/_assets/icon.png'
 import Image from "next/image";
-
+import { useUserContext } from "../contexts/UserContext";
 
 export default function Navbar() {
+
+    const {user} = useUserContext()
+    const {name} = user
 
     return (
         <div className="flex items-center gap-10 p-5 justify-between border-b-1 border-b-blue-100">
@@ -12,7 +16,7 @@ export default function Navbar() {
                 <Link href='/cabins'>Cabins</Link>
                 <Link href='/about'>About</Link>
             </div>
-            <Link href='/account'>Account</Link>
+            <Link href='/account'>{name ? name : 'Account' }</Link>
         </div>)
 }
 

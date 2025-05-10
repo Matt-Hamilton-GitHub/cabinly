@@ -6,9 +6,9 @@ import Link from "next/link";
 export default function Account(){
 
     const { user } = useUserContext()
-    console.log(user)
+    console.log(user?.name)
   
-      if (!user?.authanticated) {
+      if (!user?.name) {
          return  <Link href='/account/log-in'>Log in</Link>
       }
       

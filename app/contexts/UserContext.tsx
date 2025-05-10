@@ -5,15 +5,14 @@ import { createContext, useState, ReactNode, useContext } from "react";
 
 // TYPES
 type UserType = {
-    userId: string;
-    name: string;
-    email: string;
-    authanticated: boolean;
+    userId: string,
+    name: string,
+    email: string,
 };
 
 type AuthContextType = {
     user: UserType | null;
-    authenticateUser: (uEmail: string, uPassword: string) => Promise<void>;
+    setUser: React.Dispatch<React.SetStateAction<UserType | null>>
 };
 
 // CONTEXT
@@ -23,39 +22,9 @@ const UserContext = createContext<AuthContextType | undefined>(undefined);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<UserType | null>(null);
 
-    const authenticateUser = async (uEmail: string, uPassword: string) => {
-        try {
-            const res = await fetch('/api/account/log-in', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email: uEmail, password: uPassword }),
-            });
-
-            if (!res.ok) {
-                // Optional: Set an unauthenticated fallback or keep null
-                setUser(null);
-                return;
-            }
-
-            const data = await res.json();
-
-            setUser({
-                userId: data._id,
-                name: data.name,
-                email: data.email,
-                authanticated: true,
-            });
-
-        } catch (err) {
-            console.error('Login error:', err);
-            setUser(null);
-        }
-    };
-
+    console.log(user, 'context')
     return (
-        <UserContext.Provider value={{ user, authenticateUser }}>
+        <UserContext.Provider value={{ user, setUser}}>
             {children}
         </UserContext.Provider>
     );

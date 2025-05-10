@@ -3,13 +3,17 @@
 import { useState } from 'react'
 import { useUserContext } from '../contexts/UserContext'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function Login() {
-  const { authenticateUser } = useUserContext()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+
+  const router = useRouter()
+  const { setUser } = useUserContext()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -17,13 +21,35 @@ export default function Login() {
     setError(null)
 
     try {
-      await authenticateUser(email, password)
+      const res = await fetch('/api/account/log-in', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      })
+
+      const data = await res.json()
+      if (res.ok) {
+        console.log('Login successful:', data)
+      } else {
+        console.error('Error logging in:', data.message)
+      }
+
+      setLoading(false)
+      if (res.ok) {
+        
+        setUser(data.user)
+        router.push('/account')
+      } else {
+        setError(data.message)
+      }
+
     } catch (err) {
-      console.error(err)
-      setError('Invalid login credentials.')
-    } finally {
+     
       setLoading(false)
     }
+
   }
 
   return (

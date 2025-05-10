@@ -2,7 +2,6 @@
 import { connectMDB } from "../mongodb";
 import Cabin from "../mdb-models/Cabin";
 import Reservation from '../mdb-models/Reservation'
-import User from '../mdb-models/User'
 import { NextResponse } from "next/server";
 
 

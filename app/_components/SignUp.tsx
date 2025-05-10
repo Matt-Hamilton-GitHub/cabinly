@@ -2,14 +2,18 @@
 
 import { useState } from 'react'
 import { useUserContext } from '../contexts/UserContext'
+import { useRouter } from 'next/navigation'
+
 
 export default function SignUp() {
-  const { authenticateUser } = useUserContext()
+  const { setUser } = useUserContext()
+  const router = useRouter()
+
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<string | null >(null)
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -17,36 +21,39 @@ export default function SignUp() {
     setLoading(true)
     setError(null)
 
-    if (password !== confirmPassword) {
-      setError('Passwords do not match.')
-      setLoading(false)
-      return
-    }
-
     try {
       const res = await fetch('/api/account/sign-up', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ email, name, password })
       })
 
-      if (!res.ok) {
-        throw new Error('Failed to create an account')
+      const data = await res.json()
+      if (res.ok) {
+        console.log('Signed Up Successfuly:', data)
+      } else {
+        console.error('Error signing-up in:', data.message)
       }
 
-      const data = await res.json()
+      setLoading(false)
+      if (res.ok) {
 
-      // Optionally authenticate after sign up
-      await authenticateUser(email, password)
+        setUser(data.user)
+        router.push('/account')
+       
+      } else {
+        setError(data.message)
+      }
+
     } catch (err) {
-      console.error(err)
-      setError('Sign up failed. Please try again.')
-    } finally {
+      setError(`${err}`)
       setLoading(false)
     }
+
   }
+
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 border rounded-2xl shadow-md">

@@ -3,13 +3,14 @@ import { Geist, Geist_Mono, MuseoModerno } from "next/font/google";
 import "@/app/_styles/globals.css";
 import Navbar from "./_components/Navbar";
 import Footer from "./_components/Footer";
+import { UserProvider } from "./contexts/UserContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const museoModerno = MuseoModerno({weight: "400", subsets: ["latin"]})
+const museoModerno = MuseoModerno({ weight: "400", subsets: ["latin"] })
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -41,14 +42,17 @@ export default function RootLayout({
           min-h-screen
           text-green`}
       >
-        <div className="">
+        <UserProvider>
 
-        <Navbar />
-        <main className="w-full flex justify-center">
-          {children}
-        </main>
-        <Footer />
-        </div>
+          <div className="">
+
+            <Navbar />
+            <main className="w-full flex justify-center">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </UserProvider>
       </body>
     </html>
   );

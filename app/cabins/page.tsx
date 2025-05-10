@@ -122,5 +122,4 @@ const Cabins = ({ searchParams }: {
     </div>)
 }
 
-
 export default Cabins
