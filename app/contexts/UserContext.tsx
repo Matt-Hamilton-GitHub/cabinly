@@ -16,7 +16,7 @@ type AuthContextType = {
 };
 
 // CONTEXT
-const UserContext = createContext<AuthContextType | undefined>(undefined);
+const UserContext = createContext<AuthContextType | null>(null);
 
 // PROVIDER
 export const UserProvider = ({ children }: { children: ReactNode }) => {

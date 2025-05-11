@@ -1,47 +1,46 @@
 "use client";
 import { useState } from "react";
-import { isWithinInterval } from "date-fns";
-import { DayPicker } from "react-day-picker";
+import { addDays } from "date-fns";
+import { DayPicker, DateRange } from "react-day-picker";
 import "react-day-picker/dist/style.css";
-import { useReservation } from "./ReservationContext";
+// import { useReservation } from "../contexts/ReservationContext"
 
-function isAlreadyBooked(range, datesArr) {
-  return (
-    range.from &&
-    range.to &&
-    datesArr.some((date) =>
-      isWithinInterval(date, { start: range.from, end: range.to })
-    )
-  );
-}
+// function isAlreadyBooked(range, datesArr) {
+//   return (
+//     range.from &&
+//     range.to &
+//     datesArr.some((date) =>
+//       isWithinInterval(date, { start: range.from, end: range.to })
+//     )
+//   );
+// }
 
 function DateSelector() {
 
+const today = new Date();
+  const tomorrow = addDays(today, 1);
 
-  // CHANGE
-  const regularPrice = 23;
-  const discount = 23;
-  const numNights = 23;
-  const cabinPrice = 23;
+  const [selected, setSelected] = useState<DateRange | undefined>({
+    from: today,
+    to: tomorrow,
+  });
 
-  // SETTINGS
-  const minBookingLength = 2;
-  const maxBookingLength = 10;
-  const [selected, setSelected] = useState<Date>(null);
+  const handleSelect = (newSelected: DateRange | undefined) => {
+    setSelected(newSelected);
+  };
 
   return (
     <div className="flex flex-col justify-between">
       <DayPicker
       animate
-      mode="single"
+      mode="range"
+      
       selected={selected}
-      onSelect={setSelected}
-      footer={
-        selected ? `Selected: ${selected.toLocaleDateString()}` : "Pick a day."
-      }
+      onSelect={handleSelect}
+      
     />
 
-      <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">
+      {/* <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">
         <div className="flex items-baseline gap-6">
           <p className="flex gap-2 items-baseline">
             {discount > 0 ? (
@@ -77,7 +76,7 @@ function DateSelector() {
             Clear
           </button>
         ) : null}
-      </div>
+      </div> */}
     </div>
   );
 }

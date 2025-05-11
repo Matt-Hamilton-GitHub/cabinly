@@ -6,8 +6,7 @@ import { useUserContext } from "../contexts/UserContext";
 
 export default function Navbar() {
 
-    const {user} = useUserContext()
-    const {name} = user
+    const {user} = useUserContext();
 
     return (
         <div className="flex items-center gap-10 p-5 justify-between border-b-1 border-b-blue-100">
@@ -16,7 +15,7 @@ export default function Navbar() {
                 <Link href='/cabins'>Cabins</Link>
                 <Link href='/about'>About</Link>
             </div>
-            <Link href='/account'>{name ? name : 'Account' }</Link>
+            <Link href='/account'>{user ? user.name : 'Account' }</Link>
         </div>)
 }
 

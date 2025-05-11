@@ -1,3 +1,5 @@
+'use client'
+
 import { useContext, createContext, useState, ReactNode } from "react";
 
 import { getUserReservations } from "../lib/handlers/cabinHandlers";
@@ -38,7 +40,7 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
     const fetchReservations = async (userID: string) => {
         try {
             const data = await getUserReservations(userID);
-            setReservations(data.reservations)
+            // setReservations(data)
         } catch (err) {
             return err
         }
