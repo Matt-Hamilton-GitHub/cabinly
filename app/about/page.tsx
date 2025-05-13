@@ -10,7 +10,7 @@ export default function About() {
   return (
     <div className="flex justify-center items-center flex-col gap-10 m-10 text-lg<">
       <h1 className="text-4xl mb-10 text-accent-400 font-medium">
-        Welcome to <strong className="">The Cabins</strong>
+        Welcome to <strong className="underline">Cabinly</strong>
       </h1>
       <p className="text-lg">
         At Cabinly, we believe that the best getaways happen in the most breathtaking places. 

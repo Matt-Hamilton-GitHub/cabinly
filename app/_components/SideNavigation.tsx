@@ -25,8 +25,8 @@ import {
   
   function SideNavigation() {
     return (
-      <nav className='border-r border-primary-900 h-full'>
-        <ul className='flex flex-col gap-2 text-lg justify-between'>
+      <nav className='border-r border-primary-900 h-full flex items-start basis-[20%] '>
+        <ul className='flex flex-col gap-2 text-lg ' >
           {navLinks.map((link) => (
             <li key={link.name}>
               <a

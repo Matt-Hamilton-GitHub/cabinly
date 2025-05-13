@@ -15,7 +15,7 @@ export default function Navbar() {
                 <Link href='/cabins'>Cabins</Link>
                 <Link href='/about'>About</Link>
             </div>
-            <Link href='/account'>{user ? user.name : 'Account' }</Link>
+            <Link href='/account'>{user ? user.name : 'Log in' }</Link>
         </div>)
 }
 
