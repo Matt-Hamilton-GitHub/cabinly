@@ -40,7 +40,13 @@ export default function SignUp() {
       setLoading(false)
       if (res.ok) {
 
-        setUser(data.user)
+        const user = {
+        userId: data._id,
+        name: data.name,
+        email: data.email,
+        }
+
+        setUser(user)
         router.push('/account')
        
       } else {

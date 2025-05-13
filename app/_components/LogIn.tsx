@@ -38,8 +38,15 @@ export default function Login() {
 
       setLoading(false)
       if (res.ok) {
-        
-        setUser(data.user)
+
+        // console.log(data)
+        const user = {
+        userId: data.user._id,
+        name: data.user.name,
+        email: data.user.email,
+        }
+
+        setUser(user)
         router.push('/account')
       } else {
         setError(data.message)

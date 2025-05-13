@@ -27,7 +27,7 @@ export async function getCabinById(cabinID: string) {
     if (!cabin) {
       return null;
     }
-    return cabin;
+    return cabin
   } catch (error) {
     console.error(error);
     return null;

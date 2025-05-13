@@ -5,29 +5,31 @@ import { useContext, createContext, useState, ReactNode } from "react";
 import { getUserReservations } from "../lib/handlers/cabinHandlers";
 
 type ReservationType = {
-
-    title: string,
     cabinID: string,
+    userID: string,
     range: {
-        from: string,
-        to: string
+        from: { type: Date },
+        to: { type: Date },
     },
-
+    expires: {
+        type: Date,
+    },
+    confirmed: boolean,
 }
 
 type ReservationContextProps = {
     reservations: ReservationType[],
     setReservations: (reservation: ReservationType[]) => void;
     addReservation: (reservation: ReservationType) => void;
-    removeReservation: (cabinID: string) => void;
+    removeReservation: (cabinID: string, range: {form: Date, to: Date}) => void;
 }
 
 const ReservationContext = createContext<ReservationContextProps | undefined>(undefined);
 
 
 export const ReservationProvider = ({ children }: { children: ReactNode }) => {
-    const [reservations, setReservations] = useState<ReservationType[]>([]
-    )
+    const [reservations, setReservations] = useState<ReservationType[]>([])
+    const [newReservation, setNewReservation] = useState<ReservationType>()
 
     const addReservation = (reservation: ReservationType) => {
         setReservations((prev) => [...prev, reservation])
@@ -36,6 +38,7 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
     const removeReservation = (cabinID: string) => {
         setReservations((prev) => prev.filter((r) => r.cabinID !== cabinID))
     }
+    
 
     const fetchReservations = async (userID: string) => {
         try {
@@ -52,7 +55,7 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
     </ReservationContext.Provider>
 }
 
-// custom hook
+
 export const useReservation = () => {
 
     const context = useContext(ReservationContext)

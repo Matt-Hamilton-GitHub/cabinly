@@ -6,6 +6,7 @@ import { CabinsType } from "../page";
 import DataSelector from '@/app/_components/DataSelector'
 
 
+
 export type CabinDetailsProps = {
     params: {
         _id: string;
@@ -13,7 +14,8 @@ export type CabinDetailsProps = {
 }
 export async function generateMetadata({ params }: any) {
     const getParams = await params
-    const cabin = await getCabinById(getParams._id)
+    const doc = await getCabinById(getParams._id)
+    const cabin = doc ? doc.toObject() : null
     return {
         title: `Cabinly/${cabin ? cabin.name : 'unknown'}`
     }
@@ -22,7 +24,8 @@ export async function generateMetadata({ params }: any) {
 const CabinDetails = async ({ params }: any) => {
     try {
         const { _id } = await params;
-        const cabin: CabinsType | null = await getCabinById(_id); 
+        const cabin: CabinsType | null  = await getCabinById(_id); 
+    
         if (!cabin) {
             return (<div className="h-screen w-lvw flex justify-center items-center">
                 <h1 className="text-3xl">
@@ -31,7 +34,6 @@ const CabinDetails = async ({ params }: any) => {
             </div >)
         }
         const { name, occupancy, description, price, discount, imageUrl } = cabin;
-
         return (
             <section className=" h-lvh w-9/12 ms-2 mt-5 flex flex-col gap-4">
                 <h1 className="text-amber-800 text-4xl text-start font-bold ">{name}</h1>
@@ -52,7 +54,8 @@ const CabinDetails = async ({ params }: any) => {
                     {discount !== 0 && <span><h1 className="text-1xl line-through">${price}</h1></span>}
                     <h1 className="text-2xl ">${price - discount} /night</h1>
                 </span>
-                <DataSelector />
+                <DataSelector cabinId={cabin._id.toString()}/>
+                
             </section>
         );
     } catch (error) {
