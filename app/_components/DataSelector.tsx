@@ -6,15 +6,17 @@ import { DayPicker, DateRange } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
 import { useUserContext } from "@/app/contexts/UserContext";
-import { usePathname } from "next/navigation";
 import { CabinsType } from "../cabins/page";
 
 type Props = {
-  cabinId: string
+  cabinId: string,
+  name: string
 }
 
 
-function DateSelector({cabinId} : Props) {
+function DateSelector({cabin} : {cabin : CabinsType}) {
+
+  const {cabinID, name } = cabin
 
 const today = new Date();
   const tomorrow = addDays(today, 1);
@@ -27,21 +29,26 @@ const today = new Date();
 
   const handleSelect = (newSelected: DateRange | undefined) => {
     setSelected(newSelected);
-    console.log(newSelected, user, cabinId)
+
   };
 
   const onReserve = async () => {
+    if (!user || !selected) {
+      console.warn("Missing user or date range");
+      return;
+    }
 
-    
     const newReservation = {
-      cabinID: cabinId,
-      userID: user?.userId,
+      cabinID: cabin,
+      name: name,
+      userID: user.userId,
       range: selected,
       confirmed: true,
     }
 
+    try {
 
-    const res = await fetch('/api/reservations/submit', {
+      const res = await fetch('/api/reservations/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -49,7 +56,10 @@ const today = new Date();
         body: JSON.stringify(newReservation)
       })
       const data = await res.json()
-      console.log(data)
+      console.log("Reservation response:", data);
+    }catch (err) {
+      console.error("Reservation error:", err);
+    }
   }
 
   return (
@@ -57,7 +67,6 @@ const today = new Date();
       <DayPicker
       animate
       mode="range"
-      
       selected={selected}
       onSelect={handleSelect}
       

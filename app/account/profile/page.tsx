@@ -9,13 +9,9 @@ export default function Page() {
     const { user } = useUserContext()
     console.log(user)
   
-      if (!user?.authanticated) {
+      if (!user) {
          return  <Link href='/account/log-in'>Log in</Link>
       }
-
-  // CHANGE
-  // const countryFlag = "pt.jpg";
-  // const nationality = "portugal";
 
   return (
     <div>

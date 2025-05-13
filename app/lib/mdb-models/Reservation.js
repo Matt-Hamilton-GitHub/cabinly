@@ -4,6 +4,7 @@ const ReservationSchema = new mongoose.Schema(
   {
     cabinID: { type: String, required: true },
     userID: { type: String, required: true },
+    name:  {type: String, required: true},
     range: {
       from: { type: Date, required: true },  
       to: { type: Date, required: true },    

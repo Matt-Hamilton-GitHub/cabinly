@@ -1,9 +1,6 @@
 'use client'
 
-import { useEffect } from "react"
 import LogIn from "../../_components/LogIn"
-import { GET } from "@/app/api/cabins/route"
-
 
 const page = () => {
   return (

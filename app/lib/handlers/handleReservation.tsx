@@ -22,16 +22,19 @@ export async function submitReservation(req: Request){
 
 
 export async function getUserReservations(userId: string){
+    console.log(`fetching reservations for: ${userId}`)
       try {
         await connectMDB();
+        console.log(userId)
         const userReservations= await Reservation.find({userID: userId});
-        if (!userReservations) {
-          return null;
+        
+        return NextResponse.json({userReservations}, {status: 200});
+      } catch (error: unknown) {
+        if (error instanceof Error){
+          return NextResponse.json({error: error.message}, {status: 500})
+        }else {
+          return NextResponse.json({error: 'Unknown error occured'}, {status: 500})
         }
-        return userReservations
-      } catch (error) {
-        console.error(error);
-        return null;
       }
 
 }

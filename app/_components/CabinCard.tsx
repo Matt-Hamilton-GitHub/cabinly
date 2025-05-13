@@ -14,6 +14,7 @@ export const metadata = {
     title: 'Cabin'
 }
 export default function CabinCard({ cabin }: CabinCardProps) {
+    const cabinId = cabin._id;
     return (<div className="flex flex-row ">
         <div className=" rounded-s-xl w-40 h-50 relative object-cover border-black-900 border-1 ">
             <Image
@@ -39,8 +40,8 @@ export default function CabinCard({ cabin }: CabinCardProps) {
                 </span>
             </div>
 
-            <Link href={`/cabins/${cabin._id}`} >
-                <div className="flex flex-row justify-start items-center gap-1.5"> <BsFillBookmarkPlusFill /> <h4>Details & Reservetions </h4></div>
+            <Link href={`/cabins/${cabinId}`} >
+                <div className="flex flex-row justify-start items-center gap-1.5"> <BsFillBookmarkPlusFill /> <h4>Details & Reservations </h4></div>
             </Link>
         </div>
     </div>)
