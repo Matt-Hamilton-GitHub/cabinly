@@ -47,12 +47,13 @@ export default function RootLayout({
           <div className="">
 
             <Navbar />
-            <main className="w-full flex justify-center">
+            <main className="w-[100vw] flex justify-center">
               {children}
             </main>
-            <Footer />
           </div>
+           
         </UserProvider>
+        {/* <Footer /> */}
       </body>
     </html>
   );
