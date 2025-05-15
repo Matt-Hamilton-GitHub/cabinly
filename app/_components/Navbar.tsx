@@ -3,6 +3,7 @@ import Link from "next/link";
 import cabinlyLogo from '@/app/_assets/icon.png'
 import Image from "next/image";
 import { useUserContext } from "../contexts/UserContext";
+import { CircleUserRound } from 'lucide-react';
 
 export default function Navbar() {
 
@@ -15,7 +16,9 @@ export default function Navbar() {
                 <Link href='/cabins'>Cabins</Link>
                 <Link href='/about'>About</Link>
             </div>
-            <Link href='/account'>{user ? user.name : 'Log in' }</Link>
+            <div className="flex flex-row gap-2 bg-amber-600 p-2 rounded-2xl shadow-2xl inset-shadow-blue-200">
+                {user ? <Link href='/account'> <div className="flex flex-row gap-2"><CircleUserRound /><span>{user.name}</span></div> </Link>: <Link href='/account/log-in'>Log in</Link> }
+            </div>
         </div>)
 }
 

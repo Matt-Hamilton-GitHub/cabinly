@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useUserContext } from '../contexts/UserContext'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { CircleUserRound } from 'lucide-react';
 
 export default function Login() {
 
@@ -41,9 +42,9 @@ export default function Login() {
 
         // console.log(data)
         const user = {
-        userId: data.user._id,
-        name: data.user.name,
-        email: data.user.email,
+          userId: data.user._id,
+          name: data.user.name,
+          email: data.user.email,
         }
 
         setUser(user)
@@ -53,15 +54,18 @@ export default function Login() {
       }
 
     } catch (err) {
-     
+
       setLoading(false)
     }
 
   }
 
   return (
-    <div className="max-w-md mx-auto max-auto mt-10 p-6 border rounded-2xl shadow-md">
-      <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+    <div className="flex flex-col items-center justify-center max-w-md mx-auto max-auto mt-10 p-6 border-2 rounded-2xl shadow-2xl shadow-gray-400">
+      <div className='w-30 relative flex border-2 items-center justify-center bottom-10 py-1 rounded-2xl shadow-2xl shadow-gray-400 bg-white'>
+        <CircleUserRound size={35}/>
+      </div>
+        <h1 className="text-3xl font-bold mb-4 text-center">Login</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="email" className="block text-sm font-medium">Email</label>
@@ -91,13 +95,13 @@ export default function Login() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+          className="w-full bg-amber-700 text-white py-2 rounded hover:bg-black cursor-pointer transition-all delay-75 ease-in-out"
         >
           {loading ? 'Logging in...' : 'Login'}
         </button>
 
       </form>
-      <Link className='p-3' href='/account/signup'>Don't have an account? Sign Up here</Link>
+      <div className='flex items-center justify-center flex-col m-2'>Don't have an account? <Link className='p-3 underline' href='/account/signup'><b>Sign Up here</b></Link></div>
     </div>
   )
 }

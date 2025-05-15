@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { useUserContext } from '../contexts/UserContext'
 import { useRouter } from 'next/navigation'
-
+import { UserPlus } from 'lucide-react';
+import Link from 'next/link';
 
 export default function SignUp() {
   const { setUser } = useUserContext()
@@ -62,7 +63,10 @@ export default function SignUp() {
 
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 border rounded-2xl shadow-md">
+    <div className="flex flex-col items-center justify-center max-w-md mx-auto max-auto mt-10 p-6 border-2 rounded-2xl shadow-2xl shadow-gray-400">
+      <div className='w-30 relative flex border-2 items-center justify-center bottom-10 py-1 rounded-2xl shadow-2xl shadow-gray-400 bg-white'>
+              <UserPlus size={35}/>
+            </div>
       <h2 className="text-2xl font-bold mb-4 text-center">Sign Up</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -118,11 +122,12 @@ export default function SignUp() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+          className="w-full bg-amber-700 text-white py-2 rounded hover:bg-black cursor-pointer transition-all delay-75 ease-in-out"
         >
           {loading ? 'Signing up...' : 'Sign Up'}
         </button>
       </form>
+      <div className='flex items-center justify-center flex-col m-2'>Don't have an account? <Link className='p-3 underline' href='/account/log-in'><b>Log In here</b></Link></div>
     </div>
   )
 }

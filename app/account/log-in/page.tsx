@@ -4,7 +4,7 @@ import LogIn from "../../_components/LogIn"
 
 const page = () => {
   return (
-    <div className="flex w-full justify-center h-lvh items-center">
+    <div className="flex w-[100vw] justify-center items-center">
       <LogIn />
     </div>
   )

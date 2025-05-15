@@ -108,16 +108,16 @@ const Cabins = ({ searchParams }: {
 
         <div className="flex flex-row justify-center items-center flex-wrap gap-15 w-full ">
 
-            {cabins.length === 0 ? <h1>Cabins not Found</h1> : <>
+            
                 {isLoading ? <Spinner /> : <>
                     {cabins?.map((cabin: CabinsType, idx: number) => {
                         return (
-                            <div key={idx} className="">
+                            <div key={idx} className="m-0 p-0">
                                 <CabinCard cabin={cabin} />
                             </div>
                         )
                     }
-                    )}</>}</>}
+                    )}</>}
         </div>
     </div>)
 }

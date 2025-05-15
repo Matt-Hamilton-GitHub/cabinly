@@ -2,7 +2,6 @@
 
 
 import Image from 'next/image';
-import styled from 'styled-components'
 import cabin1 from '@/app/_assets/cabin-about-page-1.png'
 import cabinForest from '../_assets/blm2.jpg'
 
@@ -39,7 +38,7 @@ const Home = () => {
       </header>
 
       <div className='flex gap-10 w-[100vw] flex-col items-center justify-center mt-80'>
-        <h1 className='p-5 w-[80vw] shadow-inner font-bold rounded-2xl text-center text-5xl text-amber-700 bg-gray-300'>Top Cabins To Descover</h1>
+        <h1 className='p-5 w-[80vw] shadow-inner font-bold rounded-2xl text-center text-5xl text-amber-700 bg-gray-300'>Top Cabins To Discover</h1>
     
 
         <div className='p-5 flex-wrap gap-10 flex border-b-1 flex-row items-center justify-center relative'>
@@ -47,7 +46,6 @@ const Home = () => {
           className='relative w-[200px] h-[200px]'
           initial={{ opacity: 0, scale: 0, rotate: 90 }}
           whileInView={{opacity: 1, scale: 1, rotate: 0 }}
-          viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.01 }}
             >
 
@@ -72,7 +70,7 @@ const Home = () => {
           <motion.div className='relative w-[200px] h-[200px]'
            initial={{ opacity: 0, scale: 0, rotate: 90 }}
           whileInView={{opacity: 1, scale: 1, rotate: 0 }}
-           viewport={{ once: true }}
+           
            transition={{ duration: 0.6, delay: 0.01 }}>
 
           <Image
@@ -84,17 +82,16 @@ const Home = () => {
             
         </div>    
 
-        <div className='p-5 flex-wrap  gap-10 border-b-1 flex flex-row items-center justify-center relative'>
+        <div className='p-5 flex-wrap gap-10 border-b-1 flex flex-row items-center justify-center relative'>
           <motion.div 
           className='relative w-[200px] h-[200px]'
           initial={{ opacity: 0, scale: 0, rotate: 90 }}
           whileInView={{opacity: 1, scale: 1, rotate: 0 }}
-           viewport={{ once: true }}
            transition={{ duration: 0.6, delay: 0.01 }}
             >
 
           <Image
-            className=' block object-cover rounded-2xl basis-[20%]'
+            className='object-cover rounded-2xl basis-[20%]'
             fill
             src={cabinForest}
             alt='cabin next to a lake' />

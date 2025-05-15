@@ -38,14 +38,11 @@ export default function RootLayout({
           
           ${museoModerno.className} 
           antialiased
-          
           min-h-screen
           text-green`}
       >
         <UserProvider>
-
           <div className="">
-
             <Navbar />
             <main className="w-[100vw] flex justify-center">
               {children}
