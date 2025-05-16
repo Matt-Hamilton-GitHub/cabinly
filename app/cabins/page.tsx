@@ -107,10 +107,9 @@ const Cabins = ({ searchParams }: {
         </div>
 
 
-        <div className="flex flex-row justify-center items-center flex-wrap gap-15 w-full ">
+        <div className="w-[80vw]">
 
-            
-                {isLoading ? <Spinner /> : <>
+                {isLoading ? <Spinner /> : <div className="flex flex-row justify-start items-start flex-wrap gap-15 w-full ">
                     {cabins?.map((cabin: CabinsType, idx: number) => {
                         return (
                             <div key={idx} className="m-0 p-0">
@@ -118,7 +117,7 @@ const Cabins = ({ searchParams }: {
                             </div>
                         )
                     }
-                    )}</>}
+                    )}</div>}
         </div>
     </div>)
 }

@@ -44,7 +44,6 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
           cabinID: cabin._id,
           name: cabin.name,
           userID: user.userId,
-    
           range: selectedRange,
           confirmed: true,
         }

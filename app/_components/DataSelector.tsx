@@ -1,25 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-// import { addDays } from "date-fns";
 import { DayPicker, DateRange ,getDefaultClassNames} from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
-// import { useUserContext } from "@/app/contexts/UserContext";
 import { CabinsType } from "../cabins/page";
 
-type Props = {
-  cabinId: string,
-  name: string
-}
+type Props = {cabin : CabinsType, onReserve: (selectedRange: DateRange) => void | Promise<void>}
 
 
-function DateSelector({cabin, onReserve} : {cabin : CabinsType, onReserve: (selectedRange: DateRange) => void | Promise<void>}) {
+function DateSelector({cabin, onReserve} : Props) {
 
   const defaultClassNames = getDefaultClassNames();
-  const {name, _id } = cabin
+  const {_id } = cabin
 
-  // const {user} = useUserContext()
+
   const [selected, setSelected] = useState<DateRange | undefined>({
     from: undefined,
     to: undefined,
