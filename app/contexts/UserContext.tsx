@@ -1,7 +1,7 @@
 
 'use client'
 
-import { createContext, useState, ReactNode, useContext } from "react";
+import { createContext, useState, ReactNode, useContext, useEffect } from "react";
 
 // TYPES
 type UserType = {
@@ -22,7 +22,15 @@ const UserContext = createContext<AuthContextType | null>(null);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<UserType | null>(null);
 
-    // console.log(user, 'context')
+    useEffect(() => {
+    fetch('/api/validate-token').then(res => res.json()).then(data => {
+        
+      if (data.safeUser) setUser(data.safeUser);
+      else console.log('faild to validate')
+    });
+
+    
+  }, []);
     return (
         <UserContext.Provider value={{ user, setUser}}>
             {children}

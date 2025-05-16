@@ -91,9 +91,9 @@ const Cabins = ({ searchParams }: {
     return (<div className="relative flex flex-col pt-10 justify-start items-center h-screen gap-15 ">
         <div>
             <div className="m-3 flex justify-between items-center gap-20 cursor-pointer border-2 p-2.5 border-blue-100 rounded-xl">
-                <div onClick={() => handleRouting('area', 'beach')}> <TbBeach size={50} className={`${params?.area === 'beach' ? 'text-amber-800' : "text-[#143D60]"}`} /></div>
-                <div onClick={() => handleRouting('area', 'woods')}> <MdForest size={50} className={`${params?.area === 'woods' ? 'text-amber-800' : "text-[#143D60]"}`} /></div>
-                <div onClick={() => handleRouting('area', 'urban')}> <FaTreeCity size={50} className={`${params?.area === 'urban' ? 'text-amber-800' : "text-[#143D60]"}`} /></div>
+                <div onClick={() => handleRouting('area', 'beach')}> <TbBeach size={50} className={`${params?.area === 'beach' ? 'text-amber-800' : "text-gray-500"}`} /></div>
+                <div onClick={() => handleRouting('area', 'woods')}> <MdForest size={50} className={`${params?.area === 'woods' ? 'text-amber-800' : "text-gray-500"}`} /></div>
+                <div onClick={() => handleRouting('area', 'urban')}> <FaTreeCity size={50} className={`${params?.area === 'urban' ? 'text-amber-800' : "text-gray-500"}`} /></div>
             </div>
             <div className="flex flex-row justify-between">
                 <div onClick={() => handleRouting('capacity', 'small')}> <span className={`p-1.5 ${params?.capacity === 'small' ? 'bg-sky-600 text-white rounded-xl' : "text-[#143D60]"}`}>2 - 3 guests</span></div>

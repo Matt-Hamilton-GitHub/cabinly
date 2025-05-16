@@ -16,8 +16,8 @@ export default function Navbar() {
                 <Link href='/cabins'>Cabins</Link>
                 <Link href='/about'>About</Link>
             </div>
-            <div className="flex flex-row gap-2 bg-amber-600 p-2 rounded-2xl shadow-2xl inset-shadow-blue-200">
-                {user ? <Link href='/account'> <div className="flex flex-row gap-2"><CircleUserRound /><span>{user.name}</span></div> </Link>: <Link href='/account/log-in'>Log in</Link> }
+            <div className="flex flex-row gap-2 bg-neutral-500 p-2 rounded-xl shadow-lg inset-shadow-gray-550 text-[white] hover:scale-110 hover:bg-amber-700">
+                {user ? <Link href='/account'> <div className="flex flex-row gap-2 items-center justify-center"><CircleUserRound /><span className="hidden md:block">{user.name}</span></div> </Link>: <Link href='/account/log-in'>Log in</Link> }
             </div>
         </div>)
 }

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import { connectMDB } from "../mongodb"
 import bcrypt from 'bcryptjs'
 import User from "../mdb-models/User"
+import jwt from 'jsonwebtoken';
 
 
 type userLogInReq = {
@@ -42,11 +43,26 @@ export async function userLogIn(req: Request) {
             return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 })
         }
 
-        return NextResponse.json({ user })
+        const res = NextResponse.json({ user })
+
+
+        //set a token
+        const token = jwt.sign({ userId: user._id.toString()}, process.env.JWT_SECRET!, { expiresIn: '7d' });
+        
+        //set cookie
+        res.cookies.set('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            path: '/',
+            maxAge:60 * 60 * 24 * 3,
+        })
+
+        return res
 
 
     } catch (err) {
-
+        return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
 }
