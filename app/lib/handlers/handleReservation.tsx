@@ -20,6 +20,29 @@ export async function submitReservation(req: Request){
       }
 }
 
+export async function getCabinAvailability(cabinId : string){
+
+ try {
+   if (!cabinId){
+     console.log('cabinId is missing', cabinId)
+     throw new Error('cabinId is missing')
+    }
+
+  await connectMDB();
+  const cabinData = await Reservation.find({cabinID: cabinId})
+
+  const cabinUnavailable = cabinData.map((range) => ({
+    from: range.from,
+    to: range.to
+  }))
+
+  return cabinUnavailable
+
+ }catch (error: unknown) {
+   console.log('ERROR @ CA')
+ }
+
+}
 
 export async function getUserReservations(userId: string){
     console.log(`fetching reservations for: ${userId}`)

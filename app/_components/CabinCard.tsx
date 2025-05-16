@@ -7,7 +7,7 @@ import { BsFillBookmarkPlusFill } from "react-icons/bs";
 import Link from "next/link";
 
 import Rating from '@mui/material/Rating';
-import Stack from '@mui/material/Stack';
+
 
 export type CabinCardProps = {
     cabin: CabinsType
@@ -33,7 +33,7 @@ export default function CabinCard({ cabin }: CabinCardProps) {
             <div className="flex flex-col">
                 <h1 className="
                  text-xl text-amber-700 text-start font-bold">{cabin.name}</h1>
-                 <Rating name="half-rating-read" size='small' defaultValue={2.5} precision={0.5} readOnly />
+                 <Rating name="half-rating-read" size='small' defaultValue={cabin.rating } precision={0.5} readOnly />
                 <div className="flex flex-row justify-center align-middle items-center gap-1.5">
                     <FaPeopleGroup />
                     <div className="flex  justify-center items-center">

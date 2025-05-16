@@ -41,7 +41,6 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
     const fetchReservations = async (userID: string) => {
         try {
             const res = await fetch(`/api/reservations/${userID}`);
-
             const data = await res.json()
             console.log(data)
             setReservations(data.userReservations || [])
