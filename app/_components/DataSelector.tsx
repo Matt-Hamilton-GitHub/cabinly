@@ -52,10 +52,10 @@ function DateSelector({cabin, onReserve} : Props) {
       <DayPicker 
       classNames={{
          today: `text-amber-700 border-amber-500 font-bold`,
-         selected: `bg-amber-500 border-amber-500 text-amber-700`,
+         selected: `bg-amber-500 border-2 border-black rounded-xl text-amber-700 fill-[red]`,
          disabled :'text-gray-400',
          root: `${defaultClassNames.root} shadow-sm p-5 bg-gray-200 rounded-xl max-w-100 lg:max-w-180 border-2`,
-         chevron: `${defaultClassNames.chevron} fill-[red]`
+         chevron: `${defaultClassNames.chevron} fill-[amber]`
       }}
       animate
       mode="range"

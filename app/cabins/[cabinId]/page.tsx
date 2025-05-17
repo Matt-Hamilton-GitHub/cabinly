@@ -12,6 +12,7 @@ import { useUserContext } from "@/app/contexts/UserContext";
 import { DateRange } from 'react-day-picker';
 
 
+
 export default function CabinDetails({ params }: { params: Promise<{ cabinId: string }> }) {
     const { cabinId } = use(params); 
     const [cabin, setCabin] = useState<CabinsType | undefined>(undefined);

@@ -18,7 +18,7 @@ export const metadata = {
 }
 export default function CabinCard({ cabin }: CabinCardProps) {
     const cabinId = cabin._id;
-    return (<div className="flex flex-row ">
+    return (<div className="flex flex-row w-100">
         <div className=" rounded-s-xl w-40 h-50 relative object-cover border-black-900 border-1 ">
             <Image
                 fill

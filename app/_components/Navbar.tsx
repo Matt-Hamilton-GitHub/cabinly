@@ -1,6 +1,6 @@
 'use client'
 import Link from "next/link";
-import cabinlyLogo from '@/app/_assets/icon.png'
+import cabinlyLogo from '../../public/_assets/icon.png'
 import Image from "next/image";
 import { useUserContext } from "../contexts/UserContext";
 import { CircleUserRound } from 'lucide-react';

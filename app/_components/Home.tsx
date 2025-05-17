@@ -2,12 +2,12 @@
 
 
 import Image from 'next/image';
-import cabin1 from '@/app/_assets/cabin-about-page-1.png'
-import cabinForest from '../_assets/blm2.jpg'
+import cabin1 from '../../public/_assets/cabin-about-page-1.png'
+import cabinForest from '../../public/_assets/blm2.jpg'
 
 import * as motion from "motion/react-client"
 
-import lakeCabin from '../_assets/pexels-bylukemiller-14569262.jpg'
+import lakeCabin from '../../public/_assets/pexels-bylukemiller-14569262.jpg'
 
 const Home = () => {
 

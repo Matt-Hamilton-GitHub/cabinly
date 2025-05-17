@@ -1,8 +1,7 @@
 
 'use client'
-import Image from "next/image";
 import { useUserContext } from "../contexts/UserContext"
-import Link from "next/link";
+
 
 export default function Profile() {
 

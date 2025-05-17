@@ -8,6 +8,11 @@ import { Spinner } from "../_components/Spinner";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import {queryFiltering} from '../_utils/utils'
+import { TentTree } from 'lucide-react';
+import { PiMountainsBold } from "react-icons/pi";
+
+import filter_bg_img from '../_assets/title-1.jpg'
 
 export type CabinsType = {
     _id: string,
@@ -48,37 +53,13 @@ const Cabins = ({ searchParams }: {
         router.push(newPath)
     }
 
-    const handleFiltering = (fetchedData) => {
-        // CAPACITY filter 
-        if (params?.capacity === 'small') {
-            // console.log(fetchedData.filter(item => item.occupancy <= 4))
-            fetchedData = fetchedData.filter(item => item.occupancy < 4);
-        } else if (params?.capacity === 'mid') {
-            fetchedData = fetchedData.filter(item => item.occupancy >=4 && item.occupancy <= 6);
-        } else if (params?.capacity === 'large') {
-            fetchedData = fetchedData.filter(item => item.occupancy > 6);
-        }
-
-        // AREA Filter
-        if (params?.area === 'woods') {
-            fetchedData = fetchedData.filter(item => item.tags.includes('forest'))
-        }
-        else if (params?.area === 'beach') {
-            fetchedData = fetchedData.filter(item => item.tags.includes('beach'))
-        }
-        else if (params?.area === 'urban') {
-            fetchedData = fetchedData.filter(item => item.tags.includes('urban'))
-        }
-
-        return fetchedData;
-    }
     useEffect(() => {
 
         setIsLoading(true);
         fetch('/api/cabins')
             .then((res) => res.json())
             .then((fetchedData) => {
-                setCabins(() => handleFiltering(fetchedData));
+                setCabins(() => queryFiltering(fetchedData, params));
                 setIsLoading(false);
             })
             .catch((error) => {
@@ -89,12 +70,14 @@ const Cabins = ({ searchParams }: {
 
 
 
-    return (<div className="relative flex flex-col pt-10 justify-start items-center h-screen gap-15 ">
-        <div>
-            <div className="m-3 flex justify-between items-center gap-20 cursor-pointer border-2 p-2.5 border-blue-100 rounded-xl">
-                <div onClick={() => handleRouting('area', 'beach')}> <TbBeach size={50} className={`${params?.area === 'beach' ? 'text-amber-800' : "text-gray-500"}`} /></div>
-                <div onClick={() => handleRouting('area', 'woods')}> <MdForest size={50} className={`${params?.area === 'woods' ? 'text-amber-800' : "text-gray-500"}`} /></div>
-                <div onClick={() => handleRouting('area', 'urban')}> <FaTreeCity size={50} className={`${params?.area === 'urban' ? 'text-amber-800' : "text-gray-500"}`} /></div>
+    return (<div className="relative flex flex-col justify-start items-center min-h-[100vh] gap-15 transition-all">
+        <div className="h-50 flex items-center  justify-center flex-col w-[100vw] bg-cover bg-no-repeat bg-[url('../../public/_assets/title-2-cut.jpg')]"></div>
+        <div className="flex items-center justify-center flex-col w-[100vw]">
+            <div className="w-100 my-5 flex justify-between items-center gap-10 cursor-pointer shadow-lg border-2 border-gray-200 p-1 px-3 rounded-3xl  ">
+                <div className="m-1" onClick={() => handleRouting('area', 'beach')}> <TbBeach size={60} className={`${params?.area === 'beach' ? ' border-gray-500 text-amber-800 bg-[white] p-1 rounded-2xl  shadow-md border-2 border-b-blue-200 shadow-[grey]' : "text-cyan-700"}`} /></div>
+                <div onClick={() => handleRouting('area', 'woods')}> <TentTree size={60} className={`${params?.area === 'woods' ? 'border-gray-500 text-amber-800 bg-[white] p-1 rounded-2xl  shadow-md border-2 border-b-blue-200 shadow-[grey]': "text-cyan-700"}`} /></div>
+                <div onClick={() => handleRouting('area', 'urban')}> <FaTreeCity size={60} className={`${params?.area === 'urban' ? 'border-gray-500 text-amber-800 bg-[white] p-1 rounded-2xl  shadow-md border-2 border-b-blue-200 shadow-[grey]' : "text-cyan-700"}`} /></div>
+                <div onClick={() => handleRouting('area', 'mountain')}> <PiMountainsBold size={60} className={`${params?.area === 'mountain' ? 'border-gray-500 text-amber-800 bg-[white] p-1 rounded-2xl  shadow-md border-2 border-b-blue-200 shadow-[grey]' : "text-cyan-700"}`} /></div>
             </div>
             <div className="flex flex-row justify-between">
                 <div onClick={() => handleRouting('capacity', 'small')}> <span className={`p-1.5 ${params?.capacity === 'small' ? 'bg-sky-600 text-white rounded-xl' : "text-[#143D60]"}`}>2 - 3 guests</span></div>
@@ -107,14 +90,12 @@ const Cabins = ({ searchParams }: {
         </div>
 
 
-        <div className="w-[80vw]">
+        <div className="">
 
-                {isLoading ? <Spinner /> : <div className="flex flex-row justify-start items-start flex-wrap gap-15 w-full ">
-                    {cabins?.map((cabin: CabinsType, idx: number) => {
+                {isLoading ? <Spinner /> : <div className="flex px-[5vw] flex-row justify-center items-center flex-wrap gap-15 ">
+                    {cabins?.map((cabin: CabinsType) => {
                         return (
-                            <div key={idx} className="m-0 p-0">
-                                <CabinCard cabin={cabin} />
-                            </div>
+                                <CabinCard cabin={cabin} key={crypto.randomUUID()}/>
                         )
                     }
                     )}</div>}

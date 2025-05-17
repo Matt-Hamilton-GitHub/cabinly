@@ -1,8 +1,6 @@
 'use client'
 
-import SideNavigation from "../_components/SideNavigation"
 import { ReservationProvider } from "../contexts/ReservationContext"
-import { redirect } from "next/navigation"
 import { useUserContext } from "../contexts/UserContext"
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"

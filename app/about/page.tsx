@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-import cabin1 from '@/app/_assets/cabin-about-page-1.png'
-import cabin2 from '@/app/_assets/cabin-interior.png'
+import cabin1 from '../../public/_assets/cabin-about-page-1.png'
+import cabin2 from '../../public/_assets/cabin-interior.png'
 
 
 import Image from "next/image";
