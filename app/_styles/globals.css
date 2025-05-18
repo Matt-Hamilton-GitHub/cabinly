@@ -6,6 +6,7 @@
 
 
 
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -15,6 +16,8 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --main-cyan: #0e7490;
+    --main-amber: #b45309;
   }
 }
 
@@ -22,6 +25,19 @@ body {
   /* font-family: "Poppins", sans-serif; */
   font-family: "MuseoModerno", sans-serif;
   
+  
+}
+
+.space-grotesk{
+  font-family: var(--font-space-grotesk), sans-serif;
+}
+
+.text-outline-shadow {
+  text-shadow:
+    -1px -1px 0 rgb(255, 255, 255),
+    1px -1px 0 rgb(125, 125, 126),
+    -1px 1px 0 var(--main-cyan),
+    1px 1px 0 rgb(58, 56, 56);
 }
 
 .loader {

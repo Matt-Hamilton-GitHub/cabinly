@@ -18,8 +18,8 @@ export const metadata = {
 }
 export default function CabinCard({ cabin }: CabinCardProps) {
     const cabinId = cabin._id;
-    return (<div className="flex flex-row w-100">
-        <div className=" rounded-s-xl w-40 h-50 relative object-cover border-black-900 border-1 ">
+    return (<div className="flex flex-row w-110 border-5 border-[black] rounded-2xl">
+        <div className=" rounded-s-xl w-40 h-50 relative object-cover border-black-900 border-r-5 ">
             <Image
                 fill
                 src={cabin.imageUrl}
@@ -32,7 +32,7 @@ export default function CabinCard({ cabin }: CabinCardProps) {
         <div className=" flex flex-col pl-3.5 justify-between rounded-e-xl  ">
             <div className="flex flex-col">
                 <h1 className="
-                 text-xl text-amber-700 text-start font-bold">{cabin.name}</h1>
+                 text-xl text-[#0e7490] text-start font-bold">{cabin.name}</h1>
                  <Rating name="half-rating-read" size='small' defaultValue={cabin.rating } precision={0.5} readOnly />
                 <div className="flex flex-row justify-center align-middle items-center gap-1.5">
                     <FaPeopleGroup />
