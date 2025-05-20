@@ -8,68 +8,64 @@ import DateSelector from '@/app/_components/DataSelector';
 import { CabinsType } from "../page";
 import { Spinner } from '@/app/_components/Spinner';
 
+import { handleReserve } from '@/app/_utils/utils';
 import { useUserContext } from "@/app/contexts/UserContext";
 import { DateRange } from 'react-day-picker';
-
-
+import { Star } from 'lucide-react';
+import { span } from 'framer-motion/client';
 
 export default function CabinDetails({ params }: { params: Promise<{ cabinId: string }> }) {
-    const { cabinId } = use(params); 
-    const [cabin, setCabin] = useState<CabinsType | undefined>(undefined);
-    const {user} = useUserContext()
+  const { cabinId } = use(params);
 
-    useEffect(() => {
-        const fetchCabin = async () => {
-            const res = await fetch(`/api/cabins/${cabinId}`);
-            const json = await res.json();
-            setCabin(json.data);
-        };
-        fetchCabin();
-    }, [cabinId]);
+ 
+  const [cabin, setCabin] = useState<CabinsType>();
+  const [selectedRange, setSelectedRange] = useState<DateRange | undefined>();
+  const [unavailableDates, setUnavailableDates] = useState<DateRange[]>([]);
+  const { user } = useUserContext();
 
-    if (!cabin) {
-        return (
-            <div className="h-screen w-lvw flex justify-center items-center">
-                <Spinner/>
-            </div>
-        );
-    }
 
-    const handleReservation = async (selectedRange: DateRange) => {
-        if (!user || !selectedRange) {
-          console.warn("Missing user or date range");
-          return;
-        }
-    
-        const newReservation = {
-          cabinID: cabin._id,
-          name: cabin.name,
-          userID: user.userId,
-          range: selectedRange,
-          confirmed: true,
-        }
-    
-        try {
-    
-          const res = await fetch('/api/reservations/submit', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newReservation)
-          })
-          const data = await res.json()
-          console.log("Reservation response:", data);
-        }catch (err) {
-          console.error("Reservation error:", err);
-        }
-    
-      }
 
-    const { name, occupancy, description, price, discount, imageUrl, rating } = cabin;
+  useEffect(() => {
+    const fetchCabin = async () => {
+      const res = await fetch(`/api/cabins/${cabinId}`);
+      const json = await res.json();
+      setCabin(json.data);
+    };
+    fetchCabin();
+  }, [cabinId]);
 
-    return (
-        <section className=" w-9/12 ms-2 mt-5 flex flex-col gap-4">
+  
+  useEffect(() => {
+    const fetchUnavailable = async () => {
+      const res = await fetch(`/api/reservations/availability?cabinId=${cabinId}`);
+      const data = await res.json();
+      setUnavailableDates(data.cabinUnavailable || []);
+    };
+    if (cabinId) fetchUnavailable();
+  }, [cabinId]);
+
+
+  const isValidRange = (range: DateRange | undefined): boolean => {
+    if (!range?.from || !range?.to) return false;
+    if (!unavailableDates) return true
+
+    const userFrom = range.from.getTime();
+    const userTo = range.to.getTime();
+
+    return !unavailableDates.some(d => {
+      if (!d.from || !d.to) return false;
+      const from = new Date(d.from).getTime();
+      const to = new Date(d.to).getTime();
+      return userFrom <= to && userTo >= from;
+    });
+  };
+
+ 
+  if (!cabin) return <Spinner />;
+
+   const { name, occupancy, description, price, discount, imageUrl, rating } = cabin;
+  return (
+    <section className=" w-full mt-5 flex flex-col justify-center items-center gap-4">
             <h1 className="text-amber-800 text-4xl text-start font-bold">{name}</h1>
             <div className="flex flex-row justify-start items-center gap-1.5">
                 <FaPeopleGroup size={20} />
@@ -85,16 +81,34 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
                     className="object-cover rounded-sm"
                 />
             </div>
-            <h5>{description}</h5>
-            <span className="w-full flex flex-row justify-end pt-3.5 gap-1">
+            <h5 className='px-10 text-center'>{description}</h5>
+            <span className="absolute top-160 bg-[white] p-2 rounded-3xl shadow-[gray] shadow-md flex flex-row justify-center items-center gap-1 
+                           hover:text-[white] hover:bg-[black]">
+                            <Star className='text-[orange]'/>
                 {discount !== 0 && (
-                    <span>
+                    <span className=''>
                         <h1 className="text-1xl line-through">${price}</h1>
                     </span>
                 )}
-                <h1 className="text-2xl">${price - discount} /night</h1>
+                    <h1 className="text-2xl">${price - discount} /night</h1>
             </span>
-            <DateSelector cabin={cabin} onReserve={handleReservation}/>
-        </section>
-    );
+      <DateSelector
+        selected={selectedRange}
+        onChange={setSelectedRange}
+        disabledRanges={unavailableDates}
+      />
+
+        <div className='bg-[black] px-2 rounded-2xl'>
+        {!isValidRange(selectedRange) ? <span className='text-[red]'>Invalid Selection</span> : null}
+      </div>
+      
+      <button
+        className="p-2 m-5 rounded-2xl bg-[white] text-[black] hover:bg-[black] hover:text-[white] border-3"
+        onClick={ () => handleReserve(user, selectedRange,isValidRange, cabin, unavailableDates, setSelectedRange)}
+        disabled={!selectedRange?.from || !selectedRange?.to || !isValidRange(selectedRange)}
+      >
+        Reserve
+      </button>
+    </section>
+  );
 }

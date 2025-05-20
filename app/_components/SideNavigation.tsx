@@ -8,14 +8,15 @@ import {
 import { BookOpenCheck } from 'lucide-react';
 import { useState } from 'react';
 const navLinks = [
+   {
+    name: 'Profile',
+    icon: <UserIcon className='h-5 w-5 text-primary-600' />,
+  },
   {
     name: 'Reservations',
-    icon: <BookOpenCheck className='h-5 w-5 text-primary-600 text-[white]' />,
+    icon: <BookOpenCheck className='h-5 w-5 text-primary-600 ' />,
   },
-  {
-    name: 'Profile',
-    icon: <UserIcon className='h-5 w-5 text-primary-600 text-[white]' />,
-  },
+ 
 ];
 
 function SideNavigation({ onSelect, selected }) {
@@ -24,13 +25,13 @@ function SideNavigation({ onSelect, selected }) {
   return ( 
     <>
     
-    <nav className={`${shrink ? 'w-[20px] basis-[0] overflow-clip' : 'basis-[190px]'} z-10 relative -m-1 bg-[black] h-full flex items-start  justify-between flex-col`}>
-      <ul className={`${!shrink ? 'flex flex-col text-lg': "hidden "}`} >
+    <nav className={`${shrink ? 'w-[20px] basis-[0] overflow-clip' : 'basis-[190px]'} z-10 relative  bg-[black] overflow-clip h-screen flex items-start  justify-between flex-col`}>
+     <ul className={`${!shrink ? 'flex flex-col text-lg': "hidden "}`} >
         {navLinks.map((link) => (
-          <li className={`hover:cursor-pointer hover:bg-neutral-500 text-[white]
-          ${selected === link.name.toLowerCase() ? 'bg-[red] shadow-inner shadow-[black]' : ""}`} key={link.name}>
+          <li className={`hover:cursor-pointer hover:bg-neutral-500 text-[black]
+          ${selected === link.name.toLowerCase() ? 'bg-[white]' : "text-[white]"}`} key={link.name}>
             <span
-              className={`py-3 px-5 hover:bg-primary-900 hover:text-primary-100 hover:text-[black] transition-colors flex items-center gap-4 font-semibold text-primary-200`}
+              className={` py-3 px-5 hover:bg-primary-900 hover:text-primary-100 hover:text-[black] transition-colors flex items-center gap-4 font-semibold text-primary-200`}
               onClick={() => { onSelect(link.name.toLowerCase()) }}
             >
               {link.icon}

@@ -24,3 +24,33 @@ export const queryFiltering = (fetchedData, params) => {
 
         return fetchedData;
     }
+
+
+ export const handleReserve = async (user, selectedRange, isValidRange, cabin, unavailableDates,setSelectedRange ) => {
+    if (!user || !selectedRange || !isValidRange(selectedRange) || !cabin) {
+      alert("Invalid reservation. Please select valid dates.");
+      return;
+    }
+
+    const reservation = {
+      cabinID: cabin._id,
+      name: cabin.name,
+      userID: user.userId,
+      range: selectedRange,
+      confirmed: true,
+    };
+
+    try {
+      const res = await fetch("/api/reservations/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(reservation),
+      });
+      const data = await res.json();
+      unavailableDates.push(selectedRange)
+      setSelectedRange()
+      console.log("Reservation response:", data);
+    } catch (err) {
+      console.error("Reservation error:", err);
+    }
+  };

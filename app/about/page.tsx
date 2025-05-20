@@ -82,7 +82,7 @@ export default function About() {
         </div>
       </div>
 
-      <Link className="bg-amber-800 text-white px-10 py-3 rounded-lg font-bold" href="/cabins">
+      <Link className="border-2 text-[black] px-10 py-3 rounded-lg font-bold text-xl hover:text-[white] hover:bg-[black]" href="/cabins">
         Start Exploring
       </Link>
     </div>

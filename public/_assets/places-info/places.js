@@ -111,7 +111,7 @@ const places = [
     country: 'Jordan',
     temperature: '15–30°C (59–86°F)',
     best_season: 'March to May, September to November',
-    img_url: 'https://images.unsplash.com/photo-1581386143261-bdbf8c4f0b89',
+    img_url: 'https://images.unsplash.com/photo-1615811648503-479d06197ff3',
     place_description: 'A lost city carved into rock, Petra is one of the New Seven Wonders of the World.',
     guides: ['Yousef Al-Karim', 'Noura Saleh', 'Farah Zidan'],
     seasons: [
@@ -153,7 +153,7 @@ const places = [
     country: 'USA',
     temperature: '10–30°C (50–86°F)',
     best_season: 'March to October',
-    img_url: 'https://images.unsplash.com/photo-1582695435093-4a6165f315a3',
+    img_url: 'https://images.unsplash.com/photo-1715625382706-1102f34fa0c7',
     place_description: 'A geological marvel in Arizona famous for its narrow passageways and light beams.',
     guides: ['Jake Redbird', 'Samantha Blackhorse', 'Nina Talltree'],
     seasons: [
@@ -180,7 +180,7 @@ const places = [
     country: 'Tanzania',
     temperature: '−5–20°C (summit to base)',
     best_season: 'January to March, June to October',
-    img_url: 'https://images.unsplash.com/photo-1551135049-8a33b5883812',
+    img_url: 'https://images.unsplash.com/photo-1703874567931-ab49447588cd',
     place_description: 'Africa’s highest peak and one of the most accessible major summits in the world.',
     guides: ['Juma Mwinyi', 'Aisha Kimaro', 'David Mbele'],
     seasons: [
@@ -212,7 +212,7 @@ const places = [
     country: 'Japan',
     temperature: '5–30°C (41–86°F)',
     best_season: 'March to May (cherry blossom), October to November (autumn)',
-    img_url: 'https://images.unsplash.com/photo-1526483360412-f04c3de85b86',
+    img_url: 'https://images.unsplash.com/photo-1578469645742-46cae010e5d4',
     place_description: 'Ancient capital full of temples, gardens, and geisha culture.',
     guides: ['Haruka Sato', 'Kenji Nakamura', 'Yuki Ishida'],
     seasons: [
@@ -254,7 +254,7 @@ const places = [
     country: 'Bolivia',
     temperature: '−5–20°C (23–68°F)',
     best_season: 'May to October (dry); March–April (wet mirror effect)',
-    img_url: 'https://images.unsplash.com/photo-1544986581-efac024faf62',
+    img_url: 'https://images.unsplash.com/photo-1616276994415-5f7503739dd9',
     place_description: 'An endless white desert that turns into a giant mirror after rain.',
     guides: ['Marco Quispe', 'Andrea Gutierrez', 'Luis Mamani'],
     seasons: [
@@ -286,7 +286,7 @@ const places = [
     country: 'Greece',
     temperature: '15–30°C (59–86°F)',
     best_season: 'May to October',
-    img_url: 'https://images.unsplash.com/photo-1505731130930-1f5e5c8f1320',
+    img_url: 'https://images.unsplash.com/photo-1696519668780-d8aebc9b95cd',
     place_description: 'Iconic Greek island known for cliffside villages, blue domes, and stunning sunsets.',
     guides: ['Niko Papadopoulos', 'Eleni Kosta', 'Stefanos Markos'],
     seasons: [
@@ -313,7 +313,7 @@ const places = [
     country: 'New Zealand',
     temperature: '−2–22°C (28–72°F)',
     best_season: 'December to February (summer), June to August (ski)',
-    img_url: 'https://images.unsplash.com/photo-1586165368502-7b77c5a1f2c6',
+    img_url: 'https://images.unsplash.com/photo-1586414840734-a570ab4ce4c4',
     place_description: 'The adventure capital of the world set against the Southern Alps and glacial lakes.',
     guides: ['Olivia MacKenzie', 'James Tui', 'Ella Rivers'],
     seasons: [

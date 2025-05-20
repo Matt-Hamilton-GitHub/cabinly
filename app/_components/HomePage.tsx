@@ -30,23 +30,23 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center flex-col pb-300 ">
+      <div className="flex justify-center items-center flex-col pb-50 ">
         <div className="my-20 flex justify-center items-center w-[100%]">
-          <h1 className="font-bold text-2xl border-3 px-10 rounded-xl hover:text-[white] hover:bg-[black]">Top Places to Explore This Year</h1>
+          <h1 className="font-bold text-4xl border-3 px-10 rounded-xl text-center hover:text-[white] hover:bg-[black]">Top Places to Explore This Year</h1>
         </div>
 
         <div className="
                         flex justify-center items-center flex-wrap flex-col">
                           <div className="flex flex-row justify-evenly items-start flex-wrap gap-20">
 
-                          {places.slice(0,3).map((place) =>{
+                          {places.slice(0,showMore ? places.length : 3).map((place) =>{
                             return <DiscoverPlaceCard place={place} key={crypto.randomUUID()} />
                           })}
                           </div>
-              {/* <div onClick={()=> setShowMore(!showMore)}>
+              <div className="text-[30px] hover:cursor-pointer m-4 border-3 rounded-md px-2 hover:text-[white] hover:bg-[black]" onClick={()=> setShowMore(!showMore)}>
 
-              {!showMore ? <span className="text-[black] text-[100px]">...</span> : <span className="text-[black] text-[100px]">less</span>}
-              </div> */}
+              {!showMore ? <span className="">More</span> : <span className="">less</span>}
+              </div>
         </div>
       </div>
 

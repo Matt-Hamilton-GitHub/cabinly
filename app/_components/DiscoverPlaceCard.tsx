@@ -5,11 +5,6 @@ import { ChevronDown } from 'lucide-react';
 import { ChevronUp } from 'lucide-react';
 
 import * as motion from "motion/react-client"
-const box: React.CSSProperties = {
-    width: 160,
-    height: 25,
-    borderRadius: "10px",
-}
 
 const DiscoverPlaceCard = ({place}) => {
 
@@ -70,7 +65,6 @@ const DiscoverPlaceCard = ({place}) => {
                         className="border-2 bg-amber-300 w-[130px] rounded-2xl text-center font-bold" key={crypto.randomUUID()}>{guide}</motion.span>
                     })}</div>
             </div>
-        
           </div>
     </motion.div>
   )

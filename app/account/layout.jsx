@@ -18,8 +18,8 @@ export default function AccountLayout({ children }) {
 
     return (
         <ReservationProvider>
-            <div className="flex items-start h-[89vh] w-screen">
-                <div className="flex h-[100%] py-1">{children}</div>
+            <div className="flex items-start h-full w-full">
+                <div className="flex">{children}</div>
             </div>
         </ReservationProvider>)
 }
