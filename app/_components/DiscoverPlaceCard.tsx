@@ -15,8 +15,14 @@ const DiscoverPlaceCard = ({place}) => {
 
     const [showGuides, setShowGuides] = useState(false)
   return (
-    <div className="z-0 transition-all duration-150 ease-in-out ">
-    <div className="flex items-center justify-start ">
+    <motion.div
+     initial={{ opacity: 0, scale: 0 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    transition={{  duration: 0.09, delay: 0.2 }}
+    viewport={{ once: true, amount:0.5 }}
+
+     className="z-0 transition-all duration-150 ease-in-out ">
+     <div className="flex items-center justify-start ">
         <span className="text-[green] font-bold bg-[black] cursor-pointer 
         rounded-t-md px-2">{place.country}</span>
         <h2
@@ -47,7 +53,7 @@ const DiscoverPlaceCard = ({place}) => {
                 </div>
             </div>
 
-            <div className="absolute top-[-25px] right-[-4px] flex justify-center items-end flex-col basis-[140px]">
+            <div className="absolute top-[-25px] right-[-3px] flex justify-center items-end flex-col basis-[140px]">
                     <div className="flex w-[140px]  justify-center items-center font-bold mb-1 bg-[black]  text-[white] rounded-t-md px-2">
                         <h3>Guides </h3><span className="hover:cursor-pointer" onClick={()=> setShowGuides(!showGuides)}>{showGuides ?  <ChevronUp /> : <ChevronDown /> }
                         </span>
@@ -66,7 +72,7 @@ const DiscoverPlaceCard = ({place}) => {
             </div>
         
           </div>
-    </div>
+    </motion.div>
   )
 }
 

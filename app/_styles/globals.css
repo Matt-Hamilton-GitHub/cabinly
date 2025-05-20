@@ -4,7 +4,10 @@
 
 @import "tailwindcss";
 
-
+html {
+  margin: 0;
+  padding: 0;
+}
 
 
 :root {
@@ -24,7 +27,8 @@
 body {
   /* font-family: "Poppins", sans-serif; */
   font-family: "MuseoModerno", sans-serif;
-  
+   margin: 0;
+   padding: 0;
   
 }
 

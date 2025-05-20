@@ -18,14 +18,14 @@ export const metadata = {
 }
 export default function CabinCard({ cabin }: CabinCardProps) {
     const cabinId = cabin._id;
-    return (<div className="flex flex-row w-110 border-5 border-[black] rounded-2xl">
-        <div className=" rounded-s-xl w-40 h-50 relative object-cover border-black-900 border-r-5 ">
+    return (<div className="flex flex-row w-110 rounded-2xl shadow-[gray] shadow-lg">
+        <div className=" rounded-s-xl w-40 h-50 relative object-cover border-[gray] border-r-2 ">
             <Image
                 fill
                 src={cabin.imageUrl}
                 alt={`a beatiful cabin`}
                 placeholder="empty"
-                className="object-cover border-black rounded-s-xl "
+                className="object-cover"
             />
         </div>
 

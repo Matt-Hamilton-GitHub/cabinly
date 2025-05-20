@@ -50,7 +50,7 @@ export default function RootLayout({
         <UserProvider>
           <div className="">
             <Navbar />
-            <main className="w-[100vw] flex justify-center">
+            <main className="">
               {children}
             </main>
           </div>

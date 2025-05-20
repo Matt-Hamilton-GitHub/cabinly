@@ -72,10 +72,10 @@ const Cabins = ({ searchParams }: {
         <div className="h-50 flex items-center  justify-center flex-col w-[100vw] border-y-4 bg-cover bg-center bg-no-repeat bg-[url('../../public/_assets/mountain.jpg')]"></div>
         <div className="flex items-center justify-center flex-col w-[100vw]">
             <div className="w-100 my-5 flex justify-between items-center gap-10 cursor-pointer shadow-[gray] shadow-lg  p-1 px-3 rounded-3xl border-[white] ">
-                <div className="m-1" onClick={() => handleRouting('area', 'beach')}> <TbBeach color={'black'} size={60}  className={`${params?.area === 'beach' ? 'border-gray-100 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
-                <div onClick={() => handleRouting('area', 'woods')}> <TentTree color={'black'} size={60} className={`${params?.area === 'woods' ? 'border-gray-500 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ': "text-[black]"}`} /></div>
-                <div onClick={() => handleRouting('area', 'urban')}> <FaTreeCity color={'black'} size={60} className={`${params?.area === 'urban' ? 'border-gray-500 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
-                <div onClick={() => handleRouting('area', 'mountain')}> <PiMountainsBold color={'black'} size={60} className={`${params?.area === 'mountain' ? 'border-gray-500 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
+                <div className="m-1" onClick={() => handleRouting('area', 'beach')}> <TbBeach color={'black'} size={60}  className={`${params?.area === 'beach' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
+                <div onClick={() => handleRouting('area', 'woods')}> <TentTree color={'black'} size={60} className={`${params?.area === 'woods' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ': "text-[black]"}`} /></div>
+                <div onClick={() => handleRouting('area', 'urban')}> <FaTreeCity color={'black'} size={60} className={`${params?.area === 'urban' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
+                <div onClick={() => handleRouting('area', 'mountain')}> <PiMountainsBold color={'black'} size={60} className={`${params?.area === 'mountain' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
             </div>
             <div className="flex flex-row justify-between">
                 <div onClick={() => handleRouting('capacity', 'small')}> <span className={`p-1.5 ${params?.capacity === 'small' ? 'bg-sky-600 text-white rounded-xl' : "text-[#143D60]"}`}>2 - 3 guests</span></div>
