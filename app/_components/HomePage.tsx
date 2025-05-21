@@ -5,9 +5,14 @@ import * as motion from "motion/react-client"
 import DiscoverPlaceCard from "./DiscoverPlaceCard"
 import places from '../../public/_assets/places-info/places'
 import { useState } from "react"
+import Button from "./Button"
 
 const HomePage = () => {
   const [showMore, setShowMore] = useState(false)
+
+   const handleShowMore = () => {
+    setShowMore(!showMore)
+   }
   
   return (
     <>
@@ -43,9 +48,9 @@ const HomePage = () => {
                             return <DiscoverPlaceCard place={place} key={crypto.randomUUID()} />
                           })}
                           </div>
-              <div className="text-[30px] hover:cursor-pointer m-4 border-3 rounded-md px-2 hover:text-[white] hover:bg-[black]" onClick={()=> setShowMore(!showMore)}>
+              <div className="flex mt-5" >
 
-              {!showMore ? <span className="">More</span> : <span className="">less</span>}
+              {!showMore ? <Button color="green" onClick={handleShowMore} action={'Show More'}/> : <Button color="green" onClick={handleShowMore} action={'Show Less'}/>}
               </div>
         </div>
       </div>

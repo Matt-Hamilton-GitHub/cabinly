@@ -2,9 +2,12 @@ import mongoose from 'mongoose';
 
 const ReservationSchema = new mongoose.Schema(
   {
-    cabinID: { type: String, required: true, index: true }, // Index for fast cabin-based queries
-    userID: { type: String, required: true, index: true },  // Index for user-based queries
+    cabinID: { type: String, required: true, index: true }, 
+    userID: { type: String, required: true, index: true },  
     name: { type: String, required: true },
+    price: {type: Number, required: true},
+    imageUrl: {type: String, required: true},
+    location: {type: String, required: true},
     range: {
       from: { type: Date, required: true },
       to: { type: Date, required: true },

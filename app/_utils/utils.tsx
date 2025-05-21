@@ -34,7 +34,10 @@ export const queryFiltering = (fetchedData, params) => {
 
     const reservation = {
       cabinID: cabin._id,
+      price: cabin.price,
       name: cabin.name,
+      location: cabin.location,
+      imageUrl: cabin.imageUrl,
       userID: user.userId,
       range: selectedRange,
       confirmed: true,
@@ -54,3 +57,12 @@ export const queryFiltering = (fetchedData, params) => {
       console.error("Reservation error:", err);
     }
   };
+
+  export function formatDate(dateStr) {
+    const date = new Date(dateStr);
+
+    return date.toLocaleDateString('en-US', {
+      month: 'short', // .
+      day: 'numeric'
+    });
+  }

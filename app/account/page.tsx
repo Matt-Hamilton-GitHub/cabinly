@@ -13,10 +13,11 @@ export default function Account() {
   const [selected, setSelected] = useState('reservations')
   
 
-  return (<div className="flex items-start flex-row overflow-hiffen">
+  return (
+  <div className="flex items-start flex-row overflow-hiffen">
     <SideNavigation onSelect={setSelected} selected={selected} />
     
-    <div className="flex flex-col items-start justify-center" >
+    <div className="flex w-full flex-col items-center justify-center" >
       {selected === 'profile' && <Profile />}
       {selected === 'reservations' && <UserReservations  />}
     </div>

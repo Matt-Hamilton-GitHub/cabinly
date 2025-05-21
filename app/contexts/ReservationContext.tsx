@@ -4,9 +4,13 @@ import { useContext, createContext, useState, ReactNode, useEffect } from "react
 import { useUserContext } from "./UserContext";
 
 type ReservationType = {
+    _id: string,
     cabinID: string,
     name: string,
     userID: string,
+    price: number,
+    imageUrl: string,
+    location: string,
     range: {
         from: { type: Date },
         to: { type: Date },
@@ -19,6 +23,7 @@ type ReservationType = {
 
 type ReservationContextProps = {
     reservations: ReservationType[],
+    getReservationDetails: (id: string) => ReservationType | undefined;
 
 }
 
@@ -29,8 +34,8 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
 
     const { user } = useUserContext()
 
-    const addReservation = (reservation: ReservationType) => {
-        setReservations((prev) => [...prev, reservation])
+    const getReservationDetails = (id: string) => {
+        return reservations.find((r) => r._id === id)
     }
 
     const removeReservation = (cabinID: string) => {
@@ -57,7 +62,7 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
     }, [user])
 
 
-    return <ReservationContext.Provider value={{ reservations }}>
+    return <ReservationContext.Provider value={{ reservations, getReservationDetails }}>
         {children}
     </ReservationContext.Provider>
 }

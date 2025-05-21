@@ -2,6 +2,8 @@
 import { BookmarkCheck } from 'lucide-react';
 import { useRouter } from "next/navigation"
 import { BadgeCheck } from 'lucide-react';
+import Link from 'next/link';
+import { formatDate } from '../_utils/utils';
 
 function ReservationCard({ reservation }) {
 
@@ -11,22 +13,16 @@ function ReservationCard({ reservation }) {
     router.push(`/cabins/${reservation.cabinID}`)
   }
 
-  function formatDate(dateStr) {
-   const date = new Date(dateStr);
- 
-    return date.toLocaleDateString('en-US', {
-    month: 'short', // .
-    day: 'numeric'
-  });
-  }
 
-  return ( 
+
+  const reservationId = reservation._id
+  return (
     <div className='relative flex  flex-row flex-wrap items-center justify-center p-2 gap-2.5 rounded-xl bg-zinc-300 hover:text-[white] hover:bg-[black]'>
       <div
         className=' flex justify-center items-center flex-row flex-wrap
                     text-bold '
         onClick={handleCabinSelect}>
-          
+
         <div className='flex flex-row justify-center items-center flex-wrap
                         max-w-150 '>
           <BadgeCheck className='text-[green]' />
@@ -34,7 +30,11 @@ function ReservationCard({ reservation }) {
           <span className='px-2'>{`${formatDate(reservation.range.from)} - ${formatDate(reservation.range.to)}`} </span>
         </div>
       </div>
-          {/* <span className='absolute -bottom-4 px-2 bg-[gray] text-[red] font-bold hover:cursor-pointer'>Delete</span> */}
+      <Link href={`account/reservations/${reservationId}`} className='absolute -bottom-4 px-2 bg-[gray] text-[red] font-bold hover:cursor-pointer' >
+        <span >
+          Manage Your Reservation
+        </span>
+      </Link>
     </div>
   )
 }

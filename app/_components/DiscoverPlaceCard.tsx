@@ -5,6 +5,7 @@ import { ChevronDown } from 'lucide-react';
 import { ChevronUp } from 'lucide-react';
 
 import * as motion from "motion/react-client"
+import Link from "next/link";
 
 const DiscoverPlaceCard = ({place}) => {
 
@@ -46,9 +47,15 @@ const DiscoverPlaceCard = ({place}) => {
                         })}
                     </div>
                 </div>
+                    <div className="absolute w-15 border-r-2 border-b-2 p-3  bottom-[-3px] right-[-3px] rounded-tl-3xl shadow-inner shadow-[gray] bg-[white] text-[black] 
+                    hover:shadow-[black] hover:cursor-pointer ">
+                        <Link href={`/trips/${place.id}`}>
+                            Learn More
+                        </Link>
+                    </div>
             </div>
 
-            <div className="absolute top-[-25px] right-[-3px] flex justify-center items-end flex-col basis-[140px]">
+            <div className="absolute top-[-25px] right-[-3.5px] flex justify-center items-end flex-col basis-[140px]">
                     <div className="flex w-[140px]  justify-center items-center font-bold mb-1 bg-[black]  text-[white] rounded-t-md px-2">
                         <h3>Guides </h3><span className="hover:cursor-pointer" onClick={()=> setShowGuides(!showGuides)}>{showGuides ?  <ChevronUp /> : <ChevronDown /> }
                         </span>
