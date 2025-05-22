@@ -7,10 +7,6 @@ export default function Profile() {
 
     const { user } = useUserContext()
     console.log(user)
-  
-    //   if (!user) {
-    //      return  <Link href='/account/log-in'>Log in</Link>
-    //   }
 
   return (
     <div className="p-10">

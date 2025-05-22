@@ -14,10 +14,10 @@ export default function Account() {
   
 
   return (
-  <div className="flex items-start flex-row overflow-hiffen">
+  <div className="flex items-start flex-row w-full">
     <SideNavigation onSelect={setSelected} selected={selected} />
     
-    <div className="flex w-full flex-col items-center justify-center" >
+    <div className="flex w-[200px] basis-[100%] flex-col items-center justify-center" >
       {selected === 'profile' && <Profile />}
       {selected === 'reservations' && <UserReservations  />}
     </div>

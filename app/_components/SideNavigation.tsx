@@ -25,7 +25,7 @@ function SideNavigation({ onSelect, selected }) {
   return ( 
     <>
     
-    <nav className={`${shrink ? 'w-[20px] basis-[0] overflow-clip' : 'basis-[190px]'} z-10 relative  bg-[black] overflow-clip h-screen flex items-start  justify-between flex-col`}>
+    <nav className={`${shrink ? 'w-0 overflow-clip' : 'w-[189px]'} z-10 relative  bg-[black] overflow-clip h-screen flex items-start  justify-between flex-col`}>
      <ul className={`${!shrink ? 'flex flex-col text-lg': "hidden "}`} >
         {navLinks.map((link) => (
           <li className={`hover:cursor-pointer hover:bg-neutral-500 text-[black]
@@ -43,7 +43,7 @@ function SideNavigation({ onSelect, selected }) {
       </ul>
 
     </nav>
-      <button className={`${shrink ? "top-[50%]" :' absolute left-[183px] top-[50%]'} z-0 flex flex-col justify-center items-center w-[20px] h-[100px] absolute text-[white] bg-[black] cursor-pointer 
+      <button className={`${shrink ? "top-[50%]" :' absolute left-[185px] top-[50%]'} z-0 flex flex-col justify-center items-center w-[20px] h-[100px] absolute text-[white] bg-[black] cursor-pointer 
         rounded-tr-4xl rounded-br-4xl 
         transition-all duration-150 ease-in-out 
         hover:scale-120 hover:w-[30] hover:h-[110px]`} 

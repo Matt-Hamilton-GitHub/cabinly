@@ -42,7 +42,6 @@ const SingleReservationPage =  (
 
   return (
     <div className="relative w-screen flex justify-center items-center  flex-col gap-5">
-
         <div className="relative w-full h-60 border-y-10">
             <Image 
             fill

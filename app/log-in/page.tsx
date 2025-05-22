@@ -1,6 +1,6 @@
-'use client'
 
-import LogIn from "../../_components/LogIn"
+
+import LogIn from "../_components/LogIn"
 
 const page = () => {
   return (
