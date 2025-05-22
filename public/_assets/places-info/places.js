@@ -15,29 +15,30 @@ const places = [
           {
             type: "Trekking & Hiking",
             sub_activity: [
-              "W Trek",
-              "O Circuit",
-              "Day Hikes: Base of the Towers (8–10 hrs)",
-              "Mirador Cuernos",
-              "Salto Grande to Mirador Lago Nordenskjöld"
+              { id: 1, title: "W Trek", group_capacity: 12 },
+              { id: 2, title: "O Circuit", group_capacity: 10 },
+              { id: 3, title: "Day Hikes: Base of the Towers (8–10 hrs)", group_capacity: 15 },
+              { id: 4, title: "Mirador Cuernos", group_capacity: 20 },
+              { id: 5, title: "Salto Grande to Mirador Lago Nordenskjöld", group_capacity: 18 }
             ],
-            desc: "Famous route covering the highlights—Torres Base, French Valley, and Grey Glacier."
+            desc:
+              "Famous route covering the highlights—Torres Base, French Valley, and Grey Glacier."
           },
           {
             type: "Glacier Tours",
             sub_activity: [
-              "Grey Glacier boat tour",
-              "Kayaking near Grey Lake",
-              "Ice hiking on Grey Glacier"
+              { id: 6, title: "Grey Glacier boat tour", group_capacity: 25 },
+              { id: 7, title: "Kayaking near Grey Lake", group_capacity: 8 },
+              { id: 8, title: "Ice hiking on Grey Glacier", group_capacity: 10 }
             ],
             desc: "Guided adventures around or on the magnificent Grey Glacier."
           },
           {
             type: "Wildlife Watching",
             sub_activity: [
-              "Guanacos in the valleys",
-              "Andean condors spotting",
-              "Pumas with guided tours"
+              { id: 9, title: "Guanacos in the valleys", group_capacity: 20 },
+              { id: 10, title: "Andean condors spotting", group_capacity: 15 },
+              { id: 11, title: "Pumas with guided tours", group_capacity: 6 }
             ],
             desc: "Best season for observing Patagonian wildlife in natural habitats."
           }
@@ -57,22 +58,31 @@ const places = [
     guides: ['Emily Novak', 'Dylan Carter', 'Mason Gray'],
     seasons: [
       {
-        season: 'Jun - Aug',
+        season: "Year-round",
         activities: [
           {
-            type: 'Hiking & Trekking',
-            sub_activity: ['Lake Louise Trail', 'Plain of Six Glaciers', 'Tunnel Mountain'],
-            desc: 'A variety of alpine and lakeside trails surrounded by snow-capped peaks.'
-          }
-        ]
-      },
-      {
-        season: 'Dec - Mar',
-        activities: [
+            type: "Snorkeling",
+            sub_activity: [
+              { id: 12, title: "Turtle Bay snorkeling", group_capacity: 12 },
+              { id: 13, title: "Kicker Rock dive", group_capacity: 8 }
+            ],
+            desc: "Explore the marine life including turtles, sharks, and colorful fish."
+          },
           {
-            type: 'Skiing & Snowboarding',
-            sub_activity: ['Sunshine Village', 'Lake Louise Ski Resort'],
-            desc: 'Top-tier ski resorts offering breathtaking slopes in winter.'
+            type: "Wildlife Viewing",
+            sub_activity: [
+              { id: 14, title: "Blue-footed booby nesting", group_capacity: 15 },
+              { id: 15, title: "Marine iguana colonies", group_capacity: 20 }
+            ],
+            desc: "View unique endemic species in their natural habitats."
+          },
+          {
+            type: "Island Hopping",
+            sub_activity: [
+              { id: 16, title: "Santa Cruz to Isabela", group_capacity: 25 },
+              { id: 17, title: "Day trips to uninhabited islands", group_capacity: 18 }
+            ],
+            desc: "Visit multiple islands for diverse ecosystems and beaches."
           }
         ]
       }
@@ -89,17 +99,29 @@ const places = [
     guides: ['Liam Walker', 'Zoe Taylor', 'Cooper Hughes'],
     seasons: [
       {
-        season: 'Jun - Oct',
+        season: "May - Sep",
         activities: [
           {
-            type: 'Snorkeling & Diving',
-            sub_activity: ['Cairns reefs', 'Outer Barrier Reef expeditions'],
-            desc: 'Swim among vibrant coral reefs and marine biodiversity.'
+            type: "Safari Tours",
+            sub_activity: [
+              { id: 18, title: "Big Five drives", group_capacity: 12 },
+              { id: 19, title: "Ngorongoro Crater full-day", group_capacity: 10 }
+            ],
+            desc: "Classic African safaris to spot elephants, lions, rhinos, leopards, and buffalo."
           },
           {
-            type: 'Boat Tours',
-            sub_activity: ['Glass-bottom boat tours', 'Liveaboard cruises'],
-            desc: 'Scenic boat tours with educational reef info.'
+            type: "Cultural Visits",
+            sub_activity: [
+              { id: 20, title: "Maasai village tour", group_capacity: 15 }
+            ],
+            desc: "Experience traditional Maasai culture and lifestyle."
+          },
+          {
+            type: "Nature Walks",
+            sub_activity: [
+              { id: 21, title: "Guided crater rim walk", group_capacity: 8 }
+            ],
+            desc: "Enjoy breathtaking views and learn about flora and fauna."
           }
         ]
       }
@@ -116,32 +138,29 @@ const places = [
     guides: ['Yousef Al-Karim', 'Noura Saleh', 'Farah Zidan'],
     seasons: [
       {
-        season: 'Mar - May',
+        season: "Nov - Apr",
         activities: [
           {
-            type: 'Cultural Exploration',
-            sub_activity: ['Al-Khazneh (The Treasury)', 'The Monastery', 'Royal Tombs'],
-            desc: 'Explore ancient Nabataean architecture carved into pink sandstone cliffs.'
+            type: "Scenic Cruises",
+            sub_activity: [
+              { id: 22, title: "Glacier viewing boat tours", group_capacity: 20 },
+              { id: 23, title: "Whale watching excursions", group_capacity: 18 }
+            ],
+            desc: "Sail among icebergs and spot wildlife like whales and seals."
           },
           {
-            type: 'Hiking',
-            sub_activity: ['Back trail to Monastery', 'High Place of Sacrifice'],
-            desc: 'Scenic hikes that offer elevated views and ancient ruins.'
-          }
-        ]
-      },
-      {
-        season: 'Sep - Nov',
-        activities: [
-          {
-            type: 'Cultural Exploration',
-            sub_activity: ['Al-Khazneh (The Treasury)', 'The Monastery', 'Royal Tombs'],
-            desc: 'Explore ancient Nabataean architecture carved into pink sandstone cliffs.'
+            type: "Kayaking",
+            sub_activity: [
+              { id: 24, title: "Gentoo penguin colony paddle", group_capacity: 6 }
+            ],
+            desc: "Paddle near penguins and seals for an intimate wildlife experience."
           },
           {
-            type: 'Hiking',
-            sub_activity: ['Back trail to Monastery', 'High Place of Sacrifice'],
-            desc: 'Scenic hikes that offer elevated views and ancient ruins.'
+            type: "Research Station Tours",
+            sub_activity: [
+              { id: 25, title: "Palmer Station visit", group_capacity: 10 }
+            ],
+            desc: "Learn about polar science and meet resident researchers."
           }
         ]
       }
@@ -158,17 +177,30 @@ const places = [
     guides: ['Jake Redbird', 'Samantha Blackhorse', 'Nina Talltree'],
     seasons: [
       {
-        season: 'Mar - Oct',
+        season: "Jun - Aug",
         activities: [
           {
-            type: 'Photography Tours',
-            sub_activity: ['Upper Canyon light beams', 'Lower Canyon narrows'],
-            desc: 'Guided tours to capture surreal colors and sandstone formations.'
+            type: "Cultural Exploration",
+            sub_activity: [
+              { id: 26, title: "Bhutanese monastery visits", group_capacity: 10 },
+              { id: 27, title: "Thimphu cultural day", group_capacity: 12 }
+            ],
+            desc: "Dive deep into Bhutan’s heritage with guided tours of temples and museums."
           },
           {
-            type: 'Hiking',
-            sub_activity: ['Short guided hikes within the canyon'],
-            desc: 'Easy hikes through narrow, winding canyon walls.'
+            type: "Mountain Hiking",
+            sub_activity: [
+              { id: 28, title: "Tiger’s Nest Monastery hike", group_capacity: 8 },
+              { id: 29, title: "Phobjikha Valley trails", group_capacity: 6 }
+            ],
+            desc: "Scenic trails through the Himalayas with stunning views."
+          },
+          {
+            type: "Nature Photography",
+            sub_activity: [
+              { id: 30, title: "Black-necked crane habitats", group_capacity: 5 }
+            ],
+            desc: "Perfect for wildlife and landscape photography."
           }
         ]
       }
@@ -185,22 +217,29 @@ const places = [
     guides: ['Juma Mwinyi', 'Aisha Kimaro', 'David Mbele'],
     seasons: [
       {
-        season: 'Jan - Mar',
+        season: "Oct - Apr",
         activities: [
           {
-            type: 'Mountain Climbing',
-            sub_activity: ['Machame Route', 'Marangu Route', 'Lemosho Route'],
-            desc: 'Ascend Africa’s tallest mountain through diverse ecosystems.'
-          }
-        ]
-      },
-      {
-        season: 'Jun - Oct',
-        activities: [
+            type: "Scenic Road Trips",
+            sub_activity: [
+              { id: 35, title: "Ring Road highlights", group_capacity: 8 },
+              { id: 36, title: "Golden Circle day trip", group_capacity: 12 }
+            ],
+            desc: "Drive past volcanoes, waterfalls, and geysers."
+          },
           {
-            type: 'Mountain Climbing',
-            sub_activity: ['Machame Route', 'Marangu Route', 'Lemosho Route'],
-            desc: 'Ascend Africa’s tallest mountain through diverse ecosystems.'
+            type: "Northern Lights Viewing",
+            sub_activity: [
+              { id: 37, title: "Aurora hunting night tour", group_capacity: 10 }
+            ],
+            desc: "Chase the aurora borealis with expert guides."
+          },
+          {
+            type: "Hot Springs Relaxation",
+            sub_activity: [
+              { id: 38, title: "Blue Lagoon spa visit", group_capacity: 20 }
+            ],
+            desc: "Soak in geothermal waters surrounded by lava fields."
           }
         ]
       }
@@ -221,12 +260,19 @@ const places = [
         activities: [
           {
             type: 'Cultural & Historical Tours',
-            sub_activity: ['Fushimi Inari Shrine', 'Kinkaku-ji', 'Gion district'],
+            sub_activity: [
+              { id: 42, title: 'Fushimi Inari Shrine', group_capacity: 20 },
+              { id: 43, title: 'Kinkaku-ji', group_capacity: 15 },
+              { id: 44, title: 'Gion district', group_capacity: 10 }
+            ],
             desc: 'A journey through Japan’s spiritual and cultural heart.'
           },
           {
             type: 'Tea Ceremonies',
-            sub_activity: ['Traditional tea rooms in Gion', 'Temple-hosted rituals'],
+            sub_activity: [
+              { id: 45, title: 'Traditional tea rooms in Gion', group_capacity: 8 },
+              { id: 46, title: 'Temple-hosted rituals', group_capacity: 6 }
+            ],
             desc: 'Experience a serene and authentic tea ceremony.'
           }
         ]
@@ -236,12 +282,19 @@ const places = [
         activities: [
           {
             type: 'Cultural & Historical Tours',
-            sub_activity: ['Fushimi Inari Shrine', 'Kinkaku-ji', 'Gion district'],
+            sub_activity: [
+              { id: 42, title: 'Fushimi Inari Shrine', group_capacity: 20 },
+              { id: 43, title: 'Kinkaku-ji', group_capacity: 15 },
+              { id: 44, title: 'Gion district', group_capacity: 10 }
+            ],
             desc: 'A journey through Japan’s spiritual and cultural heart.'
           },
           {
             type: 'Tea Ceremonies',
-            sub_activity: ['Traditional tea rooms in Gion', 'Temple-hosted rituals'],
+            sub_activity: [
+              { id: 45, title: 'Traditional tea rooms in Gion', group_capacity: 8 },
+              { id: 46, title: 'Temple-hosted rituals', group_capacity: 6 }
+            ],
             desc: 'Experience a serene and authentic tea ceremony.'
           }
         ]
@@ -259,22 +312,29 @@ const places = [
     guides: ['Marco Quispe', 'Andrea Gutierrez', 'Luis Mamani'],
     seasons: [
       {
-        season: 'May - Oct',
+        season: "Apr - Nov",
         activities: [
           {
-            type: 'Photography Tours',
-            sub_activity: ['Salt flats day tours', 'Stargazing'],
-            desc: 'Capture surreal landscapes during dry season.'
-          }
-        ]
-      },
-      {
-        season: 'Mar - Apr',
-        activities: [
+            type: "Jungle Treks",
+            sub_activity: [
+              { id: 39, title: "Amazon canopy walk", group_capacity: 8 },
+              { id: 40, title: "Overnight rainforest camping", group_capacity: 6 }
+            ],
+            desc: "Explore the dense Amazon with expert naturalists."
+          },
           {
-            type: 'Mirror Photography',
-            sub_activity: ['Flooded salt flats reflections'],
-            desc: 'Best time for capturing the iconic mirror effect.'
+            type: "River Cruises",
+            sub_activity: [
+              { id: 41, title: "Wildlife spotting boat tours", group_capacity: 12 }
+            ],
+            desc: "Navigate the Amazon River to see monkeys, birds, and pink dolphins."
+          },
+          {
+            type: "Tribal Visits",
+            sub_activity: [
+              { id: 42, title: "Meet local tribes", group_capacity: 10 }
+            ],
+            desc: "Learn about indigenous cultures and customs."
           }
         ]
       }
@@ -291,17 +351,30 @@ const places = [
     guides: ['Niko Papadopoulos', 'Eleni Kosta', 'Stefanos Markos'],
     seasons: [
       {
-        season: 'May - Oct',
+        season: "Apr - Oct",
         activities: [
           {
-            type: 'Sunset Viewing',
-            sub_activity: ['Oia village lookout', 'Akrotiri lighthouse'],
-            desc: 'World-famous sunsets over whitewashed cliffside towns.'
+            type: "Historic Tours",
+            sub_activity: [
+              { id: 43, title: "Machu Picchu guided hike", group_capacity: 10 },
+              { id: 44, title: "Sacred Valley ruins", group_capacity: 12 }
+            ],
+            desc: "Explore Incan ruins and history with knowledgeable guides."
           },
           {
-            type: 'Boat Cruises',
-            sub_activity: ['Volcano island tour', 'Hot spring swim'],
-            desc: 'Sail across the caldera and explore volcanic wonders.'
+            type: "Andean Treks",
+            sub_activity: [
+              { id: 45, title: "Salkantay Trail", group_capacity: 8 },
+              { id: 46, title: "Lares Trek", group_capacity: 6 }
+            ],
+            desc: "Scenic multi-day hikes through the Andes."
+          },
+          {
+            type: "Local Market Visits",
+            sub_activity: [
+              { id: 47, title: "Pisac and Cusco market tours", group_capacity: 15 }
+            ],
+            desc: "Experience Peruvian culture through food and crafts."
           }
         ]
       }
@@ -322,12 +395,19 @@ const places = [
         activities: [
           {
             type: 'Adventure Sports',
-            sub_activity: ['Bungee jumping', 'Skydiving', 'Jet boating'],
+            sub_activity: [
+              { id: 48, title: 'Bungee jumping', group_capacity: 10 },
+              { id: 49, title: 'Skydiving', group_capacity: 8 },
+              { id: 50, title: 'Jet boating', group_capacity: 12 }
+            ],
             desc: 'A global capital of adventure sports.'
           },
           {
             type: 'Scenic Tours',
-            sub_activity: ['Lake Wakatipu cruise', 'Milford Sound day trip'],
+            sub_activity: [
+              { id: 51, title: 'Lake Wakatipu cruise', group_capacity: 20 },
+              { id: 52, title: 'Milford Sound day trip', group_capacity: 15 }
+            ],
             desc: 'Explore dramatic fjords and snowcapped landscapes.'
           }
         ]
@@ -337,7 +417,10 @@ const places = [
         activities: [
           {
             type: 'Skiing & Snowboarding',
-            sub_activity: ['Coronet Peak', 'The Remarkables'],
+            sub_activity: [
+              { id: 53, title: 'Coronet Peak', group_capacity: 12 },
+              { id: 54, title: 'The Remarkables', group_capacity: 10 }
+            ],
             desc: 'Excellent ski terrain during New Zealand’s winter.'
           }
         ]

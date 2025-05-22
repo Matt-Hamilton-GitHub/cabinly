@@ -66,3 +66,8 @@ export const queryFiltering = (fetchedData, params) => {
       day: 'numeric'
     });
   }
+
+
+ export const handleGroupSignUp = (userId: string, groupId: string) =>{
+  console.log(userId, groupId);
+  }
