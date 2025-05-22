@@ -20,6 +20,7 @@ export type CabinsType = {
     cabinID: string,
     price: number,
     rating: number,
+    location: string,
     description: string,
     discount: number,
     imageUrl: string,

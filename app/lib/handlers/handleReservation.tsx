@@ -61,3 +61,16 @@ export async function getUserReservations(userId: string){
       }
 
 }
+
+export async function deleteReservation(req: Request){
+  console.log('delete res invoked')
+  try {
+     const body = await req.json();
+     const {reservationId} = body
+    const deleted = await Reservation.deleteOne({_id: reservationId})
+    return NextResponse.json({deleted}, {status: 200})
+
+  }catch(error) {
+    return NextResponse.json({error}, {status: 400})
+  }
+}

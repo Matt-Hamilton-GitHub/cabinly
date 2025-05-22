@@ -15,14 +15,15 @@ export default function DateSelector({ selected, onChange, disabledRanges }: Pro
   const defaultClassNames = getDefaultClassNames();
 
   return (
-    <DayPicker
+    <DayPicker  
       classNames={{
-        today: `text-amber-700 border-amber-500 font-bold`,
-        selected: `bg-amber-500 border-2 border-black rounded-3xl text-cyan-900 fill-[red]`,
-        disabled: 'text-gray-400',
-        root: `${defaultClassNames.root} flex justify-center items-center text-center p-5 bg-gray-200 rounded-xl max-w-100 lg:max-w-180 border-3`,
+        today: `text-[white] border-2 fill-[black] font-bold bg-gray-400`,
+        selected: `border-black text-black rounded-[10px] bg-[orange] font-bold`,
+        disabled: 'text-gray-600',
+        root: `${defaultClassNames.root} flex text-white justify-center items-center text-center p-5 bg-black rounded-xl max-w-100 lg:max-w-180 border-3`,
       }}
       mode="range"
+      animate
       numberOfMonths={2}
       selected={selected}
       onSelect={onChange}

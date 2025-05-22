@@ -34,7 +34,7 @@ const TripPage = (
                     className="object-cover object-center grayscale-100 hover:grayscale-0" />
             </div>}
             <div className="flex flex-col gap-10">
-                <div className="flex justify-center items-center "><h1 className="p-3 font-bold rounded-b-2xl text-2xl bg-[black] text-[white]">Available Seasons:</h1> </div>
+                <div className="flex justify-center items-center "><h1 className="p-3 font-bold rounded-b-2xl text-2xl bg-[black] text-[white] shadow-md shadow-[gray]">Available Seasons:</h1> </div>
                 {tripDetails?.seasons?.map((trip) => {
 
                     return <div className="border-t-1 border-[gray] " key={crypto.randomUUID()}>

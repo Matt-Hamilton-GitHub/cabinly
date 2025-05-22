@@ -24,7 +24,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
     fetch('/api/validate-token').then(res => res.json()).then(data => {
-        
       if (data.safeUser) setUser(data.safeUser);
       else console.log('faild to validate')
     });

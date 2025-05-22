@@ -1,6 +1,5 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
-import { ObjectId } from 'mongodb';
 import jwt from 'jsonwebtoken';
 import User from '@/app/lib/mdb-models/User';
 

@@ -7,6 +7,8 @@ import { BsFillBookmarkPlusFill } from "react-icons/bs";
 import Link from "next/link";
 
 import Rating from '@mui/material/Rating';
+import { Heart } from 'lucide-react';
+
 
 
 export type CabinCardProps = {
@@ -18,21 +20,25 @@ export const metadata = {
 }
 export default function CabinCard({ cabin }: CabinCardProps) {
     const cabinId = cabin._id;
-    return (<div className="flex flex-row w-110 rounded-2xl shadow-[gray] shadow-lg">
-        <div className=" rounded-s-xl w-40 h-50 relative object-cover border-[gray] border-r-2 ">
+    return (<div className="flex flex-row w-110 rounded-sm shadow-[gray] shadow-lg border-2 border-[#e3e3e3eb] 
+        hover:scale-110 hover:border-3 hover:cursor-pointer hover:border-[#cad3e4f9] transition-all duration-350">
+        <div className=" rounded-s-xl w-40 h-50 relative object-cover rounded-r-[200px] shadow-md shadow-[black]">
             <Image
                 fill
                 src={cabin.imageUrl}
                 alt={`a beatiful cabin`}
                 placeholder="empty"
-                className="object-cover"
+                className="object-cover rounded-l-2sm rounded-r-[200px]"
             />
         </div>
 
-        <div className=" flex flex-col pl-3.5 justify-between rounded-e-xl  ">
+        <div className=" flex flex-col p-2 justify-between  ">
             <div className="flex flex-col">
+                <div className="flex felx-row items-center justify-between w-70 p-2">
+
                 <h1 className="
-                 text-xl text-[#0e7490] text-start font-bold">{cabin.name}</h1>
+                 text-xl text-[#0e7490] text-start font-bold">{cabin.name}</h1><Heart className="hover:scale-150 -[red] transition-all duration-350 hover:fill-[red]" color={'red'} fill={'white'} />
+                 </div>
                  <Rating name="half-rating-read" size='small' defaultValue={cabin.rating } precision={0.5} readOnly />
                 <div className="flex flex-row justify-center align-middle items-center gap-1.5">
                     <FaPeopleGroup />

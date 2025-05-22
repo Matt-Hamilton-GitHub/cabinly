@@ -23,15 +23,18 @@ type ReservationType = {
 
 type ReservationContextProps = {
     reservations: ReservationType[],
-    getReservationDetails: (id: string) => ReservationType | undefined;
+    getReservationDetails: (id: string) => ReservationType | undefined,
+    fetchReservations: (userID: string) => Promise<void>
 
 }
+
+
 
 const ReservationContext = createContext<ReservationContextProps | undefined>(undefined);
 
 export const ReservationProvider = ({ children }: { children: ReactNode }) => {
-    const [reservations, setReservations] = useState<ReservationType[]>([])
 
+    const [reservations, setReservations] = useState<ReservationType[]>([])
     const { user } = useUserContext()
 
     const getReservationDetails = (id: string) => {
@@ -43,14 +46,15 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
     }
 
 
-    const fetchReservations = async (userID: string) => {
+    const fetchReservations = async (userID: string): Promise<void> => {
+
         try {
             const res = await fetch(`/api/reservations/${userID}`);
             const data = await res.json()
             console.log(data)
             setReservations(data.userReservations || [])
         } catch (err) {
-            return err
+            console.log(err)
         }
     }
 
@@ -61,8 +65,7 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
 
     }, [user])
 
-
-    return <ReservationContext.Provider value={{ reservations, getReservationDetails }}>
+    return <ReservationContext.Provider value={{ reservations, getReservationDetails, fetchReservations }}>
         {children}
     </ReservationContext.Provider>
 }

@@ -30,9 +30,9 @@ function ReservationCard({ reservation }) {
           <span className='px-2'>{`${formatDate(reservation.range.from)} - ${formatDate(reservation.range.to)}`} </span>
         </div>
       </div>
-      <Link href={`account/reservations/${reservationId}`} className='absolute -bottom-4 px-2 bg-[gray] text-[red] font-bold hover:cursor-pointer' >
+      <Link href={`account/reservations/${reservationId}`} className=' px-2 bg-[gray] rounded-2xl font-bold hover:cursor-pointer' >
         <span >
-          Manage Your Reservation
+          Make Changes
         </span>
       </Link>
     </div>
