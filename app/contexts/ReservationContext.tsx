@@ -21,12 +21,19 @@ type ReservationType = {
     confirmed: boolean,
 }
 
+type ErrorProp = {
+    isError: boolean,
+    message: string | unknown,
+}
+
 type ReservationContextProps = {
     reservations: ReservationType[],
     getReservationDetails: (id: string) => ReservationType | undefined,
-    fetchReservations: (userID: string) => Promise<void>
-
+    fetchReservations: (userID: string) => Promise<void>,
+    isLoadingRes: boolean,
+    resError: ErrorProp,
 }
+
 
 
 
@@ -35,6 +42,9 @@ const ReservationContext = createContext<ReservationContextProps | undefined>(un
 export const ReservationProvider = ({ children }: { children: ReactNode }) => {
 
     const [reservations, setReservations] = useState<ReservationType[]>([])
+    const [isLoadingRes, setIsLoadingRes] = useState(false)
+    const [resError, setResError] = useState<ErrorProp>({isError: false, message: ""})
+
     const { user } = useUserContext()
 
     const getReservationDetails = (id: string) => {
@@ -47,13 +57,17 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
 
 
     const fetchReservations = async (userID: string): Promise<void> => {
-
+        setIsLoadingRes(true);
         try {
             const res = await fetch(`/api/reservations/${userID}`);
             const data = await res.json()
             console.log(data)
             setReservations(data.userReservations || [])
+            setIsLoadingRes(false);
+            setResError({isError: false, message: ""})
         } catch (err) {
+            setIsLoadingRes(false);
+            setResError({isError: true, message: err})
             console.log(err)
         }
     }
@@ -65,7 +79,7 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
 
     }, [user])
 
-    return <ReservationContext.Provider value={{ reservations, getReservationDetails, fetchReservations }}>
+    return <ReservationContext.Provider value={{ reservations, getReservationDetails, fetchReservations, isLoadingRes, resError }}>
         {children}
     </ReservationContext.Provider>
 }

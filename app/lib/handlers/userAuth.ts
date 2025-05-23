@@ -44,8 +44,6 @@ export async function userLogIn(req: Request) {
         }
 
         const res = NextResponse.json({ user })
-
-
         //set a token
         const token = jwt.sign({ userId: user._id.toString()}, process.env.JWT_SECRET!, { expiresIn: '7d' });
         

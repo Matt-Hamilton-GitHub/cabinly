@@ -44,36 +44,63 @@ body {
     1px 1px 0 rgb(58, 56, 56);
 }
 
+
+
+/* Loadin Box */
 .loader {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  position: relative;
-  animation: rotate 1s linear infinite
-}
-.loader::before , .loader::after {
-  content: "";
-  box-sizing: border-box;
-  position: absolute;
-  inset: 0px;
-  border-radius: 50%;
-  border: 5px solid #845211;
-  animation: prixClipFix 2s linear infinite ;
-}
-.loader::after{
-  inset: 8px;
-  transform: rotate3d(90, 90, 0, 180deg );
-  border-color: #143D60;
-}
+          width: 48px;
+          height: 48px;
+          margin: auto;
+          position: relative;
+        }
+        .loader:before {
+            content: '';
+            width: 48px;
+            height: 5px;
+            background: #000;
+            opacity: 0.25;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            border-radius: 50%;
+            animation: shadow 0.5s linear infinite;
+          }
+          .loader:after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            animation: bxSpin 0.5s linear infinite;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 4px;
+          }
+        @keyframes bxSpin {
+          17% {
+            border-bottom-right-radius: 3px;
+          }
+          25% {
+            transform: translateY(9px) rotate(22.5deg);
+          }
+          50% {
+            transform: translateY(18px) scale(1, .9) rotate(45deg);
+            border-bottom-right-radius: 40px;
+          }
+          75% {
+            transform: translateY(9px) rotate(67.5deg);
+          }
+          100% {
+            transform: translateY(0) rotate(90deg);
+          }
+        }
 
-@keyframes rotate {
-  0%   {transform: rotate(0deg)}
-  100%   {transform: rotate(360deg)}
-}
-
-@keyframes prixClipFix {
-    0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
-    50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
-    75%, 100%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
-}
+        @keyframes shadow {
+          0%, 100% {
+            transform: scale(1, 1);
+          }
+          50% {
+            transform: scale(1.2, 1);
+          }
+        }
 

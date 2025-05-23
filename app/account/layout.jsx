@@ -7,8 +7,10 @@ import { useEffect } from "react"
 
 export default function AccountLayout({ children }) {
     const { user } = useUserContext()
+
    
     useEffect(()=>{
+        
     }, [user])
     
 

@@ -8,11 +8,12 @@ import { Spinner } from "../_components/Spinner";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import {queryFiltering} from '../_utils/utils'
+import { queryFiltering } from '../_utils/utils'
 import { TentTree } from 'lucide-react';
 import { PiMountainsBold } from "react-icons/pi";
 
 import filter_bg_img from '../_assets/title-1.jpg'
+import SpinnerBoxJump from "../_components/SpinnerBoxJump";
 
 export type CabinsType = {
     _id: string,
@@ -56,6 +57,7 @@ const Cabins = ({ searchParams }: {
 
     useEffect(() => {
 
+
         setIsLoading(true);
         fetch('/api/cabins')
             .then((res) => res.json())
@@ -69,12 +71,12 @@ const Cabins = ({ searchParams }: {
             });
     }, [params]);
 
-    return (<div className="relative flex flex-col justify-start items-center min-h-[100vh] gap-15 transition-all">
+    return (<div className="relative flex flex-col justify-start items-center gap-15 transition-all">
         <div className="h-50 flex items-center  justify-center flex-col w-[100vw] border-y-4 bg-cover bg-center bg-no-repeat bg-[url('../../public/_assets/mountain.jpg')]"></div>
         <div className="flex items-center justify-center flex-col w-[100vw]">
             <div className="w-100 my-5 flex justify-between items-center gap-10 cursor-pointer shadow-[gray] shadow-lg  p-1 px-3 rounded-3xl border-[white] ">
-                <div className="m-1" onClick={() => handleRouting('area', 'beach')}> <TbBeach color={'black'} size={60}  className={`${params?.area === 'beach' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
-                <div onClick={() => handleRouting('area', 'woods')}> <TentTree color={'black'} size={60} className={`${params?.area === 'woods' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ': "text-[black]"}`} /></div>
+                <div className="m-1" onClick={() => handleRouting('area', 'beach')}> <TbBeach color={'black'} size={60} className={`${params?.area === 'beach' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
+                <div onClick={() => handleRouting('area', 'woods')}> <TentTree color={'black'} size={60} className={`${params?.area === 'woods' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
                 <div onClick={() => handleRouting('area', 'urban')}> <FaTreeCity color={'black'} size={60} className={`${params?.area === 'urban' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
                 <div onClick={() => handleRouting('area', 'mountain')}> <PiMountainsBold color={'black'} size={60} className={`${params?.area === 'mountain' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
             </div>
@@ -88,14 +90,14 @@ const Cabins = ({ searchParams }: {
             </div>
         </div>
 
-        <div className="">
-                {isLoading ? <Spinner /> : <div className="flex px-[5vw] flex-row justify-center items-center flex-wrap gap-15 ">
-                    {cabins?.map((cabin: CabinsType) => {
-                        return (
-                                <CabinCard cabin={cabin} key={crypto.randomUUID()}/>
-                        )
-                    }
-                    )}</div>}
+        <div className="relative">
+            {isLoading ? <div className="flex w-full "><SpinnerBoxJump /></div> : <div className="flex px-[5vw] flex-row justify-center items-center flex-wrap gap-15 ">
+                {cabins?.map((cabin: CabinsType) => {
+                    return (
+                        <CabinCard cabin={cabin} key={crypto.randomUUID()} />
+                    )
+                }
+                )}</div>}
         </div>
     </div>)
 }

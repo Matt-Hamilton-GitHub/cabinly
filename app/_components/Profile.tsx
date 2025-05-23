@@ -8,6 +8,7 @@ export default function Profile() {
     const { user } = useUserContext()
     console.log(user)
 
+
   return (
     <div className="p-10">
 

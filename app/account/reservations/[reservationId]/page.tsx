@@ -9,6 +9,8 @@ import Button from "@/app/_components/Button"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useUserContext } from "@/app/contexts/UserContext"
+import { Spinner } from "@/app/_components/Spinner"
+import SpinnerBoxJump from "@/app/_components/SpinnerBoxJump"
 
 
 const SingleReservationPage =  (
@@ -17,7 +19,7 @@ const SingleReservationPage =  (
         const router = useRouter()
         const {user} = useUserContext()
         const userId = user?.userId
-        const {fetchReservations} = useReservation()
+        const {fetchReservations, isLoadingRes, resError} = useReservation()
 
     const handleDeleteReservation = async(id: string) => {
        const res = await fetch('/api/reservations/delete', {
@@ -37,7 +39,8 @@ const SingleReservationPage =  (
     const {getReservationDetails} = useReservation()
         
     const reservationDetails = getReservationDetails(reservationId)
-    if (!reservationDetails) return <div>Coundn't find your reservation details </div>
+    if (resError.isError) return <div>Coundn't find your reservation details </div>
+    if (isLoadingRes || !reservationDetails) return <SpinnerBoxJump />
     const {name} = reservationDetails
 
   return (
