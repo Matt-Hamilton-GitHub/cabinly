@@ -71,6 +71,22 @@ const Cabins = ({ searchParams }: {
             });
     }, [params]);
 
+    // potential query filters 
+
+    //from  - to
+    // price 
+    // type
+
+    `s/Los-Angeles/one_week&
+    monthly_start_date=2025-06-01&
+    monthly_length=3&monthly_end_date=2025-09-01&
+    price_filter_input_type=2&channel=EXPLORE&
+    refinement_paths%5B%5D=%2Fhomes&
+    place_id=ChIJE9on3F3HwoAR9AhGJW_fL-I&date_picker_type=calendar&checkin=2025-06-17&
+    checkout=2025-06-25&children=1&adults=2&source=structured_search_input_header&search_type=AUTOSUGGEST`
+
+
+
     return (<div className="relative flex flex-col justify-start items-center gap-15 transition-all">
         <div className="h-50 flex items-center  justify-center flex-col w-[100vw] border-y-4 bg-cover bg-center bg-no-repeat bg-[url('../../public/_assets/mountain.jpg')]"></div>
         <div className="flex items-center justify-center flex-col w-[100vw]">
