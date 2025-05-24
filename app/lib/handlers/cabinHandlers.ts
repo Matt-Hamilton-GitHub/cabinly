@@ -5,7 +5,12 @@ import { NextResponse } from "next/server";
 
 
 // Get all cabins
-export async function getAllCabins() {
+export async function getAllCabins(req: Request) {
+  const {searchParams} = new URL(req.url)
+  console.log(searchParams.get('area'))
+  const area = searchParams.get('area')
+  // const capacity = parseInt(searchParams.get('capacity'))
+
   try {
     await connectMDB();
     const cabins = await Cabin.find({});

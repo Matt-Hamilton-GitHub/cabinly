@@ -1,8 +1,8 @@
 import { getAllCabins, createCabin } from "../../lib/handlers/cabinHandlers";
 
 // Handle GET and POST requests
-export async function GET() {
-    return await getAllCabins();
+export async function GET(req) {
+    return await getAllCabins(req);
 }
 
 export async function POST(req) {

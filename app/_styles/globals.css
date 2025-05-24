@@ -45,6 +45,13 @@ body {
 }
 
 
+.title-tag{
+@apply absolute z-0 p-2 rounded-b-2xl text-center text-[black]  font-bold bg-[black] 
+         shadow-md shadow-[gray]  hover:text-[black] 
+         transition-all duration-500 placeholder-[orange] hover:placeholder-[black];
+  
+}
+
 
 /* Loadin Box */
 .loader {

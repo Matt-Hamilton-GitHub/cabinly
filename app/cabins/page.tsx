@@ -12,8 +12,8 @@ import { queryFiltering } from '../_utils/utils'
 import { TentTree } from 'lucide-react';
 import { PiMountainsBold } from "react-icons/pi";
 
-import filter_bg_img from '../_assets/title-1.jpg'
 import SpinnerBoxJump from "../_components/SpinnerBoxJump";
+import QueryFilter from "../_components/QueryFilter";
 
 export type CabinsType = {
     _id: string,
@@ -37,6 +37,7 @@ const Cabins = ({ searchParams }: {
         area?: string
 
     }>
+
 }) => {
     const params = use(searchParams)
     const [cabins, setCabins] = useState<CabinsType[]>([])
@@ -56,13 +57,13 @@ const Cabins = ({ searchParams }: {
     }
 
     useEffect(() => {
-
-
+        const queryParams = new URLSearchParams(searchParam.toString())
         setIsLoading(true);
-        fetch('/api/cabins')
+        fetch(`/api/cabins?${queryParams}`)
             .then((res) => res.json())
             .then((fetchedData) => {
-                setCabins(() => queryFiltering(fetchedData, params));
+                // setCabins(() => queryFiltering(fetchedData, params));
+                setCabins(fetchedData)
                 setIsLoading(false);
             })
             .catch((error) => {
@@ -77,20 +78,17 @@ const Cabins = ({ searchParams }: {
     // price 
     // type
 
-    `s/Los-Angeles/one_week&
-    monthly_start_date=2025-06-01&
-    monthly_length=3&monthly_end_date=2025-09-01&
-    price_filter_input_type=2&channel=EXPLORE&
-    refinement_paths%5B%5D=%2Fhomes&
-    place_id=ChIJE9on3F3HwoAR9AhGJW_fL-I&date_picker_type=calendar&checkin=2025-06-17&
-    checkout=2025-06-25&children=1&adults=2&source=structured_search_input_header&search_type=AUTOSUGGEST`
+    
 
 
 
-    return (<div className="relative flex flex-col justify-start items-center gap-15 transition-all">
-        <div className="h-50 flex items-center  justify-center flex-col w-[100vw] border-y-4 bg-cover bg-center bg-no-repeat bg-[url('../../public/_assets/mountain.jpg')]"></div>
-        <div className="flex items-center justify-center flex-col w-[100vw]">
-            <div className="w-100 my-5 flex justify-between items-center gap-10 cursor-pointer shadow-[gray] shadow-lg  p-1 px-3 rounded-3xl border-[white] ">
+    return (<div className="relative z-300 flex flex-col justify-start items-center transition-all">
+        <div className="relative z-300 h-50 flex items-center  justify-center flex-col w-[100vw] border-y-4 bg-cover bg-center bg-no-repeat bg-[url('../../public/_assets/mountain.jpg')]"></div>
+        <div className="relative z-0 flex items-center justify-center flex-col w-full ">
+            
+            <QueryFilter />
+
+            {/* <div className="w-100 my-5 flex justify-between items-center gap-10 cursor-pointer shadow-[gray] shadow-lg  p-1 px-3 rounded-3xl border-[white] ">
                 <div className="m-1" onClick={() => handleRouting('area', 'beach')}> <TbBeach color={'black'} size={60} className={`${params?.area === 'beach' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
                 <div onClick={() => handleRouting('area', 'woods')}> <TentTree color={'black'} size={60} className={`${params?.area === 'woods' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
                 <div onClick={() => handleRouting('area', 'urban')}> <FaTreeCity color={'black'} size={60} className={`${params?.area === 'urban' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
@@ -100,13 +98,13 @@ const Cabins = ({ searchParams }: {
                 <div onClick={() => handleRouting('capacity', 'small')}> <span className={`p-1.5 ${params?.capacity === 'small' ? 'bg-sky-600 text-white rounded-xl' : "text-[#143D60]"}`}>2 - 3 guests</span></div>
                 <div onClick={() => handleRouting('capacity', 'mid')}><span className={`p-1.5 ${params?.capacity === 'mid' ? 'bg-sky-600 text-white rounded-xl' : "text-[#143D60]"}`}>4 - 6 guests</span></div>
                 <div onClick={() => handleRouting('capacity', 'large')}><span className={`p-1 ${params?.capacity === 'large' ? 'bg-sky-600 text-white rounded-xl' : "text-[#143D60]"}`}> 7 - 12 guests</span></div>
-            </div>
-            <div className="flex flex-row justify-center m-2.5 text-xl text-amber-900">
-                <Link href='/cabins'> <span className='text-amber-900 hover:cursor-pointer'>Show All</span></Link>
-            </div>
+            </div> */}
+            <div className="relative p-2 -z-4 top-20 shadow-inner shadow-[#c5c5c5] rounded-2xl flex flex-row justify-center text-xl text-white font-bold bg-black ">
+                <Link href='/cabins'> <span className='text-white hover:cursor-pointer'>Show All</span></Link>
+        </div>
         </div>
 
-        <div className="relative">
+        <div className="relative mt-30">
             {isLoading ? <div className="flex w-full "><SpinnerBoxJump /></div> : <div className="flex px-[5vw] flex-row justify-center items-center flex-wrap gap-15 ">
                 {cabins?.map((cabin: CabinsType) => {
                     return (
