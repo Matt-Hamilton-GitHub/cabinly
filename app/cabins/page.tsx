@@ -62,8 +62,8 @@ const Cabins = ({ searchParams }: {
         fetch(`/api/cabins?${queryParams}`)
             .then((res) => res.json())
             .then((fetchedData) => {
-                // setCabins(() => queryFiltering(fetchedData, params));
                 setCabins(fetchedData)
+                console.log(fetchedData)
                 setIsLoading(false);
             })
             .catch((error) => {
@@ -86,19 +86,7 @@ const Cabins = ({ searchParams }: {
         <div className="relative z-300 h-50 flex items-center  justify-center flex-col w-[100vw] border-y-4 bg-cover bg-center bg-no-repeat bg-[url('../../public/_assets/mountain.jpg')]"></div>
         <div className="relative z-0 flex items-center justify-center flex-col w-full ">
             
-            <QueryFilter />
-
-            {/* <div className="w-100 my-5 flex justify-between items-center gap-10 cursor-pointer shadow-[gray] shadow-lg  p-1 px-3 rounded-3xl border-[white] ">
-                <div className="m-1" onClick={() => handleRouting('area', 'beach')}> <TbBeach color={'black'} size={60} className={`${params?.area === 'beach' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
-                <div onClick={() => handleRouting('area', 'woods')}> <TentTree color={'black'} size={60} className={`${params?.area === 'woods' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
-                <div onClick={() => handleRouting('area', 'urban')}> <FaTreeCity color={'black'} size={60} className={`${params?.area === 'urban' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
-                <div onClick={() => handleRouting('area', 'mountain')}> <PiMountainsBold color={'black'} size={60} className={`${params?.area === 'mountain' ? 'border-gray-400 text-cyan-700 bg-[white] p-1 rounded-2xl  shadow-md border-2 ' : "text-[black]"}`} /></div>
-            </div>
-            <div className="flex flex-row justify-between">
-                <div onClick={() => handleRouting('capacity', 'small')}> <span className={`p-1.5 ${params?.capacity === 'small' ? 'bg-sky-600 text-white rounded-xl' : "text-[#143D60]"}`}>2 - 3 guests</span></div>
-                <div onClick={() => handleRouting('capacity', 'mid')}><span className={`p-1.5 ${params?.capacity === 'mid' ? 'bg-sky-600 text-white rounded-xl' : "text-[#143D60]"}`}>4 - 6 guests</span></div>
-                <div onClick={() => handleRouting('capacity', 'large')}><span className={`p-1 ${params?.capacity === 'large' ? 'bg-sky-600 text-white rounded-xl' : "text-[#143D60]"}`}> 7 - 12 guests</span></div>
-            </div> */}
+            <QueryFilter onRouting={handleRouting} />
             <div className="relative p-2 -z-4 top-20 shadow-inner shadow-[#c5c5c5] rounded-2xl flex flex-row justify-center text-xl text-white font-bold bg-black ">
                 <Link href='/cabins'> <span className='text-white hover:cursor-pointer'>Show All</span></Link>
         </div>

@@ -5,7 +5,7 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from 'use-places-autocomplete';
 
-const LocationInput = () => {
+const LocationInput = ({location, setLocation}) => {
     const { 
         ready, 
         value, 
@@ -25,7 +25,14 @@ const LocationInput = () => {
         getGeocode({address: description}).then((results) => {
             const {lat, lng} = getLatLng(results[0])
             console.log('Coordinates:', {lat, lng})
+            
+            setLocation({
+              address: description,
+              coordinates: {lat,lng},
+               
+            })
         })
+
     }
 
   return (

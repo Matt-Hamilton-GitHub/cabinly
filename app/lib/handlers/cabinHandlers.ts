@@ -6,14 +6,24 @@ import { NextResponse } from "next/server";
 
 // Get all cabins
 export async function getAllCabins(req: Request) {
-  const {searchParams} = new URL(req.url)
-  console.log(searchParams.get('area'))
-  const area = searchParams.get('area')
-  // const capacity = parseInt(searchParams.get('capacity'))
-
+  
+  
   try {
     await connectMDB();
-    const cabins = await Cabin.find({});
+
+    const {searchParams} = new URL(req.url)
+    const capacityParam = searchParams.get('capacity')
+
+    const query: Record<string, any> = {}
+
+    if (capacityParam){
+      const occupancy = parseInt(capacityParam, 10);
+      if(!isNaN(occupancy)) {
+        query.occupancy = {$gte: occupancy}
+      }
+    }
+
+    const cabins = await Cabin.find(query);
     return NextResponse.json(cabins, { status: 200 });
   } catch (error: unknown) {
     if (error instanceof Error) {
