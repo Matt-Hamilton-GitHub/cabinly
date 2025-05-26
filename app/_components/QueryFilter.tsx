@@ -14,9 +14,7 @@ type LocationInputType = {
   
 } | undefined
 
-
-
-const QueryFilter = ({onRouting}) => {
+const QueryFilter = () => {
 
   const [datesRange, setDatesRange] = useState<{from: Date, to: Date } | undefined>(undefined)
   const [capacity, setCapacity] = useState('1')

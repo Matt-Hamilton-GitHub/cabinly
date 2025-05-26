@@ -47,14 +47,6 @@ const Cabins = ({ searchParams }: {
     const router = useRouter()
 
 
-    const handleRouting = (k: string, v: string) => {
-        const filterParams = new URLSearchParams(searchParam.toString())
-
-        filterParams.set(k, v)
-        const newPath = `${pathname}?${filterParams.toString()}`
-        console.log(newPath)
-        router.push(newPath)
-    }
 
     useEffect(() => {
         const queryParams = new URLSearchParams(searchParam.toString())
@@ -86,7 +78,7 @@ const Cabins = ({ searchParams }: {
         <div className="relative z-300 h-50 flex items-center  justify-center flex-col w-[100vw] border-y-4 bg-cover bg-center bg-no-repeat bg-[url('../../public/_assets/mountain.jpg')]"></div>
         <div className="relative z-0 flex items-center justify-center flex-col w-full ">
             
-            <QueryFilter onRouting={handleRouting} />
+            <QueryFilter />
             <div className="relative p-2 -z-4 top-20 shadow-inner shadow-[#c5c5c5] rounded-2xl flex flex-row justify-center text-xl text-white font-bold bg-black ">
                 <Link href='/cabins'> <span className='text-white hover:cursor-pointer'>Show All</span></Link>
         </div>
