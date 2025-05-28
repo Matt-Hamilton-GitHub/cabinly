@@ -5,7 +5,6 @@ import { useUserContext } from "./UserContext";
 
 type ReservationType = {
     _id: string,
-    cabinID: string,
     name: string,
     userID: string,
     price: number,
@@ -48,11 +47,11 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
     const { user } = useUserContext()
 
     const getReservationDetails = (id: string) => {
-        return reservations.find((r) => r._id === id)
+        return reservations.find((r) => r._id.toString() === id)
     }
 
     const removeReservation = (cabinID: string) => {
-        setReservations((prev) => prev.filter((r) => r.cabinID !== cabinID))
+        setReservations((prev) => prev.filter((r) => r._id !== cabinID))
     }
 
 
@@ -62,8 +61,11 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
             const res = await fetch(`/api/reservations/${userID}`);
             const data = await res.json()
             console.log(data)
+            
             setReservations(data.userReservations || [])
+            
             setIsLoadingRes(false);
+            
             setResError({isError: false, message: ""})
         } catch (err) {
             setIsLoadingRes(false);
@@ -71,9 +73,9 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
             console.log(err)
         }
     }
-
     useEffect(() => {
         if (user) {
+            
             fetchReservations(user.userId);
         }
 

@@ -2,7 +2,7 @@
 
 
 
-const DatesInput = ({datesRange, setDatesRange}) => {
+const DatesInput = ({ datesRange, setDatesRange }) => {
 
 
   const handleFromChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,23 +18,29 @@ const DatesInput = ({datesRange, setDatesRange}) => {
     const to = e.target.value
 
     setDatesRange((prev) => ({
-     ...prev,
+      ...prev,
       to: to
     }))
   }
 
   return (
-    <div className="flex justify-start items-start gap-1 sm:gap-4">
-        <input 
-            type="date" 
-            onChange={handleFromChange}
-            placeholder="from"
-            className="p-1  text-center text-gray-500 border-white shadow-inner shadow-[#686868] bg-white rounded-3xl hover:placeholder-[black] "/>
-        <input 
-            type="date" 
-            onChange={handleToChange}
-            placeholder="to"
-            className="p-1 text-center text-gray-500  shadow-inner shadow-[#686868] bg-white rounded-3xl hover:placeholder-[black]" />
+    <div className="relative flex flex-col items-center  ">
+      <label
+        htmlFor='dates-input' className=' bg-black w-full  text-center text-white block text-sm font-medium rounded-t-2xl'
+      >When</label>
+      <div id='dates-input'
+        className="flex flex-row">
+        <input
+          type="date"
+          onChange={handleFromChange}
+          placeholder="from"
+          className="p-1 border-2 border-black px-2 h-12  shadow-inner shadow-[#686868] bg-white rounded-b-3xl  hover:placeholder-[black]" />
+        <input
+          type="date"
+          onChange={handleToChange}
+          placeholder="to"
+          className="p-1 border-2 border-black px-2 h-12  shadow-inner shadow-[#686868] bg-white rounded-b-3xl  hover:placeholder-[black]" />
+      </div>
     </div>
   )
 }

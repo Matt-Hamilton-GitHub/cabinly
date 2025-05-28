@@ -37,7 +37,7 @@ export default function CabinCard({ cabin }: CabinCardProps) {
                 <div className="flex felx-row items-center justify-between w-70 p-2">
 
                 <h1 className="
-                 text-xl text-[#0e7490] text-start font-bold">{cabin.name}</h1><Heart className="hover:scale-150 -[red] transition-all duration-350 hover:fill-[red]" color={'red'} fill={'white'} />
+                 text-xl text-[#0e7490] text-start font-bold">{cabin.title}</h1><Heart className="hover:scale-150 -[red] transition-all duration-350 hover:fill-[red]" color={'red'} fill={'white'} />
                  </div>
                  <Rating name="half-rating-read" size='small' defaultValue={cabin.rating } precision={0.5} readOnly />
                 <div className="flex flex-row justify-center align-middle items-center gap-1.5">

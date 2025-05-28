@@ -79,7 +79,7 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
 
   if (!cabin) return <Spinner />;
 
-  const { name, occupancy, description, price, discount, imageUrl, rating, location } = cabin;
+  const { title, occupancy, description, price, discount, imageUrl, rating, location } = cabin;
   return (
     <section className=" relative w-full 
     flex flex-col justify-center items-center ">
@@ -112,7 +112,7 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
       <section className='flex justify-start items-center flex-col w-full gap-5 '>
 
         <div className='mb-6 flex w-full justify-center flex-row items-center '>
-          <h1 className="p-2 rounded-b-2xl text-center text-[orange] text-4xl font-bold bg-[black] shadow-md shadow-[gray] hover:bg-[orange] hover:text-[black] transition-all duration-500">{name}</h1>
+          <h1 className="p-2 rounded-b-2xl text-center text-[orange] text-4xl font-bold bg-[black] shadow-md shadow-[gray] hover:bg-[orange] hover:text-[black] transition-all duration-500">{title}</h1>
         </div>
 
         <div className='flex justify-start items-start flex-col w-full p-5 gap-2 border-b-1 border-[#e1e0e0] '>

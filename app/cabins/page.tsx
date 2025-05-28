@@ -8,7 +8,6 @@ import { Spinner } from "../_components/Spinner";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { queryFiltering } from '../_utils/utils'
 import { TentTree } from 'lucide-react';
 import { PiMountainsBold } from "react-icons/pi";
 
@@ -17,11 +16,12 @@ import QueryFilter from "../_components/QueryFilter";
 
 export type CabinsType = {
     _id: string,
-    name: string,
-    cabinID: string,
+    title: string,
     price: number,
     rating: number,
     location: string,
+    coordinates: {lon: number, lng: number},
+    address: {city: string, state: string, zip_code: string, country: string},
     description: string,
     discount: number,
     imageUrl: string,
@@ -76,12 +76,8 @@ const Cabins = ({ searchParams }: {
 
     return (<div className="relative z-300 flex flex-col justify-start items-center transition-all">
         <div className="relative z-300 h-50 flex items-center  justify-center flex-col w-[100vw] border-y-4 bg-cover bg-center bg-no-repeat bg-[url('../../public/_assets/mountain.jpg')]"></div>
-        <div className="relative z-0 flex items-center justify-center flex-col w-full ">
-            
+        <div className="relative p-10 z-0 flex items-center justify-center flex-col w-full ">         
             <QueryFilter />
-            <div className="relative p-2 -z-4 top-20 shadow-inner shadow-[#c5c5c5] rounded-2xl flex flex-row justify-center text-xl text-white font-bold bg-black ">
-                <Link href='/cabins'> <span className='text-white hover:cursor-pointer'>Show All</span></Link>
-        </div>
         </div>
 
         <div className="relative mt-30">
