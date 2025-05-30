@@ -34,7 +34,7 @@ export async function getAllCabins(req: Request) {
     if (lngParam && latParam) {
       const lat = parseFloat(latParam);
       const lng = parseFloat(lngParam);
-      const radiusInMeters = 10000;
+      const radiusInMeters = 20000;
 
       if (!isNaN(lat) && !isNaN(lng)) {
         query.coordinates = {
@@ -50,7 +50,6 @@ export async function getAllCabins(req: Request) {
     console.dir(query, { depth: null })
 
     const cabins = await Cabin.find(query);
-
 
     return NextResponse.json(cabins, { status: 200 });
   } catch (error: unknown) {

@@ -29,6 +29,10 @@ import { Wine } from 'lucide-react';
 import { Soup } from 'lucide-react';
 
 import Link from 'next/link';
+import SpinnerBoxJump from '@/app/_components/SpinnerBoxJump';
+import DisplayTotal from '@/app/_components/DisplayTotal';
+
+
 
 export default function CabinDetails({ params }: { params: Promise<{ cabinId: string }> }) {
   const { cabinId } = use(params);
@@ -77,7 +81,7 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
   };
 
 
-  if (!cabin) return <Spinner />;
+  if (!cabin) return (<div className="w-full h-200 flex text-center justify-center items-center"><SpinnerBoxJump /></div>);
 
   const { title, occupancy, description, price, discount, imageUrl, rating, location } = cabin;
   return (
@@ -89,6 +93,7 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
           alt="beautiful cabin"
           fill
           className="object-cover rounded-sm"
+          quality={50}
         />
       </div>
       <span className="absolute top-100 bg-[white] p-2 rounded-3xl shadow-[gray] shadow-md flex flex-row justify-center items-center gap-1 
@@ -152,12 +157,13 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
           {!isValidRange(selectedRange) && selectedRange ? <span className='text-[red]'>Invalid Selection</span> : null}
         </div>
       </div>
-
       <div className='fixed  bottom-0 z-3000 rounded-2xl w-full shadow-md shadow-[black] bg-white flex justify-center items-center '>
+       
         <button
           className={` ${isValidRange(selectedRange) ? "hover:cursor-pointer" : "hover:cursor-not-allowed" } p-2 m-5 rounded-2xl bg-[white] text-[black] hover:bg-[black] hover:text-[white] border-3`}
           onClick={() => handleReserve(user, selectedRange, isValidRange, cabin, unavailableDates, setSelectedRange)}
           disabled={!selectedRange?.from || !selectedRange?.to || !isValidRange(selectedRange)}>Reserve</button>
+        <DisplayTotal discount={discount} price={price} duration={selectedRange}/>
       </div>
     </section>
   );
