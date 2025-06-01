@@ -70,26 +70,39 @@ const Cabins = ({ searchParams }: {
     // price 
     // type
 
-    
+    console.log(cabins)
 
 
 
-    return (<div className="relative z-300 flex flex-col justify-start items-center transition-all">
-        <div className="relative z-300 h-50 flex items-center  justify-center flex-col w-[100vw] border-y-4 bg-cover bg-center bg-no-repeat bg-[url('../../public/_assets/mountain.jpg')]"></div>
-        <div className="relative p-10 z-0 flex items-center justify-center flex-col w-full ">         
-            <QueryFilter />
-        </div>
+    return <div className="relative z-[300] flex flex-col justify-start items-center transition-all">
+  <div
+    className="relative z-[300] h-50 flex items-center justify-center flex-col w-[100vw] border-y-4 bg-cover bg-center bg-no-repeat"
+    style={{ backgroundImage: "url('/_assets/mountain.jpg')" }}
+  ></div>
+  
+  <div className="relative p-10 z-0 flex items-center justify-center flex-col w-full">
+    <QueryFilter />
+  </div>
 
-        <div className="relative mt-30">
-            {isLoading ? <div className="flex w-full "><SpinnerBoxJump /></div> : <div className="flex px-[5vw] flex-row justify-center items-center flex-wrap gap-15 ">
-                {cabins?.map((cabin: CabinsType) => {
-                    return (
-                        <CabinCard cabin={cabin} key={crypto.randomUUID()} />
-                    )
-                }
-                )}</div>}
-        </div>
-    </div>)
+  <div className="relative mt-30 w-full">
+    {isLoading ? (
+      <div className="flex w-full">
+        <SpinnerBoxJump />
+      </div>
+    ) : cabins.length === 0 ? (
+      <div className="absolute flex items-center justify-center text-black bg-red-300 w-full h-40">
+        No cabins found
+      </div>
+    ) : (
+      <div className="flex px-[5vw] flex-row justify-center items-center flex-wrap gap-15">
+        {cabins.map((cabin: CabinsType) => (
+          <CabinCard cabin={cabin} key={cabin._id || crypto.randomUUID()} />
+        ))}
+      </div>
+    )}
+  </div>
+</div>
+
 }
 
 export default Cabins

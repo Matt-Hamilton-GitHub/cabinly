@@ -14,7 +14,7 @@ const DiscoverPlaceCard = ({place}) => {
     <motion.div
      initial={{ opacity: 0, scale: 0 }}
     whileInView={{ opacity: 1, scale: 1 }}
-    transition={{  duration: 0.09, delay: 0.2 }}
+    transition={{  duration: 0.2, delay: 0.5 }}
     viewport={{ once: true, amount:0.5 }}
 
      className="z-0 transition-all duration-150 ease-in-out ">

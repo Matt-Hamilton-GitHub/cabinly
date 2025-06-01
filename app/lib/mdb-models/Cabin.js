@@ -6,7 +6,7 @@ const CabinSchema = new mongoose.Schema({
   address: {
     city: { type: String, required: true },
     state: { type: String },
-    zip_code: { type: Number, required: true },
+    zip_code: { type: String },
     country: { type: String, required: true }
   },
   coordinates: {

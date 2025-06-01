@@ -13,8 +13,6 @@ function ReservationCard({ reservation }) {
     router.push(`/cabins/${reservation.cabinID}`)
   }
 
-
-
   const reservationId = reservation._id
   return (
     <div className='relative flex  flex-row flex-wrap items-center justify-center p-2 gap-2.5 rounded-xl bg-zinc-300 hover:text-[white] hover:bg-[black]'>

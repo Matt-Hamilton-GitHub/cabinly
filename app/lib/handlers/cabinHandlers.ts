@@ -38,10 +38,8 @@ export async function getAllCabins(req: Request) {
 
       if (!isNaN(lat) && !isNaN(lng)) {
         query.coordinates = {
-          coordinates: {
             $geoWithin: {
               $centerSphere: [[lng, lat], radiusInMeters / 6378137]
-            }
           }
         }
       }
