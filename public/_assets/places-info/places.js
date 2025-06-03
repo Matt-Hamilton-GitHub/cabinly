@@ -222,8 +222,8 @@ const places = [
           {
             type: "Scenic Road Trips",
             sub_activity: [
-              { id: 35, title: "Ring Road highlights", group_capacity: 8 },
-              { id: 36, title: "Golden Circle day trip", group_capacity: 12 }
+              { id: 35, title: "Ring Road Highlights", group_capacity: 8 },
+              { id: 36, title: "Golden Circle Day Trip", group_capacity: 12 }
             ],
             desc: "Drive past volcanoes, waterfalls, and geysers."
           },

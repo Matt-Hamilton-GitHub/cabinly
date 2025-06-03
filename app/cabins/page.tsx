@@ -5,8 +5,7 @@ import { MdForest } from "react-icons/md";
 import { TbBeach } from "react-icons/tb";
 import { FaTreeCity } from "react-icons/fa6";
 import { Spinner } from "../_components/Spinner";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { TentTree } from 'lucide-react';
 import { PiMountainsBold } from "react-icons/pi";
@@ -42,10 +41,7 @@ const Cabins = ({ searchParams }: {
     const params = use(searchParams)
     const [cabins, setCabins] = useState<CabinsType[]>([])
     const [isLoading, setIsLoading] = useState(true)
-    const pathname = usePathname()
     const searchParam = useSearchParams()
-    const router = useRouter()
-
 
 
     useEffect(() => {
@@ -64,15 +60,8 @@ const Cabins = ({ searchParams }: {
             });
     }, [params]);
 
-    // potential query filters 
-
-    //from  - to
-    // price 
-    // type
 
     console.log(cabins)
-
-
 
     return <div className="relative z-[300] flex flex-col justify-start items-center transition-all">
   <div

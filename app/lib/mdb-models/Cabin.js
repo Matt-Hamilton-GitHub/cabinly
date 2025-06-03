@@ -6,7 +6,7 @@ const CabinSchema = new mongoose.Schema({
   address: {
     city: { type: String, required: true },
     state: { type: String },
-    zip_code: { type: String },
+    zip_code: { type: String | null },
     country: { type: String, required: true }
   },
   coordinates: {
@@ -26,6 +26,7 @@ const CabinSchema = new mongoose.Schema({
   occupancy: { type: Number, required: true },
   description: { type: String, required: true },
   imageUrl: { type: String, required: true },
+  linkedReferences: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Activity' }],
   tags: { type: Array }
 }, { timestamps: true });
 

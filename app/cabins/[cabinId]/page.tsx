@@ -32,6 +32,9 @@ import Link from 'next/link';
 import SpinnerBoxJump from '@/app/_components/SpinnerBoxJump';
 import DisplayTotal from '@/app/_components/DisplayTotal';
 
+import places from '../../../public/_assets/places-info/places'
+import DisplaySeasonalActivitites from '@/app/_components/DisplaySeasonalActivitites';
+
 
 
 export default function CabinDetails({ params }: { params: Promise<{ cabinId: string }> }) {
@@ -80,6 +83,12 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
     });
   };
 
+  const getActivitiesBySeason = (placeId: number) => {
+    const seasonalActivities = places[placeId].seasons
+
+    console.log(seasonalActivities)
+    return seasonalActivities
+  }
 
   if (!cabin) return (<div className="w-full h-200 flex text-center justify-center items-center"><SpinnerBoxJump /></div>);
 
@@ -117,7 +126,8 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
       <section className='flex justify-start items-center flex-col w-full gap-5 '>
 
         <div className='mb-6 flex w-full justify-center flex-row items-center '>
-          <h1 className="p-2 rounded-b-2xl text-center text-[orange] text-4xl font-bold bg-[black] shadow-md shadow-[gray] hover:bg-[orange] hover:text-[black] transition-all duration-500">{title}</h1>
+          <h1 className="p-2 rounded-b-2xl text-center text-[orange] text-4xl font-bold bg-[black] shadow-md shadow-[gray] hover:bg-[orange] hover:text-[black] transition-all duration-500">
+            {title}</h1>
         </div>
 
         <div className='flex justify-start items-start flex-col w-full p-5 gap-2 border-b-1 border-[#e1e0e0] '>
@@ -127,11 +137,12 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
 
 
         <div className='flex justify-start items-start flex-col w-full p-2 pb-7 border-b-1 border-[#e1e0e0] '>
-          <p className='px-10 text-left'>{description}</p>
+          <p className='px-5 text-left'>{description}</p>
         </div>
 
+
         <div className='flex justify-start items-start flex-col w-full p-6 border-b-1 border-[#e1e0e0] '>
-          <h1 className=' pl-20 mb-5 text-2xl font-[700]'>What's Included: </h1>
+          <h1 className=' mb-5 text-2xl font-[700]'>What's Included: </h1>
           <div className='flex gap-3 items-start justify-start flex-col'>
             <div className='flex w-full flex-row gap-5 hover:text-[orange]'><span><Wifi /></span><h3>The Internet Access</h3></div>
             <div className='flex w-full flex-row gap-5 hover:text-[orange]'><span><Bike /></span><h3>Bike Routes</h3></div>
@@ -143,28 +154,38 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
           </div>
         </div>
 
+        <div className='flex justify-start items-start flex-col w-full p-6 border-b-1 border-[#e1e0e0] '>
+          <h1 className='mb-5 text-2xl font-[700]'>Activities:</h1>
+          <div className='flex flex-row justify-center items-center flex-wrap gap-2'>
+              <DisplaySeasonalActivitites tripDetails={places[0]}/>
+          </div>
+        </div>
       </section>
+
+
       <div className='my-20'>
 
-      <DateSelector
-        selected={selectedRange}
-        onChange={setSelectedRange}
-        disabledRanges={unavailableDates}
+        <DateSelector
+          selected={selectedRange}
+          onChange={setSelectedRange}
+          disabledRanges={unavailableDates}
         />
-        </div>
+      </div>
       <div className='w-full flex justify-center items-center flex-col gap-x-5'>
         <div className='bg-[black] px-2 rounded-2xl'>
           {!isValidRange(selectedRange) && selectedRange ? <span className='text-[red]'>Invalid Selection</span> : null}
         </div>
       </div>
       <div className='fixed  bottom-0 z-3000 rounded-2xl w-full shadow-md shadow-[black] bg-white flex justify-center items-center '>
-       
+
         <button
-          className={` ${isValidRange(selectedRange) ? "hover:cursor-pointer" : "hover:cursor-not-allowed" } p-2 m-5 rounded-2xl bg-[white] text-[black] hover:bg-[black] hover:text-[white] border-3`}
+          className={` ${isValidRange(selectedRange) ? "hover:cursor-pointer" : "hover:cursor-not-allowed"} p-2 m-5 rounded-2xl bg-[white] text-[black] hover:bg-[black] hover:text-[white] border-3`}
           onClick={() => handleReserve(user, selectedRange, isValidRange, cabin, unavailableDates, setSelectedRange)}
           disabled={!selectedRange?.from || !selectedRange?.to || !isValidRange(selectedRange)}>Reserve</button>
-        <DisplayTotal discount={discount} price={price} duration={selectedRange}/>
+        <DisplayTotal discount={discount} price={price} duration={selectedRange} />
       </div>
+
+
     </section>
   );
 }
