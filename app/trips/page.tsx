@@ -3,5 +3,5 @@
 export default function TripsPage(){
 
 
-    return <div>TRips</div>
+    return <div>All Activities</div>
 }

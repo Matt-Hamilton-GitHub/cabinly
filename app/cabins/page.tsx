@@ -79,7 +79,7 @@ const Cabins = ({ searchParams }: {
         <SpinnerBoxJump />
       </div>
     ) : cabins.length === 0 ? (
-      <div className="absolute flex items-center justify-center text-black bg-red-300 w-full h-40">
+      <div className="absolute flex items-center justify-center text-black  w-full h-40">
         No cabins found
       </div>
     ) : (

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const GroupShema = new mongoose.Schema({
+const GroupSchema = new mongoose.Schema({
     title: {type: String, required: true},
     capacity: {type: Number, required: true},
     usersSignedUpRef: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
@@ -9,4 +9,4 @@ const GroupShema = new mongoose.Schema({
 },{timestamps: true})
 
 
-export default mongoose.models.Group || mongoose.model('Group', GroupShema, 'Groups')
+export default mongoose.models.Group || mongoose.model('Group', GroupSchema, 'Groups')
