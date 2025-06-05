@@ -26,7 +26,7 @@ const CabinSchema = new mongoose.Schema({
   occupancy: { type: Number, required: true },
   description: { type: String, required: true },
   imageUrl: { type: String, required: true },
-  linkedReferences: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Activity' }],
+  linkedActivities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Activity' }],
   tags: [{ type: String }]
 }, { timestamps: true })
 

@@ -37,7 +37,7 @@
     const date = new Date(dateStr);
 
     return date.toLocaleDateString('en-US', {
-      month: 'short', // .
+      month: 'short',
       day: 'numeric'
     });
   }

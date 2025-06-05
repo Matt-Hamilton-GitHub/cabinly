@@ -34,6 +34,7 @@ import DisplayTotal from '@/app/_components/DisplayTotal';
 
 import places from '../../../public/_assets/places-info/places'
 import DisplaySeasonalActivitites from '@/app/_components/DisplaySeasonalActivitites';
+import DisplayActivities from '@/app/_components/DisplayActivities';
 
 
 
@@ -154,11 +155,9 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
           </div>
         </div>
 
-        <div className='flex justify-start items-start flex-col w-full p-6 border-b-1 border-[#e1e0e0] '>
-          <h1 className='mb-5 text-2xl font-[700]'>Activities:</h1>
-          <div className='flex flex-row justify-center items-center flex-wrap gap-2'>
-              <DisplaySeasonalActivitites tripDetails={places[0]}/>
-          </div>
+        <div className='flex justify-start items-start flex-col w-full p-6 border-b-1 border-[#e1e0e0] gap-5'>
+          <h1 className='mb-5 text-2xl font-[700]'>Activities & Groups :</h1>
+          <DisplayActivities cabinID={cabinId} />
         </div>
       </section>
 

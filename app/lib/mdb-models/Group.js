@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const GroupSchema = new mongoose.Schema({
     title: {type: String, required: true},
+    img_url: {type: String, required: true},
     capacity: {type: Number, required: true},
     usersSignedUpRef: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
     reserved: {type: Number, default: 0},
