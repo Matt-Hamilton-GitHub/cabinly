@@ -1,11 +1,10 @@
 'use client'
 
 import {
-  CalendarDaysIcon,
   UserIcon,
 } from '@heroicons/react/24/solid';
 
-import { BookOpenCheck } from 'lucide-react';
+import { BookOpenCheck, Group, Smile } from 'lucide-react';
 import { useState } from 'react';
 const navLinks = [
    {
@@ -16,6 +15,10 @@ const navLinks = [
     name: 'Reservations',
     icon: <BookOpenCheck className='h-5 w-5 text-primary-600 ' />,
   },
+  {
+    name: 'Groups',
+    icon: <Smile className='h-5 w-5 text-primary-600 ' />
+  }
  
 ];
 
