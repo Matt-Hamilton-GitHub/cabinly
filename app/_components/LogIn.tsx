@@ -101,7 +101,7 @@ export default function Login() {
         </button>
 
       </form>
-      <div className='flex items-center justify-center flex-col m-2'>Don't have an account? <Link className='p-3 underline' href='/account/signup'><b>Sign Up here</b></Link></div>
+      <div className='flex items-center justify-center flex-col m-2'>Don't have an account? <Link className='p-3 underline' href='/sign-up'><b>Sign Up here</b></Link></div>
     </div>
   )
 }

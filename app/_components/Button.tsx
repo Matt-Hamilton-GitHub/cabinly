@@ -1,6 +1,6 @@
 
 
-const Button = ({ action, onClick, color }) => {
+const Button = ({ isDisabled, action, onClick, color }) => {
 
     const bgClass = {
         red: "hover:bg-red-500",
@@ -10,11 +10,12 @@ const Button = ({ action, onClick, color }) => {
     }[color]
 
     return (
-        <div
+        <button
             className={`border-[black] border-2 bg-[white] p-2 rounded-xl shadow-lg inset-shadow-gray-550 text-[black] hover:scale-110 
     hover:text-[white]  hover:border-[white] hover:cursor-pointer transition-all ease-in-out ${bgClass}`}
             onClick={onClick}
-        >{action}</div>
+            disabled={isDisabled}
+        >{action}</button>
     )
 }
 

@@ -3,16 +3,20 @@
 import Button from "@/app/_components/Button"
 import SpinnerBoxJump from "@/app/_components/SpinnerBoxJump"
 import { CircleUser } from "lucide-react"
-import { set } from "mongoose"
+
 import Image from "next/image"
 import { use, useState, useEffect } from "react"
 
+import { useUserContext } from "@/app/contexts/UserContext"
+import Link from "next/link"
 
-type GroupType = {
+
+export type GroupType = {
 _id: string,
 img_url: string,
 title: string,
 reserved: number,
+
 capacity: number,
 guides: [{name: string,
         guideId: string,
@@ -23,7 +27,9 @@ const Group = ({params}: {params : Promise<{groupID: string}>}) => {
   const {groupID} = use(params)
   const [group, setGroup] = useState<GroupType | null>(null)
   const [groupLoading, setGroupLoading] = useState(true)
-
+  
+  const {user, userGroups} = useUserContext()
+  
   const fetchAndSetGroupInfo = async (groupID: string) => {
     setGroupLoading(true)
     const res = await fetch(`/api/groups/${groupID}`)
@@ -34,14 +40,39 @@ const Group = ({params}: {params : Promise<{groupID: string}>}) => {
     
   }
 
+
+  const handleGroupSignUp = async() => {
+    if (user?.userId && groupID ){
+
+      const res = await fetch('/api/groups/join', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body : JSON.stringify({userID: user.userId, groupID  }),
+      })
+
+      const data = await res.json()
+      console.log(data)
+    }
+
+
+  }
+  const userGroupsIDs = userGroups?.map( g => g._id)
+
   useEffect(()=>{
     fetchAndSetGroupInfo(groupID)
   }, [groupID])
 
+  useEffect(()=> {
+
+  },[userGroups])
+
+  console.log(userGroupsIDs)
+  
+
   if (groupLoading) return <div key={groupID} className="w-full h-screen flex items-center justify-center"><SpinnerBoxJump /></div>
   if (!group) return <div key={groupID} className="w-full flex items-center justify-center"><h1>Could not find this Group</h1></div>
 
-  const {title, img_url, capacity, guides, reserved } = group
+  const {_id, title, img_url, capacity, guides, reserved } = group
   return (
     <div key={groupID} className="relative w-full flex items-center justify-center flex-col gap-20">
        <div className="relative w-full h-[300px] border-y-3">
@@ -71,8 +102,11 @@ const Group = ({params}: {params : Promise<{groupID: string}>}) => {
           })}
           </div>
         </div>
-        { capacity === reserved ? <span className="bg-gray-400 p-2 border-2 font-bold">The Group is Full</span> :
-          <Button action='Sign Up' onClick={() => {}} color={'green'}/>
+        {!user?.userId ? <div className="flex justify-center items-center flex-col gap-4"> 
+          <h5 className="bg-red-500 p-1 border-2 border-black text-white"> Please, Create an Account to Join Groups</h5>
+          <Link href='/sign-up' className="underline font-bold">Sign Up</Link>
+           </div> :
+          <Button isDisabled={capacity === reserved || userGroupsIDs.includes(_id)} action='Join Group' onClick={handleGroupSignUp} color={'green'}/>
         }
     </div>
   )

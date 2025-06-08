@@ -29,6 +29,7 @@ const DisplayActivities = ({ cabinID }: { cabinID: string }) => {
     setLoadingActivities(true);
     const res = await fetch(`/api/activities/${cabinID}`)
     const data = await res.json()
+    // console.log(data)
     setActivities(data.data.linkedActivities || [])
     setLoadingActivities(false);
   }
@@ -37,9 +38,9 @@ const DisplayActivities = ({ cabinID }: { cabinID: string }) => {
     fetchAndSetActivities(cabinID);
 
   }, [cabinID])
-  console.log(activities)
+ 
 
-  if (loadingActivities) return <div><SpinnerBoxJump /></div>
+  if (loadingActivities) return <div className="w-full h-20 flex "><SpinnerBoxJump /></div>
 
   return (<div className=" flex gap-2 flex-col w-full">
     {activities?.map((a) => {

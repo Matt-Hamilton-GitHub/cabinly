@@ -122,12 +122,12 @@ export default function SignUp() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-amber-700 text-white py-2 rounded hover:bg-black cursor-pointer transition-all delay-75 ease-in-out"
+          className="w-full text-white bg-[black] py-2 rounded hover:bg-black cursor-pointer transition-all delay-75 ease-in-out"
         >
           {loading ? 'Signing up...' : 'Sign Up'}
         </button>
       </form>
-      <div className='flex items-center justify-center flex-col m-2'>Don't have an account? <Link className='p-3 underline' href='/account/log-in'><b>Log In here</b></Link></div>
+      <div className='flex items-center justify-center flex-col m-2'>Don't have an account? <Link className='p-3 underline' href='/log-in'><b>Log In here</b></Link></div>
     </div>
   )
 }

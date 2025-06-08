@@ -7,6 +7,7 @@ import SideNavigation from "../_components/SideNavigation";
 import { useState } from "react";
 import Profile from "../_components/Profile";
 import { UserReservations } from "../_components/UserReservations";
+import DisplayUserGroups from "../_components/DisplayUserGroups";
 
 export default function Account() {
 
@@ -20,7 +21,7 @@ export default function Account() {
     <div className="flex w-[200px] basis-[100%] flex-col items-center justify-center" >
       {selected === 'profile' && <Profile />}
       {selected === 'reservations' && <UserReservations  />}
-      {selected === 'groups' && <div>No groups added yet</div>}
+      {selected === 'groups' && <DisplayUserGroups />}
     </div>
   </div>
   )

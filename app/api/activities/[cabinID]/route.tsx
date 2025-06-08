@@ -14,7 +14,7 @@ export async function GET(req: Request, {params} : {params : {cabinID: string}})
     try{
         await connectMDB();
 
-        const cabinActivities = await Activity.findById(cabinID)
+        const cabinActivities = await Cabin.findById(cabinID)
             .select('linkedActivities')
             .populate({
                 path:'linkedActivities',
