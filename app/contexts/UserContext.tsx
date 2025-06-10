@@ -14,6 +14,7 @@ type AuthContextType = {
     user: UserType | null;
     setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
     userGroups : GroupType[] | [] ;
+    getAndSetUserGroups: () => Promise<void>;
 };
 
 // CONTEXT
@@ -50,13 +51,11 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [user?.userId])
     return (
-        <UserContext.Provider value={{ user, setUser, userGroups}}>
+        <UserContext.Provider value={{ user, setUser, userGroups, getAndSetUserGroups}}>
             {children}
         </UserContext.Provider>
     );
 };
-
-  
 
 
 // HOOK

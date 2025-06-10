@@ -4,7 +4,7 @@ import {
   UserIcon,
 } from '@heroicons/react/24/solid';
 
-import { BookOpenCheck, Group, Smile } from 'lucide-react';
+import { BookOpenCheck, Smile } from 'lucide-react';
 import { useState } from 'react';
 const navLinks = [
    {
@@ -46,7 +46,7 @@ function SideNavigation({ onSelect, selected }) {
       </ul>
 
     </nav>
-      <button className={`${shrink ? "top-[50%]" :' absolute left-[185px] top-[50%]'} z-0 flex flex-col justify-center items-center w-[20px] h-[100px] absolute text-[white] bg-[black] cursor-pointer 
+      <button className={`${shrink ? "top-[50%]" :' absolute left-[185px] top-[50%]'} z-100 flex flex-col justify-center items-center w-[20px] h-[100px] absolute text-[white] bg-[black] cursor-pointer 
         rounded-tr-4xl rounded-br-4xl 
         transition-all duration-150 ease-in-out 
         hover:scale-120 hover:w-[30] hover:h-[110px]`} 

@@ -31,7 +31,6 @@ const Groups = () => {
         <h1 className="p-10 text-center font-bold text-3xl">Groups</h1>
         {isLoading ? <div className="w-full h-200 flex items-center justify-center"><SpinnerBoxJump/></div> :
         <div className="w-full flex items-center justify-center flex-wrap flex-row gap-5">{allGroups?.map((g) => {
-
           return <GroupCard group={g}/>
         })}</div>
         }

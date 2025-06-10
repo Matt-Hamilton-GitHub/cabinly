@@ -18,6 +18,7 @@ export async function GET(req: Request, {params} : {params : {cabinID: string}})
             .select('linkedActivities')
             .populate({
                 path:'linkedActivities',
+                model: Activity,
                 populate :{
                     path: 'groups',
                     model: Group
@@ -25,7 +26,7 @@ export async function GET(req: Request, {params} : {params : {cabinID: string}})
             })
             .lean();
 
-            console.log(cabinActivities)
+            
             return NextResponse.json({data: cabinActivities}, {status: 200})
 
     }catch(err){

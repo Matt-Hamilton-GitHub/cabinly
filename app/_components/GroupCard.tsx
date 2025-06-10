@@ -4,17 +4,16 @@ import Link from "next/link"
 
 const GroupCard = ({group} : {group: GroupType}) => {
   return (
-    <div className="flex items-center justify-center flex-col">
-        <div className="flex relative w-100 h-30">
+    <div className="relative z-1 flex items-center justify-center flex-col gap-3">
+        <div className="z-1 flex relative max-w-100 min-w-70 h-30">
             <Image 
             fill
             src={group.img_url}
             alt={`image of ${group.title}`}
-            className="object-cover"/>
+            className="relative z-1 object-cover"/>
         </div>
         <h3>{group.title}</h3>
         <Link className="bg-gray-300 p-1 px-4 rounded-sm" href={`/groups/${group._id}`}>View</Link>
-
     </div>
   )
 }
