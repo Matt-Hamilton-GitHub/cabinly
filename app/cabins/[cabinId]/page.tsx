@@ -6,7 +6,6 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import Image from "next/image";
 import DateSelector from '@/app/_components/DataSelector';
 import { CabinsType } from "../page";
-import { Spinner } from '@/app/_components/Spinner';
 
 import { handleReserve } from '@/app/_utils/utils';
 import { useUserContext } from "@/app/contexts/UserContext";
@@ -35,6 +34,7 @@ import DisplayTotal from '@/app/_components/DisplayTotal';
 import places from '../../../public/_assets/places-info/places'
 import DisplaySeasonalActivitites from '@/app/_components/DisplaySeasonalActivitites';
 import DisplayActivities from '@/app/_components/DisplayActivities';
+import LoadingComponent from '@/app/_components/LoadingComponent';
 
 
 
@@ -91,7 +91,7 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
     return seasonalActivities
   }
 
-  if (!cabin) return (<div className="w-full h-200 flex text-center justify-center items-center"><SpinnerBoxJump /></div>);
+  if (!cabin) return (<div className="flex text-center justify-start items-center flex-col"><LoadingComponent /></div>);
 
   const { title, occupancy, description, price, discount, imageUrl, rating, location } = cabin;
   return (

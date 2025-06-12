@@ -15,7 +15,7 @@ const DisplayUserGroups = () => {
         <div className="w-full flex justify-center items-start  flex-row flex-wrap gap-4 p-10">
           <div className="flex items-center justify-center w-full pl-5 underline pb-5"> <h3 className="font-bold text-xl">You have joined: </h3></div>
           {userGroups.map((g: GroupType) => {
-            return <GroupCard group={g} />
+            return <GroupCard key={g._id} group={g} />
           })}
         </div>
       }

@@ -66,8 +66,8 @@ const SingleReservationPage =  (
         <div className="flex flex-col items-center justify-center gap-10 ">
             {/* <h2 className="border-b-2">Actions</h2> */}
             <div className="flex gap-5 flex-wrap">
-                 <Button action={'Cancel'} color={'red'} onClick={ () => handleDeleteReservation(reservationDetails._id)} />
-                 <Button action={'Update Dates'} color='orange' onClick={ () => handleUpdateReservationDates(reservationDetails._id)} />
+                 <Button isDisabled={false} action={'Cancel'} color={'red'} onClick={ () => handleDeleteReservation(reservationDetails._id)} />
+                 <Button isDisabled={false} action={'Update Dates'} color='orange' onClick={ () => handleUpdateReservationDates(reservationDetails._id)} />
             </div>
         </div>
     </div>

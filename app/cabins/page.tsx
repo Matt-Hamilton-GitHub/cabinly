@@ -47,6 +47,7 @@ const Cabins = ({ searchParams }: {
     useEffect(() => {
         const queryParams = new URLSearchParams(searchParam.toString())
         setIsLoading(true);
+        console.log(queryParams)
         fetch(`/api/cabins?${queryParams}`)
             .then((res) => res.json())
             .then((fetchedData) => {
@@ -65,15 +66,15 @@ const Cabins = ({ searchParams }: {
 
     return <div className="relative z-[300] flex flex-col justify-start items-center transition-all">
   <div
-    className="relative z-[300] h-50 flex items-center justify-center flex-col w-[100vw] border-y-4 bg-cover bg-center bg-no-repeat"
+    className="relative z-[300] grayscale-50 h-50 flex items-center justify-center flex-col w-[100vw] border-y-4 bg-cover bg-center bg-no-repeat"
     style={{ backgroundImage: "url('/_assets/mountain.jpg')" }}
   ></div>
   
-  <div className="relative p-10 z-0 flex items-center justify-center flex-col w-full">
+  <div className="relative pt-10 z-0 flex items-center justify-center flex-col w-full shadow-sm">
     <QueryFilter />
   </div>
 
-  <div className="relative mt-30 w-full">
+  <div className="relative mt-10 w-full ">
     {isLoading ? (
       <div className="flex w-full">
         <SpinnerBoxJump />
@@ -83,7 +84,7 @@ const Cabins = ({ searchParams }: {
         No cabins found
       </div>
     ) : (
-      <div className="flex px-[5vw] flex-row justify-center items-center flex-wrap gap-15">
+      <div className="flex px-[5vw] py-20 flex-row justify-center items-center flex-wrap gap-15">
         {cabins.map((cabin: CabinsType) => (
           <CabinCard cabin={cabin} key={cabin._id || crypto.randomUUID()} />
         ))}

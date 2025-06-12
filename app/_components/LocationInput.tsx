@@ -36,7 +36,7 @@ const LocationInput = ({location, setLocation}) => {
     }
 
   return (
-    <div className="relative flex flex-col items-center overflow-x-clip">
+    <div className="relative flex flex-col items-center overflow-x-clip ">
       <label 
       htmlFor='location-input' className=' bg-black w-full  text-center text-white block text-sm font-medium rounded-t-2xl'
       >Where</label>

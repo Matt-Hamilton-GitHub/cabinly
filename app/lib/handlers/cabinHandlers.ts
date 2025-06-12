@@ -2,6 +2,8 @@
 import { connectMDB } from "../mongodb";
 import Cabin from "../mdb-models/Cabin";
 import { NextResponse } from "next/server";
+import Reservation from "../mdb-models/Reservation";
+import { Types } from "mongoose";
 
 
 // Get all cabins
@@ -14,10 +16,19 @@ export async function getAllCabins(req: Request) {
     const { searchParams } = new URL(req.url)
     const capacityParam = searchParams.get('capacity')
     const addressParam = searchParams.get('address')
+    const startDate = searchParams.get('start')
+    const endDate = searchParams.get('end')
     const latParam = searchParams.get('lat')
     const lngParam = searchParams.get('lng')
 
     const query: Record<string, any> = {}
+
+    //start and end dates
+    let start = startDate ? new Date(startDate) : null;
+    let end = endDate ? new Date(endDate) : null;
+
+
+
 
     if (capacityParam) {
       const occupancy = parseInt(capacityParam, 10);
@@ -45,7 +56,27 @@ export async function getAllCabins(req: Request) {
       }
     }
 
+    //get conflicting reservations
+    let unavailableCabinIDs:  Types.ObjectId[] = []
+
+    if (start && end) {
+      const reservations = await  Reservation.find(
+          {
+          "range.from": {$lte: end},
+          "range.to": {$gte: start},
+          
+          confirmed: true,
+          }
+      )
+      unavailableCabinIDs = reservations.map((r) => r.cabinID)
+      console.log(unavailableCabinIDs)
+    }
+
+
     console.dir(query, { depth: null })
+
+    if (unavailableCabinIDs.length > 0) query._id = {$nin: unavailableCabinIDs}
+
 
     const cabins = await Cabin.find(query);
 
