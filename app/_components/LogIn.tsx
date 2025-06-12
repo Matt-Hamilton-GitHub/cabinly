@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { CircleUserRound } from 'lucide-react';
 
+
 export default function Login() {
 
   const [email, setEmail] = useState('')
@@ -48,7 +49,9 @@ export default function Login() {
         }
 
         setUser(user)
-        router.push('/account')
+        setPassword("")
+        setEmail("")
+        router.push('/cabins')
       } else {
         setError(data.message)
       }

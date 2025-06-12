@@ -48,7 +48,11 @@ export default function SignUp() {
         }
 
         setUser(user)
-        router.push('/account')
+        setPassword("");
+        setConfirmPassword("")
+        setEmail("")
+        setName("")
+        router.push('/cabins')
        
       } else {
         setError(data.message)
