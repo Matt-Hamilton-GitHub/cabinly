@@ -19,7 +19,7 @@ export type CabinsType = {
     price: number,
     rating: number,
     location: string,
-    coordinates: {lon: number, lng: number},
+    coordinates: {lat: number, lng: number},
     address: {city: string, state: string, zip_code: string, country: string},
     description: string,
     discount: number,

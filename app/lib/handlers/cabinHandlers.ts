@@ -4,6 +4,7 @@ import Cabin from "../mdb-models/Cabin";
 import { NextResponse } from "next/server";
 import Reservation from "../mdb-models/Reservation";
 import { Types } from "mongoose";
+import { CabinsType } from "@/app/cabins/page";
 
 
 // Get all cabins
@@ -79,7 +80,7 @@ export async function getAllCabins(req: Request) {
 
 
     const cabins = await Cabin.find(query);
-
+    
     return NextResponse.json(cabins, { status: 200 });
   } catch (error: unknown) {
     if (error instanceof Error) {
@@ -99,9 +100,25 @@ export async function getCabinById(cabinID: string) {
     if (!cabin) {
       return NextResponse.json({ error: "Cabin not found" }, { status: 404 });
     }
+    const safeCabin : CabinsType = {
+    _id: cabin._id,
+    title: cabin.title,
+    price: cabin.price,
+    rating: cabin.rating,
+    location: cabin.location,
+    coordinates: {lat: cabin.coordinates.coordinates[1], lng: cabin.coordinates.coordinates[0]},
+    address: cabin.address,
+    description: cabin.description,
+    discount: cabin.discount,
+    imageUrl: cabin.imageUrl,
+    occupancy: cabin.occupancy,
+    tags: cabin.tags
+    }
+    
+    
 
-    return NextResponse.json({ data: cabin }, { status: 200 });
-
+    console.log(safeCabin.description)
+    return NextResponse.json({ data: safeCabin }, { status: 200 });
   } catch (error: unknown) {
     console.error("Error fetching cabin:", error);
 
