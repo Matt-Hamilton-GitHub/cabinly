@@ -131,9 +131,8 @@ const Group = ({params}: {params : Promise<{groupID: string}>}) => {
            </div> )}
 
         {!userGroupsIDs.includes(_id) 
-        ? <Button isDisabled={capacity === reserved || userGroupsIDs.includes(_id)} action='Join Group' onClick={handleGroupSignUp} color={'green'}/>
+        ? (user && <Button isDisabled={!user || capacity === reserved || userGroupsIDs.includes(_id)} action='Join Group' onClick={handleGroupSignUp} color={'green'}/>)
         : <div className="flex gap-10">
-            {/* <CircleCheckBig color="green " size={50} /> */}
             <Button isDisabled={false} color='red' action='Leave Group' onClick={handleDisjoinGroup}/>
           </div>
       }
