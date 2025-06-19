@@ -41,6 +41,7 @@ const DisplayActivities = ({ cabinID }: { cabinID: string }) => {
  
 
   if (loadingActivities) return <div className="w-full h-20 flex "><SpinnerBoxJump /></div>
+  if (activities.length == 0) return <div className="w-full justify-center p-2 flex bg-gray-200">No activities added yet</div>
 
   return (<div className=" flex gap-2 flex-col w-full">
     {activities?.map((a) => {

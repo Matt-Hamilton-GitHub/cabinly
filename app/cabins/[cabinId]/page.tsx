@@ -105,7 +105,9 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
           alt="beautiful cabin"
           fill
           className="object-cover rounded-sm"
+          placeholder="blur"
           quality={50}
+          blurDataURL='../../public/_assets/icon.png'
         />
       </div>
       <span className="absolute top-100 bg-[white] p-2 rounded-3xl shadow-[gray] shadow-md flex flex-row justify-center items-center gap-1 
@@ -142,8 +144,7 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
         <div className='flex justify-start items-start flex-col w-full p-2'>
           <p className='px-5 text-left'>{description}</p>
         </div>
-
-
+        
         <>
           <h1 className=' mb-5 text-2xl font-[700]'>What's Included: </h1>
           <div className='flex  flex-row w-full mx-6 border-b-1 border-[#e1e0e0] gap-3 '>

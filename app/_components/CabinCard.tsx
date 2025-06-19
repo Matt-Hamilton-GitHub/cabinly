@@ -18,28 +18,33 @@ export type CabinCardProps = {
 export const metadata = {
     title: 'Cabin'
 }
+
 export default function CabinCard({ cabin }: CabinCardProps) {
+
     const cabinId = cabin._id;
-    return (<div className="flex flex-row w-110 rounded-sm shadow-[gray] shadow-lg border-2 border-[#e3e3e3eb] 
-        hover:scale-110 hover:border-3 hover:cursor-pointer hover:border-[#cad3e4f9] transition-all duration-350">
-        <div className=" rounded-s-xl w-40 h-50 relative object-cover rounded-r-[200px] shadow-md shadow-[black]">
+    return (<div className="flex flex-row w-110 rounded-sm shadow-[gray] shadow-lg  border-[#e3e3e3eb] 
+        hover:scale-110 transition-all duration-350">
+        <div className="  w-40 h-50 relative object-cover ">
             <Image
                 fill
                 src={cabin.imageUrl}
                 alt={`a beatiful cabin`}
-                placeholder="empty"
-                className="object-cover rounded-l-2sm rounded-r-[200px]"
+                className="object-cover  "
+                placeholder="blur"
+                quality={10}
+                blurDataURL='../../public/_assets/icon.png'
             />
         </div>
 
-        <div className=" flex flex-col p-2 justify-between  ">
+        <div className=" flex flex-col justify-between  ">
             <div className="flex flex-col">
-                <div className="flex felx-row items-center justify-between w-70 p-2">
+                <div className="flex flex-col items-center justify-center w-70 p-2">
 
                 <h1 className="
-                 text-xl text-[#0e7490] text-start font-bold">{cabin.title}</h1><Heart className="hover:scale-150 -[red] transition-all duration-350 hover:fill-[red]" color={'red'} fill={'white'} />
-                 </div>
+                 text-xl text-[#0e7490] text-start font-bold">{cabin.title}</h1>
+                 {/* <Heart className="hover:scale-150 -[red] transition-all duration-350 hover:fill-[red]" color={'red'} fill={'white'} /> */}
                  <Rating name="half-rating-read" size='small' defaultValue={cabin.rating } precision={0.5} readOnly />
+                 </div>
                 <div className="flex flex-row justify-center align-middle items-center gap-1.5">
                     <FaPeopleGroup />
                     <div className="flex  justify-center items-center">
@@ -53,7 +58,7 @@ export default function CabinCard({ cabin }: CabinCardProps) {
             </div>
             
             <Link href={`/cabins/${cabinId}`} >
-                <div className="flex flex-row justify-start items-center gap-1.5"> <BsFillBookmarkPlusFill color={'green'} /> <h4>Details & Reservations </h4></div>
+                <div className="flex flex-row justify-normal gap-15 px-2 items-center  bg-black text-white"> <BsFillBookmarkPlusFill fill="white" /> <h4>Details & Reservations </h4></div>
             </Link>
         </div>
     </div>)
