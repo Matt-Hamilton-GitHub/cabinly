@@ -15,10 +15,9 @@ export default function Account() {
   
 
   return (
-  <div className="flex items-start flex-row w-full">
+  <div className="flex items-start flex-row w-full h-screen">
     <SideNavigation onSelect={setSelected} selected={selected} />
-    
-    <div className="flex w-[200px] basis-[100%] flex-col items-center justify-center" >
+    <div className="flex w-[200px] h-full basis-[100%] flex-col " >
       {selected === 'profile' && <Profile />}
       {selected === 'reservations' && <UserReservations  />}
       {selected === 'groups' && <DisplayUserGroups />}

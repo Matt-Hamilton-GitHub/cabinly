@@ -1,73 +1,51 @@
 
 'use client'
 import { useUserContext } from "../contexts/UserContext"
+import { useReservation } from "../contexts/ReservationContext";
+import { UserRound } from 'lucide-react';
+import { Flame } from 'lucide-react';
+import { BookMarked } from 'lucide-react';
+import { Handshake } from 'lucide-react';
 
 
 export default function Profile() {
 
-    const { user } = useUserContext()
-    console.log(user)
+    const { user, userGroups } = useUserContext()
+    const {reservations} = useReservation()
+   
+
 
 
   return (
-    <div className="p-10">
-
-      <p className="text-lg mb-8 text-primary-200">
-        Providing the following information will make your check-in process
-        faster and smoother. See you soon!
-      </p>
-
-      <form className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col">
-        <div className="space-y-2">
-          <label>Full name</label>
-          <input
-            disabled
-            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
-          />
+    <div className="w-full h-full flex justify-start flex-col items-start p-10">
+      
+      <div className="w-full flex justify-center items-center flex-row py-15 gap-10 flex-wrap">
+        <UserRound size={50}/>
+        <div>
+        <div className="flex w-full bg-gray-200 p-2">Name: <span className="font-bold px-4">{user?.name}</span></div>
+         <div className="flex w-full bg-gray-200 p-2">Email: <span className="font-bold px-4">{user?.email}</span></div>
         </div>
+      </div>
 
-        <div className="space-y-2">
-          <label>Email address</label>
-          <input
-            disabled
-            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
-          />
-        </div>
+    <div className="flex flex-wrap justify-center items-center flex-row gap-5 w-full border-y-1 border-gray-300 py-5">
+      
+      <div className="bg-black text-white flex flex-row gap-2 justify-center items-center p-2 rounded-2xl">
+        <Flame color="red"/>
+        <span className="">Points Earned on Trevel: 0</span>
+      </div>
 
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <label htmlFor="nationality">Where are you from?</label>
-            {/* <Image
-              src={countryFlag}
-              alt="Country flag"
-              className="h-5 rounded-sm"
-              width={10}
-              height={10}
-            /> */}
-          </div>
+      <div className="bg-black text-white flex flex-row gap-2 justify-center items-center p-2 rounded-2xl">
+        <BookMarked  color="green"/>
+        <span className="">Reservations Made: {reservations.length}</span>
+      </div>
+      <div className="bg-black text-white flex flex-row gap-2 justify-center items-center p-2 rounded-2xl">
+        <Handshake  color="orange"/>
+        <span className="">Groups Joined: {userGroups.length}</span>
+      </div>
 
-          {/* <SelectCountry
-            name="nationality"
-            id="nationality"
-            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
-            defaultCountry={nationality}
-          /> */}
-        </div>
-
-        <div className="space-y-2">
-          <label htmlFor="nationalID">National ID number</label>
-          <input
-            name="nationalID"
-            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
-          />
-        </div>
-
-        <div className="flex justify-end items-center gap-6">
-          <button className="bg-accent-500 px-8 py-4 text-primary-800 font-semibold hover:bg-accent-600 transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300">
-            Update profile
-          </button>
-        </div>
-      </form>
+    </div>
+    
+    
     </div>
   );
 }

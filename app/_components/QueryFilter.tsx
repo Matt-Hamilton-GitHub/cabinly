@@ -3,9 +3,8 @@ import DatesInput from "./DatesInput"
 import LocationInput from "./LocationInput"
 import Button from "./Button"
 import { useEffect, useState } from "react"
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname} from "next/navigation";
 import { useRouter } from "next/navigation";
-import Link from "next/link"
 
 type LocationInputType = {
   address: string | undefined,
