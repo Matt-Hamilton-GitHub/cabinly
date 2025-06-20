@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import SpinnerBoxJump from "./SpinnerBoxJump"
 import { SquarePlus } from "lucide-react"
 import Link from "next/link"
+import DisplayGroups from "./DisplayGroups"
 
 type ActivityType = {
   _id: string,
@@ -48,20 +49,7 @@ const DisplayActivities = ({ cabinID }: { cabinID: string }) => {
       return <div className="flex flex-col items-start justify-start gap-2 border-b-1 py-2 w-full" key={a._id}>
         <div className="flex flex-row text-2xl items-center justify-center"><span className="border-2 px-2 rounded-sm font-bold bg-black text-white">{a?.title}</span></div>
         <p className="">{a?.a_desc}</p>
-        <div className="flex gap-2 flex-col">
-          <h2 className="font-bold">Groups available for sign up</h2>
-          <div className="flex gap-2 flex-row flex-wrap">
-            {a.groups?.map((g) => {
-              const groupID = g._id
-              return <div className="bg-gray-300 p-1 flex flex-row gap-2" key={groupID}> 
-              <Link href={`/groups/${groupID}`}>
-              <SquarePlus className="hover: cursor-pointer" color={'black'} size={25} />
-              </Link>
-                <h3>{g.title}</h3>
-              </div>
-            })}
-          </div>
-        </div>
+        <DisplayGroups a={a} />
       </div>
     })
     }

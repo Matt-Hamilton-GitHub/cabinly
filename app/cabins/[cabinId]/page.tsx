@@ -97,7 +97,7 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
   console.log(cabin)
   const { title, occupancy, description, price, discount, imageUrl, rating, location, coordinates } = cabin;
   return (
-    <section className=" relative w-full 
+    <section className=" relative w-full
     flex flex-col justify-center items-center ">
       <div className="relative w-full h-[500px] border-y-10">
         <Image
@@ -126,7 +126,6 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
           <ArrowBigLeft className='stroke-white fill-[white] hover:scale-110 hover:cursor-pointer' size={40} />
         </Link>
       </span>
-
 
       <section className='flex justify-start items-center flex-col w-full gap-5 '>
 
