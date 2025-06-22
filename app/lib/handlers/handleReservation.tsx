@@ -48,7 +48,7 @@ export async function getUserReservations(userId: string){
     console.log(`fetching reservations for: ${userId}`)
       try {
         await connectMDB();
-        console.log(userId)
+        
         const userReservations= await Reservation.find({userID: userId});
         
         return NextResponse.json({userReservations}, {status: 200});
@@ -63,7 +63,7 @@ export async function getUserReservations(userId: string){
 }
 
 export async function deleteReservation(req: Request){
-  console.log('delete res invoked')
+  
   try {
      const body = await req.json();
      const {reservationId} = body

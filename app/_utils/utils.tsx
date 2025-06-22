@@ -46,3 +46,4 @@
  export const handleGroupSignUp = (userId: string, groupId: string) =>{
   console.log(userId, groupId);
   }
+

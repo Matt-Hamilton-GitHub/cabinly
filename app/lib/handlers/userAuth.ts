@@ -16,9 +16,7 @@ type userSignUpReq = {
     email: string,
     password: string,
     name: string,
-
 }
-
 
 export async function userLogIn(req: Request) {
     console.log('user sign in called')
@@ -63,6 +61,10 @@ export async function userLogIn(req: Request) {
         return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
+}
+
+export function destoryToken() {
+    
 }
 
 export async function userSignUp(req: Request) {

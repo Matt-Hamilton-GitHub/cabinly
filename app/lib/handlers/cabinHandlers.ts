@@ -115,9 +115,7 @@ export async function getCabinById(cabinID: string) {
     tags: cabin.tags
     }
     
-    
 
-    console.log(safeCabin.description)
     return NextResponse.json({ data: safeCabin }, { status: 200 });
   } catch (error: unknown) {
     console.error("Error fetching cabin:", error);
