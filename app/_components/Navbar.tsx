@@ -12,7 +12,6 @@ export default function Navbar() {
     const { user, setUser } = useUserContext();
     const router = useRouter()
     
-
     const handleLogout = async () => {
         await fetch('/api/account/logout', { method: 'POST' });
         setUser(null);

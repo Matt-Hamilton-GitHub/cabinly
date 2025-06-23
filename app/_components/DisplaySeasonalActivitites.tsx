@@ -27,22 +27,22 @@ const DisplaySeasonalActivitites = ({tripDetails}) => {
                             </div>
                             {/* guides */}
                             <div className="flex p-2 flex-col gap-3 justify-center">
-                                <h1 className="pt-20 border-b-2 w-55 text-2xl self-center text-center">Our Guides </h1>
+                                <h1 className="pt-20 border-b-2 font-bold text-2xl self-center text-center">Our Guides </h1>
+                                <div className="flex w-full justify-center gap-5">
+
                                 {tripDetails?.guides.map((p) => {
                                     return <div key={crypto.randomUUID()} >
-                                        <div className="relative flex flex-row p-2 gap-2 border-2  justify-between">
-                                            <span className=" flex flex-row p-2 gap-2 border-2 ">
+                                        <div className="relative flex flex-row p-2 gap-2 border-2">
+                                            <span className=" flex flex-row p-1 gap-2 ">
                                                 <SquareUser/>
                                                 <h3>{p}</h3>
                                             </span>
-                                            {/* <div className="flex flex-row gap-2">
-                                                <Button isDisabled={false} color='orange' action='Join Group' onClick={() => { handleGroupSignUp('4444', '66767') }} />
-                                                <Button isDisabled={false} color='green' action='Request a Guide' onClick={() => { handleGroupSignUp('4444', '66767') }} />
-                                            </div> */}
+                                           
                                         </div>
                                     </div>
                                 })
-                                }
+                            }
+                            </div>
                             </div>
     
                         </div>

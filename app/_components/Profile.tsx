@@ -13,9 +13,6 @@ export default function Profile() {
     const { user, userGroups } = useUserContext()
     const {reservations} = useReservation()
    
-
-
-
   return (
     <div className="w-full h-full flex justify-start flex-col items-start p-10">
       
@@ -42,10 +39,7 @@ export default function Profile() {
         <Handshake  color="orange"/>
         <span className="">Groups Joined: {userGroups.length}</span>
       </div>
-
     </div>
-    
-    
     </div>
   );
 }
