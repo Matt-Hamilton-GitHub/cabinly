@@ -7,7 +7,7 @@ export async function GET(req: Request){
 
     try{
         await connectMDB();
-        const places= new Place();
+        const places = new Place();
         return NextResponse.json({data: places, status: 200})
     }catch(err){
         console.error(err)

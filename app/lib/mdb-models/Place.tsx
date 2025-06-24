@@ -9,12 +9,12 @@ const PlaceSchema = new mongoose.Schema({
     seasons: [{type: String}],
     cabinsRef: [{
         type: Schema.Types.ObjectId,
-        ref: 'Cabins',
+        ref: 'Cabin',
     }],
-    activitiesRef : [[{
+    activitiesRef : [{
         type: Schema.Types.ObjectId,
-        ref: 'Activities'
-    }]]
+        ref: 'Activity'
+    }]
 })
 
 export default mongoose.models.Place || mongoose.model('Place', PlaceSchema, 'Places')
