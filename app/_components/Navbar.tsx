@@ -11,7 +11,7 @@ export default function Navbar() {
 
     const { user, setUser } = useUserContext();
     const router = useRouter()
-    
+
     const handleLogout = async () => {
         await fetch('/api/account/logout', { method: 'POST' });
         setUser(null);
@@ -29,10 +29,10 @@ export default function Navbar() {
             </div>
             <div className="flex flex-row gap-2 border-[black] border-2 bg-[white] p-2 rounded-xl shadow-lg inset-shadow-gray-550 text-[black] hover:scale-110 hover:text-[white]  hover:border-[white] transition-all ease-in-out hover:bg-[black]">
                 {user ?
-                    // <Link href='/account'>
-                    //     <div className="flex flex-row gap-2 items-center justify-center"><CircleUserRound /><span className="hidden md:block">Account</span></div>
-                    // </Link>
-                    <button onClick={() => handleLogout()}>Log Out</button>
+                    <>
+                        <Link className="border-2 px-2 rounded-sm " href='/account'>Account</Link>
+                        <button className="border-l-2 px-2 hover:cursor-pointer" onClick={() => handleLogout()}>Log Out</button>
+                    </>
                     : <Link href='/log-in'>Log in</Link>}
             </div>
         </div>)

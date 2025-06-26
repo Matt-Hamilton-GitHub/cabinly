@@ -50,7 +50,7 @@ const HomePage = () => {
                           </div>
               <div className="flex mt-5" >
 
-              {!showMore ? <Button color="green" onClick={handleShowMore} action={'Show More'}/> : <Button color="green" onClick={handleShowMore} action={'Show Less'}/>}
+              {!showMore ? <Button isDisabled={false} color="green" onClick={handleShowMore} action={'Show More'}/> : <Button isDisabled={false}  color="green" onClick={handleShowMore} action={'Show Less'}/>}
               </div>
         </div>
       </div>
