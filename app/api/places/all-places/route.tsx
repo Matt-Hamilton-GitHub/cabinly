@@ -3,6 +3,7 @@ import Place from "@/app/lib/mdb-models/Place";
 import Activity from "@/app/lib/mdb-models/Activity";
 import { connectMDB } from "@/app/lib/mongodb";
 import { NextResponse } from "next/server";
+import Group from "@/app/lib/mdb-models/Group";
 
 export async function GET(_req: Request) {
 
@@ -11,12 +12,16 @@ export async function GET(_req: Request) {
 
     const place = await Place.find({})
       .populate({
-        path: "seasons.cabinsRef",
+        path: "cabinsRef",
          model: Cabin})
       .populate({
         path: "seasons.activitiesRef",
-        model: Activity}
-    );
+        model: Activity,
+        populate: {
+        path: "groups",
+        model: Group
+        }
+    })
 
     if (!place) {
       return NextResponse.json({ message: "Place not found" }, { status: 404 });

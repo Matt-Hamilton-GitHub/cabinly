@@ -26,7 +26,6 @@ export async function GET(req: Request, {params} : {params : {cabinID: string}})
             })
             .lean();
 
-            
             return NextResponse.json({data: cabinActivities}, {status: 200})
 
     }catch(err){
