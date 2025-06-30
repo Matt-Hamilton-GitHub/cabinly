@@ -1,22 +1,26 @@
 import Image from "next/image"
-
+import Link from "next/link";
 
 
 const PlaceCard = ({place}) => {
+
+    const {seasons} = place;
   return (
-    <div className="flex flex-col scroll-auto">
-    <div className="relative h-50 border-2 w-50">
+    <div className="flex flex-col gap-5 border-b-1 pb-5">
+    <div className="relative border-2 h-50 fles w-full">
         <Image 
         src={place.images_url[0]}
         fill
         alt={`image of ${place.name}`}
-        className="object-cover"
+        className="object-cover w-100"
         />
     </div>
-    <div>
-        <h2 className="text-black">{place.name}</h2>
-        {/* <p>{place.description}</p> */}
+    <div className="flex gap-2 flex-col">
+        <h2 className="text-black font-bold text-2xl">{place.name}</h2>
+        <p>{place.description}</p>
     </div>
+   
+       <Link href="#" className=" p-2 bg-gray-300 shadow shadow-gray-400 border-1 rounded-sm w-30" >Learn More</Link>
 
         </div>
   )

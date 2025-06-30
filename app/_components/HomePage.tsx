@@ -42,8 +42,7 @@ const HomePage = () => {
 
         <div className="
                         flex justify-center items-center flex-wrap flex-col">
-                          <div className="flex flex-row justify-evenly items-start flex-wrap gap-20">
-
+                          <div className="flex flex-col justify-evenly items-start  gap-20">
                           {places.slice(0,showMore ? places.length : 3).map((place) =>{
                             return <DiscoverPlaceCard place={place} key={crypto.randomUUID()} />
                           })}

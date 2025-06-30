@@ -27,7 +27,7 @@ const  PlacesPage = () => {
     if (!places) return (<div className="flex h-screen text-center justify-start items-center flex-col">Empty</div>);
     return <div className="w-full flex-col py-5 px-[20vw] gap-20 flex  justify-center items-center self-center">
             <div ><h1 className="font-bold text-3xl">All Places</h1></div>
-            <div className=" flex flex-row gap-3 border-y-2 p-5 justify-center items-start border-gray-200 flex-wrap">
+            <div className=" flex flex-row gap-20 border-y-2 p-5 justify-center items-start border-gray-200 flex-wrap">
                 {places?.map((place, idx) => {
                     return <PlaceCard key={idx} place={place}/>
                 })}
