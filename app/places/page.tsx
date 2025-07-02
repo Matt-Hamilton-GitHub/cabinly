@@ -5,6 +5,42 @@ import { useEffect, useState } from "react"
 import LoadingComponent from "../_components/LoadingComponent"
 import SpinnerBoxJump from "../_components/SpinnerBoxJump"
 import PlaceCard from "../_components/PlaceCard"
+import { CabinsType } from "../cabins/page"
+
+
+export type GroupType = {
+_id: string,
+title: string,
+capacity: number,
+reserved: number,
+usersSignedUpRef: string[],
+
+}
+
+export type ActivityType = {
+_id: string,
+a_desc: string,
+title: string,
+groups: GroupType[],
+}
+
+export type SeasonsType = {
+    _id: string,
+    activityRef: ActivityType[],
+    season: string,
+
+}
+
+export type PlaceType = {
+_id: string,
+country: string,
+description: string,
+images_url: string[],
+name: string,
+seasons : SeasonsType[],
+cabinRef: CabinsType[],
+
+}
 
 const  PlacesPage = () => {
     const [places, setPlaces] = useState<[]>([])

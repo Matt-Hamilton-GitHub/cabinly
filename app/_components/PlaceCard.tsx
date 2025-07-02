@@ -5,6 +5,7 @@ import Link from "next/link";
 const PlaceCard = ({place}) => {
 
     const {seasons} = place;
+    const placeID = place?._id
   return (
     <div className="flex flex-col gap-5 border-b-1 pb-5">
     <div className="relative border-2 h-50 fles w-full">
@@ -20,7 +21,7 @@ const PlaceCard = ({place}) => {
         <p>{place.description}</p>
     </div>
    
-       <Link href="#" className=" p-2 bg-gray-300 shadow shadow-gray-400 border-1 rounded-sm w-30" >Learn More</Link>
+       <Link href={`/places/${placeID}`} className=" p-2 bg-gray-300 shadow shadow-gray-400 border-1 rounded-sm w-30" >Learn More</Link>
 
         </div>
   )
