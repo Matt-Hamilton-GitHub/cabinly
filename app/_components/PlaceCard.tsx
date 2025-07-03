@@ -1,14 +1,17 @@
 import Image from "next/image"
 import Link from "next/link";
+import { PlaceType } from "../places/page";
 
 
-const PlaceCard = ({place}) => {
+const PlaceCard = ({place} : {place: PlaceType}) => {
 
     const {seasons} = place;
+    console.log(place._id)
     const placeID = place?._id
+   
   return (
     <div className="flex flex-col gap-5 border-b-1 pb-5">
-    <div className="relative border-2 h-50 fles w-full">
+    <div className="relative border-2 h-50 flex w-full">
         <Image 
         src={place.images_url[0]}
         fill

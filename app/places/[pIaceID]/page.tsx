@@ -16,20 +16,26 @@ import { handleGroupSignUp } from "@/app/_utils/utils";
 import DisplaySeasonalActivitites from "@/app/_components/DisplaySeasonalActivitites";
 import { PlaceType } from "../page";
 import SpinnerBoxJump from "@/app/_components/SpinnerBoxJump";
+import { useParams } from "next/navigation";
+
+
 const TripPage = (
     { params }: { params: Promise<{ placeID: string }> }
 ) => {
 
     const { placeID } = use(params)
+    console.log(placeID)
     const [placeDetails, setPlaceDetails] = useState<PlaceType[]>([]);
     const [isLoading, setIsLoading] = useState(false)
 
     const fetchAndSetPlace = async (id: string) =>{
         setIsLoading(true)
-        const res = await fetch(`/api/places/$id`)
-        const data = res.json()
+        const res = await fetch(`/api/places/${id}`)
+        const data = await res.json()
         console.log(data)
+        setPlaceDetails(data)
         setIsLoading(false)
+
 
     }
 

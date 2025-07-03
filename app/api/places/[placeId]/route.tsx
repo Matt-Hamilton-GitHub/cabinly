@@ -5,28 +5,30 @@ import { connectMDB } from "@/app/lib/mongodb";
 import { NextResponse } from "next/server";
 import Group from "@/app/lib/mdb-models/Group";
 
-export async function GET(_req: Request, { params }: { params: { placeId: string } }) {
-  const { placeId } = await params;
+export async function GET(_req: Request, { params }: { params: { placeID: string } }) {
+  const placeID = params.placeID;
+  
 
-  if (!placeId) {
+  if (!placeID) {
     return NextResponse.json({ message: "Invalid placeID" }, { status: 400 });
   }
 
   try {
     await connectMDB();
 
-    const place = await Place.findById({_id: placeId})
-       .populate({
-              path: "cabinsRef",
-               model: Cabin})
-            .populate({
-              path: "seasons.activitiesRef",
-              model: Activity,
-              populate: {
-              path: "groups",
-              model: Group
-              }
-          })
+    const place = await Place.findById(placeID)
+      .populate({
+        path: "cabinsRef",
+        model: Cabin
+      })
+      .populate({
+        path: "seasons.activitiesRef",
+        model: Activity,
+        populate: {
+          path: "groups",
+          model: Group
+        }
+      })
 
     if (!place) {
       return NextResponse.json({ message: "Place not found" }, { status: 404 });
