@@ -40,7 +40,7 @@ const QueryFilter = () => {
 
     
     const queryString = params.toString()
-    setLocation(undefined)
+    // setLocation(undefined)
     router.push(`${pathname}?${queryString}`)
     
   }

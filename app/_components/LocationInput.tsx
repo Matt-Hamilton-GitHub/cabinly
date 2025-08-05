@@ -16,23 +16,34 @@ const LocationInput = ({location, setLocation}) => {
     
     const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value);
+        setLocation(e.target.value)
+        console.log(location)
     }
 
     const handleSelect = (description: string) => {
+
+      if (!description ) {
+        setLocation(undefined)
+        setValue("undefined")
+      } 
+
+      else {
+
         setValue(description, false)
         clearSuggestions()
-
+        
         getGeocode({address: description}).then((results) => {
-            const {lat, lng} = getLatLng(results[0])
-            console.log('Coordinates:', {lat, lng})
+          const {lat, lng} = getLatLng(results[0])
+          console.log('Coordinates:', {lat, lng})
+          
+          setLocation({
+            address: description,
+            coordinates: {lat,lng},
             
-            setLocation({
-              address: description,
-              coordinates: {lat,lng},
-               
-            })
+          })
         })
-
+        
+      }
     }
 
   return (
