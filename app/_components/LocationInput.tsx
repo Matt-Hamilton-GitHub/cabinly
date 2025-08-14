@@ -13,7 +13,6 @@ const LocationInput = ({location, setLocation}) => {
         setValue, 
         clearSuggestions} = usePlacesAutocomplete({debounce: 300,})
 
-    
     const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value);
         setLocation(e.target.value)
@@ -22,13 +21,7 @@ const LocationInput = ({location, setLocation}) => {
 
     const handleSelect = (description: string) => {
 
-      if (!description ) {
-        setLocation(undefined)
-        setValue("undefined")
-      } 
-
-      else {
-
+    
         setValue(description, false)
         clearSuggestions()
         
@@ -43,7 +36,7 @@ const LocationInput = ({location, setLocation}) => {
           })
         })
         
-      }
+      
     }
 
   return (
