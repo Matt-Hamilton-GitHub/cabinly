@@ -13,8 +13,7 @@ const GroupCard = ({group} : {group: GroupType}) => {
             alt={`image of ${group.title}`}
             className="relative z-1 object-cover"/>
         </div>
-        <h3>{group?.title}</h3>
-        <p>{group?.group_desc}</p>
+        <h3 className="font-bold">{group?.title}</h3>
         <Link className="bg-gray-300 p-1 px-4 rounded-sm" href={`/groups/${group._id}`}>View</Link>
     </div>
   )

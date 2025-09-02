@@ -91,7 +91,7 @@ const Group = ({ params }: { params: Promise<{ groupID: string }> }) => {
 
   }, [userGroups])
 
-  // console.log(userGroupsIDs)
+  console.log(userGroupsIDs)
 
 
   if (groupLoading) return <div className="w-full h-screen flex items-center justify-center"><SpinnerBoxJump /></div>
@@ -118,7 +118,7 @@ const Group = ({ params }: { params: Promise<{ groupID: string }> }) => {
           Capacity:
           <span className="bg-gray-300 p-2 rounded-3xl font-bold">{`${reserved} / ${capacity}`}</span>
         </div>
-        <div className='flex p-5 max-w-200'><p>{group?.group_desc}</p></div>
+        <div><p>{group?.group_desc}</p></div>
         <div className="flex justify-center items-center gap-5 flex-wrap">
           <h3>Our Guides for This Group:</h3>
           {guides?.map((g) => {
