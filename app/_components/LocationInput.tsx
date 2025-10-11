@@ -14,27 +14,39 @@ const LocationInput = ({location, setLocation}) => {
         clearSuggestions} = usePlacesAutocomplete({debounce: 300,})
 
     const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value);
-        setLocation(e.target.value)
+        if (e.target.value === undefined) {
+          setLocation(undefined)
+        }
+         else {
+           setValue(e.target.value);
+           setLocation(e.target.value)
+
+         }
         console.log(location)
     }
 
     const handleSelect = (description: string) => {
 
-    
-        setValue(description, false)
-        clearSuggestions()
-        
-        getGeocode({address: description}).then((results) => {
-          const {lat, lng} = getLatLng(results[0])
-          console.log('Coordinates:', {lat, lng})
-          
-          setLocation({
-            address: description,
-            coordinates: {lat,lng},
+        if (location === undefined) {
+          setValue('', false)
+          clearSuggestions()
+        }else {
+
+          setValue(description, false)
+          clearSuggestions()
+
+          getGeocode({address: description}).then((results) => {
+            const {lat, lng} = getLatLng(results[0])
+            console.log('Coordinates:', {lat, lng})
             
+            setLocation({
+              address: description,
+              coordinates: {lat,lng},
+              
+            })
           })
-        })
+        }
+        
         
       
     }

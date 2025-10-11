@@ -36,6 +36,7 @@ import DisplaySeasonalActivitites from '@/app/_components/DisplaySeasonalActivit
 import DisplayActivities from '@/app/_components/DisplayActivities';
 import LoadingComponent from '@/app/_components/LoadingComponent';
 import CabinMap from '@/app/_components/GoogleMaps';
+import { useQuery } from '@tanstack/react-query';
 
 
 
@@ -43,22 +44,38 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
   const { cabinId } = use(params);
 
 
-  const [cabin, setCabin] = useState<CabinsType>();
+  // const [cabin, setCabin] = useState<CabinsType>();
   const [selectedRange, setSelectedRange] = useState<DateRange | undefined>();
   const [unavailableDates, setUnavailableDates] = useState<DateRange[]>([]);
   const { user } = useUserContext();
 
 
 
-  useEffect(() => {
+ 
     const fetchCabin = async () => {
-      const res = await fetch(`/api/cabins/${cabinId}`);
-      const json = await res.json();
-      setCabin(json.data);
+     const res = await fetch(`/api/cabins/${cabinId}`);
+      if(!res.ok) throw new Error('Failed to fetch cabin')
+       const json = await res.json()
+       console.log(json)
+       return json.data;
     };
-    fetchCabin();
-  }, [cabinId]);
+ 
 
+  const {data: cabin, error, isLoading} = useQuery({
+
+// React Query does this under the hood:
+// Checks the global cache (stored inside your QueryClient).
+// If it finds an entry with the same queryKey (['cabin', cabinId]):
+// It returns that data immediately (no loading spinner).
+// Marks it as “fresh” if it’s within staleTime.
+// It may still do a background refetch if the data is stale — but it won’t block the UI.
+// When you navigate away and back, the cache is still alive in memory, so no need to re-fetch unless expired.
+   
+    queryKey: ['cabin', cabinId],
+    queryFn: fetchCabin,
+    staleTime: 1000 * 60 * 60, //1hr
+    gcTime: 1000 * 60 * 60 * 12, //12 hrs
+  })
 
   useEffect(() => {
     const fetchUnavailable = async () => {
@@ -92,7 +109,7 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
     return seasonalActivities
   }
 
-  if (!cabin) return (<div className="flex text-center justify-start items-center flex-col"><LoadingComponent /></div>);
+  if (isLoading) return (<div className="flex text-center justify-start items-center flex-col"><LoadingComponent /></div>);
 
   console.log(cabin)
   const { title, occupancy, description, price, discount, imageUrl, rating, location, coordinates } = cabin;
@@ -106,7 +123,7 @@ export default function CabinDetails({ params }: { params: Promise<{ cabinId: st
           fill
           className="object-cover rounded-sm"
           placeholder="blur"
-          quality={50}
+          quality={10}
           blurDataURL='../../public/_assets/icon.png'
         />
       </div>

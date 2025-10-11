@@ -17,7 +17,7 @@ export const UserReservations = () => {
     <div className="p-5
                      flex w-full flex-col justify-start items-start gap-5 " >
       <span className=" px-2 rounded-2xl font-bold">Your Reservations: </span>
-      <div className="flex flex-row flex-wrap justify-start items-start gap-6">
+      <div className=" flex flex-col justify-start items-start gap-6">
         {reservations?.map((reservation) => {
           return <ReservationCard reservation={reservation} key={crypto.randomUUID()} />
         })}

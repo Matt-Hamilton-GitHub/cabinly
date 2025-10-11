@@ -1,5 +1,7 @@
 
 'use client'
+
+import def_profile_icon from "../../../public/_assets/user-profile-icon-default.png"
 import { useUserContext } from "../contexts/UserContext"
 import { useReservation } from "../contexts/ReservationContext";
 import { UserRound } from 'lucide-react';
@@ -17,7 +19,13 @@ export default function Profile() {
     <div className="w-full h-full flex justify-start flex-col items-start p-10">
       
       <div className="w-full flex justify-center items-center flex-row py-15 gap-10 flex-wrap">
-        <UserRound size={50}/>
+        {/* <div className="w-2.5 h-2.5">
+          <Image 
+          fill 
+          src={def_profile_icon}
+          />
+        </div> */}
+        
         <div>
         <div className="flex w-full bg-gray-200 p-2">Name: <span className="font-bold px-4">{user?.name}</span></div>
          <div className="flex w-full bg-gray-200 p-2">Email: <span className="font-bold px-4">{user?.email}</span></div>

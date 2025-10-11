@@ -27,7 +27,7 @@ export default function Navbar() {
 
                 <Link className="border-2 px-2 rounded-sm" href='/about'>About</Link>
             </div>
-            <div className="flex flex-row gap-2 border-[black] border-2 bg-[white] p-2 rounded-xl shadow-lg inset-shadow-gray-550 text-[black] hover:scale-110 hover:text-[white]  hover:border-[white] transition-all ease-in-out hover:bg-[black]">
+            <div className="flex flex-row gap-2 border-[black] border-2 bg-[white] p-2 rounded-xl shadow-lg shadow-black text-[black] hover:scale-110 hover:text-[white]  hover:border-[white] transition-all ease-in-out hover:bg-[black]">
                 {user ?
                     <>
                         <Link className="border-2 px-2 rounded-sm " href='/account'>Account</Link>

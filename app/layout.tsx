@@ -4,6 +4,7 @@ import "@/app/_styles/globals.css";
 import Navbar from "./_components/Navbar";
 import Footer from "./_components/Footer";
 import { UserProvider } from "./contexts/UserContext";
+import ReactQueryProvider from "./lib/ReactQueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -58,7 +59,9 @@ export default function RootLayout({
           <div className="">
             <Navbar />
             <main className="">
+              <ReactQueryProvider>
               {children}
+              </ReactQueryProvider>
             </main>
           </div>
            
