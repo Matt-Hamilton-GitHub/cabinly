@@ -3,8 +3,10 @@ import DatesInput from "./DatesInput"
 import LocationInput from "./LocationInput"
 import Button from "./Button"
 import { useEffect, useState } from "react"
-import { usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
+import ComfortSelector from "./ComfortSelector"
+import ActivitiesSelector from "./ActivitySelector"
 
 type LocationInputType = {
   address: string | undefined,
@@ -38,13 +40,13 @@ const QueryFilter = () => {
       params.set('lng', location.coordinates.lng)
     }
 
-    
+
     const queryString = params.toString()
     // setLocation(undefined)
     router.push(`${pathname}?${queryString}`)
-    
+
   }
-  
+
   const handleShowAll = () => {
 
     setDatesRange(undefined);
@@ -69,10 +71,14 @@ const QueryFilter = () => {
         >Guests</label>
         <input id='capacity-input' value={capacity} onChange={(e) => setCapacity(e.target.value)} type='number' placeholder="Capacity" min="1" className="p-1 w-20 text-center border-2 border-black px-2 h-12 shadow-inner shadow-[#686868] bg-white rounded-b-3xl  hover:placeholder-[black]" />
       </div>
+
     </form>
+   <ComfortSelector />
+   <ActivitiesSelector />
     <Button isDisabled={false} action='Search' onClick={handleRouting} color='black' />
-    <div className="flex flex-row justify-center text-sm text-white font-bold   ">
-      <button onClick={handleShowAll}> <span className='relative bg-black px-1 border-2 text-white hover:cursor-pointer hover:text-[black] hover:bg-white hover:border-black 
+
+    <div className="flex flex-col justify-center text-sm text-white font-bold gap-5 ">
+      <button onClick={handleShowAll}> <span className='relative rounded-2xl bg-black px-1 border-2 text-white hover:cursor-pointer hover:text-[black] hover:bg-white hover:border-black 
          transition-all duration-500'>Show All</span></button>
     </div>
   </div>
