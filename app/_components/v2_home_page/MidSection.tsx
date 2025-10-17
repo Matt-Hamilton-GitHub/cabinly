@@ -5,6 +5,8 @@ import React, { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import Image from 'next/image';
+import img from '@/public/_assets/icon.png'
 
 
 const MidSection = () => {
@@ -19,22 +21,31 @@ const MidSection = () => {
     gsap.to(blackBox.current, {
       scrollTrigger: {
         trigger: blackBox.current,
-        start: 'top center',
-        end: 'top top',
+        start: 'top 70%',
+        end: 'bottom 30%',
         scrub: true,
       },
-      rotate: 360,
+      width: '10px',
+      height: '10px',
       borderRadius: '100px',
-      opacity: 0.5,
-      backgroundColor: 'white',
+      background: '#BF092F',
       ease: 'none',
     }), { scope: container }
 
   })
 
   return (
-    <section className="top-container flex items-center justify-center top-container h-[100vh] w-full bg-black" ref={container}>
-        <div ref={blackBox} className="box x-30 w-50 h-50 border-x-orange-700 m-20  border-2 border-white rounded-[0px] shadow-md shadow-black"></div>
+    <section className="flex flex-col items-center justify-center gap-5  h-[100vh] w-full bg-black" ref={container}>
+        <div ref={blackBox} className=" w-50 h-50 bg-[#BF092F] shadow-inner shadow-gray-900 rounded-2xl">
+            <Image 
+            src={img}
+            className=' object-cover'
+            width='30px'
+            alt='place '/>
+        </div>
+        <div className='relative'>
+            <h4 className='text-white'>Cabinly is a platform where </h4>
+        </div>
       </section>
   )
 }
