@@ -1,90 +1,148 @@
-import Link from "next/link";
+'use client'
+
+import React, { useRef } from 'react'
+import { gsap } from 'gsap'
+import { useGSAP } from '@gsap/react'
+import ScrollTrigger from 'gsap/ScrollTrigger'
+import Link from 'next/link'
+import Image from 'next/image'
 
 import cabin1 from '../../public/_assets/cabin-about-page-1.png'
 import cabin2 from '../../public/_assets/cabin-interior.png'
 
-
-import Image from "next/image";
+gsap.registerPlugin(ScrollTrigger)
 
 export default function About() {
+  const container = useRef<HTMLDivElement>(null)
+  const section1 = useRef<HTMLDivElement>(null)
+  const section2 = useRef<HTMLDivElement>(null)
+  const img1 = useRef<HTMLDivElement>(null)
+  const img2 = useRef<HTMLDivElement>(null)
+  const text1 = useRef<HTMLDivElement>(null)
+  const text2 = useRef<HTMLDivElement>(null)
+
+  useGSAP(() => {
+    const ctx = gsap.context(() => {
+      // Section 1 Animation
+      const tl1 = gsap.timeline({
+        scrollTrigger: {
+          trigger: section1.current,
+          start: 'top top',
+          end: '+=200%',
+          scrub: true,
+          pin: true,
+          anticipatePin: 1,
+        },
+      })
+
+      tl1.fromTo(
+        img1.current,
+        { x: '-100%', opacity: 0 },
+        { x: '0%', opacity: 1, duration: 1, ease: 'power2.out' }
+      )
+      tl1.fromTo(
+        text1.current,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1 },
+        '<0.3' // overlap slightly
+      )
+      tl1.to(img1.current, {
+        x: '100%',
+        opacity: 0,
+        duration: 1,
+        ease: 'power2.inOut',
+      })
+
+      // Section 2 Animation
+      const tl2 = gsap.timeline({
+        scrollTrigger: {
+          trigger: section2.current,
+          start: 'top top',
+          end: '+=200%',
+          scrub: true,
+          pin: true,
+          anticipatePin: 1,
+        },
+      })
+
+      tl2.fromTo(
+        img2.current,
+        { x: '100%', opacity: 0 },
+        { x: '0%', opacity: 1, duration: 1, ease: 'power2.out' }
+      )
+      tl2.fromTo(
+        text2.current,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1 },
+        '<0.3'
+      )
+      tl2.to(img2.current, {
+        x: '-100%',
+        opacity: 0,
+        duration: 1,
+        ease: 'power2.inOut',
+      })
+    }, container)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <div className="flex justify-center items-center flex-col gap-10 m-10 text-lg<">
-      <h1 className="text-4xl mb-10 text-accent-400 font-medium">
-        Welcome to <strong className="underline">Cabinly</strong>
-      </h1>
-      <p className="text-lg">
-        At Cabinly, we believe that the best getaways happen in the most breathtaking places. 
-        Our platform makes it easy for travelers to discover and book stunning cabins nestled in 
-        nature—whether it&#39;s a cozy retreat in the mountains, a lakeside escape, or a secluded 
-        forest hideaway.
-      </p>
+    <div ref={container} className="overflow-hidden text-lg">
 
-      <div className="flex flex-col md:flex-row gap-10 text-lg items-stretch w-full">
-
-        <div className="flex-1 space-y-8">
-          <p>
-            Where nature&#39;s beauty and comfortable living blend seamlessly.
-            Hidden away in the heart of the Italian Dolomites, this is your
-            paradise away from home. But it&#39;s not just about the luxury cabins.
-            It&#39;s about the experience of reconnecting with nature and enjoying
-            simple pleasures with family.
-          </p>
-          <p>
-            Our luxury cabins provide a cozy base, but the real freedom and
-            peace you&#39;ll find in the surrounding mountains. Wander through lush
-            forests, breathe in the fresh air, and watch the stars twinkle above
-            from the warmth of a campfire or your hot tub.
-          </p>
-          <p>
-            This is where memorable moments are made, surrounded by nature&#39;s
-            splendor. It&#39;s a place to slow down, relax, and feel the joy of
-            being together in a beautiful setting.
-          </p>
-        </div>
-
-        <div className="relative flex-1">
+      {/* Section 1 */}
+      <section ref={section1} className="flex flex-col md:flex-row gap-10 items-center justify-center h-[100vh] px-10">
+        <div ref={img1} className="relative flex-1">
           <Image
             src={cabin1}
-            className="object-cover w-full h-full"
             alt="Beautiful Cabin In The Woods"
+            className="object-cover w-full h-full rounded-xl"
           />
         </div>
-      </div>
+        <div ref={text1} className="flex-1 space-y-6 text-center md:text-left">
+          <h1 className="text-4xl mb-5 text-orange-500 font-medium">
+            Welcome to <strong className="underline">Cabinly</strong>
+          </h1>
+          <p>
+            At Cabinly, we believe that the best getaways happen in the most breathtaking places. 
+            Discover stunning cabins nestled in nature—whether it’s a cozy retreat in the mountains, 
+            a lakeside escape, or a secluded forest hideaway.
+          </p>
+          <p>
+            Hidden away in the heart of the Italian Dolomites, this is your paradise away from home.
+            It’s about reconnecting with nature and enjoying simple pleasures with family.
+          </p>
+        </div>
+      </section>
 
-      <div className="flex flex-col md:flex-row gap-10 text-lg items-stretch w-full">
-        {/* Image First, Text Second */}
-        <div className="relative flex-1">
+      {/* Section 2 */}
+      <section ref={section2} className="flex flex-col md:flex-row-reverse gap-10 items-center justify-center h-[100vh] px-10">
+        <div ref={img2} className="relative flex-1">
           <Image
             src={cabin2}
-            className="object-cover w-full h-full"
-            alt="Beautiful Cabin In The Woods"
+            alt="Interior Cabin"
+            className="object-cover w-full h-full rounded-xl"
           />
         </div>
-
-        <div className="flex-1 space-y-8">
-          <h1 className="text-4xl mb-10 text-accent-400 font-medium">
+        <div ref={text2} className="flex-1 space-y-6 text-center md:text-left">
+          <h1 className="text-4xl mb-5 text-orange-500 font-medium">
             Managed by our family since 1962
           </h1>
           <p>
-            Since 1962, The Cabins has been a cherished family-run retreat.
-            Started by our grandparents, this haven has been nurtured with love
-            and care, passing down through our family as a testament to our
-            dedication to creating a warm, welcoming environment.
+            Since 1962, The Cabins has been a cherished family-run retreat. 
+            Here, you’re not just a guest; you’re part of our extended family.
           </p>
           <p>
-            Over the years, we&#39;ve maintained the essence of The Cabins,
-            blending the timeless beauty of the mountains with the personal
-            touch only a family business can offer. Here, you&#39;re not just a
-            guest; you&#39;re part of our extended family. 
-            So join us at The Cabins soon, where tradition meets tranquility, and every visit is
-            like coming home.
+            Join us soon — where tradition meets tranquility, and every visit feels like coming home.
           </p>
         </div>
-      </div>
+      </section>
 
-      <Link className="border-2 text-[black] px-10 py-3 rounded-lg font-bold text-xl hover:text-[white] hover:bg-[black]" href="/cabins">
-        Start Exploring
-      </Link>
+      <div className="flex justify-center py-20">
+        <Link className="border-2 text-black px-10 py-3 rounded-lg font-bold text-xl hover:text-white hover:bg-black" href="/cabins">
+          Start Exploring
+        </Link>
+      </div>
     </div>
-  );
+  )
 }

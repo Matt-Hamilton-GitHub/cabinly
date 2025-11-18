@@ -10,7 +10,6 @@ import { CabinsType } from "@/app/cabins/page";
 // Get all cabins
 export async function getAllCabins(req: Request) {
 
-
   try {
     await connectMDB();
 

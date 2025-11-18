@@ -8,7 +8,7 @@ export default function Page() {
   return (
       <div className="relative m-0 p-0">
         {/* <Home /> */}
-        {/* <HomePage /> */}
+        <HomePage />
         <V2_HomePage />
       </div>
   );

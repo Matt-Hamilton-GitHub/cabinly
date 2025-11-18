@@ -10,34 +10,38 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 const BtmSection = () => {
 
 
-     gsap.registerPlugin(ScrollTrigger);
+    
 
   const container = useRef<HTMLDivElement>(null);
 
-  const blackBox = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLHeadingElement>(null)
+
 
   useGSAP(() => {
+    const el = textRef.current
 
-    gsap.to(blackBox.current, {
+    gsap.to(el, {
+      color: '#ff6600', // target color
+      duration: 50,
       scrollTrigger: {
-        trigger: blackBox.current,
-        start: 'top bottom',
-        end: 'top center',
-        scrub: true,
+        trigger: el,
+        start: 'top center', // when text enters center of viewport
+        end: '+=500',         // color transition happens over 500px of scroll
+        scrub: true,          // smooth connection to scroll
+        pin: true,            // keeps text fixed while color changes
+        markers: false,       // set true for debugging
       },
-      rotate: 360,
-      borderRadius: '100px',
-      opacity: 0.5,
-      backgroundColor: 'red',
-      ease: 'none',
-    }), { scope: container }
-
-  })
-
+    })
+  }, [])
   return (
-    <section className="top-container flex items-center justify-center top-container h-[100vh] w-full" ref={container}>
-        <div ref={blackBox} className="box x-30 w-50 h-50 bg-white m-20 rounded-[0px]"></div>
-      </section>
+   <section className="h-[150vh] w-full relative " ref={container}>
+  <div className="absolute inset-0 flex justify-center items-center">
+    <h1 ref={textRef} className="text-6xl font-bold">
+      Scroll to Change My Color
+    </h1>
+  </div>
+</section>
+
   )
 }
 
