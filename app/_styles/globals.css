@@ -11,8 +11,15 @@ html {
 
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-white: #ffffff;
+  --bg-comp-black: #080708;
+  --prim-oxblood: #960200;
+  --prim-emerald: #06BA63;
+  --sec-grey: #7C7C7C;
+  --sec-comp-sunflower-gold: #F2AF29;
+  
+
+
 }
 
 @media (prefers-color-scheme: dark) {
