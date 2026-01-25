@@ -19,7 +19,7 @@ export default function Navbar() {
     }
 
     return (
-        <div className="flex items-center gap-10 p-6 justify-between bg-[black] text-[white] ">
+        <div className="flex items-center gap-10 p-6 justify-between bg-[black] text-[white] w-screen">
             <div className="rounded-br-3xl"><Link className="flex items-center justify-center flex-col" href='/' ><Image className='w-10 rounded-lg' src={cabinlyLogo} alt='cabinly-logo' /><h2>Cabinly</h2></Link></div>
             <div className="flex items-start gap-10">
                 <Link className="border-2 px-2 rounded-sm" href='/cabins'>Cabins</Link>

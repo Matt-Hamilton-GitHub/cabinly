@@ -56,7 +56,7 @@ export default function RootLayout({
           text-green`}
       >
         <UserProvider>
-          <div className="">
+          <div className="overflow-x-clip">
             <Navbar />
             <main className="">
               <ReactQueryProvider>

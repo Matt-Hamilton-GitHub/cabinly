@@ -6,7 +6,7 @@ export default function Page() {
 
 
   return (
-      <div className="relative m-0 p-0">
+      <div className="relative m-0 p-0 ">
        <HomePage />
         
       </div>
