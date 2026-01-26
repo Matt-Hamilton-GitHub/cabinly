@@ -11,7 +11,32 @@ import { Sparkles } from 'lucide-react';
 import places from "@/public/_assets/places-info/places";
 import { title } from "process";
 
-
+const ComfortLvls = [
+  {
+    id: 101,
+    type: "Wild Escape",
+    tags: ["simple", "charming", "essentials only"],
+    desc: "A simple, back-to-nature cabin with essential comforts. Perfect for travelers who value charm, nature, and adventure over luxury.",
+    perks  :["back-to-nature", "Minimal amenities","for adventurous"],
+    img_url: "https://res.cloudinary.com/debnvx8ww/image/upload/v1769468417/stephan-mahlke-U4nb4U-wov0-unsplash_xzts0b.jpg"
+  },
+  {
+    id: 102,
+    type: "Forest Comfort",
+    tags: ["comfortable", "warm", "well-equipped"],
+    desc: "A comfortable, well-equipped cabin designed for relaxation. Thoughtful amenities, warm interiors, and everything you need to feel at home.",
+    perks  :["Fireplace", "good beds","charm"],
+    img_url: "https://res.cloudinary.com/debnvx8ww/image/upload/v1750454025/pexels-jonathanborba-19737867_rn0wnu.jpg"
+  },
+  {
+    id: 103,
+    type: "Signature Retreat",
+    tags: ["premium comfort", "elevated design"],
+    desc: "An elevated cabin experience with premium amenities. Stylish design, extra space, and indulgent touches for a truly memorable stay.",
+    perks  :["hot tub", "views","designer interiors"],
+    img_url: "https://res.cloudinary.com/debnvx8ww/image/upload/v1750453182/pexels-vika-glitter-392079-18887138_qw2ry0.jpg"
+  }
+]
 
 const content = [
   { id: 0,
@@ -78,18 +103,20 @@ const topPlaces = [
 
 
 const HomePage = () => {
-  return (<section className="flex flex-col gap-0 w-[100vw]">
+  return (<section className="flex flex-col gap-0 w-screen">
     <section className="w-full ">
       {/* <div className="absolute flex justify-center items-start bg-black opacity-60 w-full h-6/12 z-20"></div> */}
-      <div className="absolute h-[50vh] flex flex-col z-50 w-auto px-[15%] py-20 gap-10 bg-[#00000065]">
-        <h1 className="bg-[#00000098] tracking-widest rounded-sm font-extralight text-white text-[32px] w-full text-center ">
-          <span className="text-[#1cf8d7] font-bold">BREAK FREE FROM</span> THE
-          EVERYDAY,
-          <span className="text-[#1cf8d7] font-extrabold">
+      <div className="absolute h-[50vh] flex flex-col z-50 w-screen px-[15%] py-20 gap-10 bg-[#0000005f]">
+        <h1 className="bg-[#00000073] tracking-widest rounded-sm font-extralight text-white text-[32px] p-10 shadow-xs shadow-black border-3 border-black">
+          <span className="text-[#1cf8d7] font-bold">BREAK FREE FROM</span> <span>THE
+          EVERYDAY,</span>
+          <span className="text-[#fff] font-extrabold shadow-sm shadow-black bg-[#ec8c06] rounded-3xl">
             {" "}
             CHASE NEW HORIZONS{" "}
           </span>
+          <span>
           , AND LET THE WORLD
+          </span>
           <span className="text-[#1cf8d7] font-extrabold"> INSPIRE YOU</span>
         </h1>
         <p className="text-[#ffff] tracking-wide">
@@ -113,7 +140,7 @@ const HomePage = () => {
       </div>
     </section>
 
-    <section className=" relative w-screen flex justify-center items-center ">
+    <section className=" relative w-screen flex justify-center items-center border-1 border-[#bcbcbc89] mb-10">
       <div className="flex flex-row flex-wrap justify-center items-center p-10 w-full gap-10  rounded-b-md">
 
         {content?.map( i => {
@@ -139,44 +166,82 @@ const HomePage = () => {
       {/* // - Find A perfect Place to visit */}
       <div className="flex flex-row gap-10 p-5 justify-center items-center bg-green-300 rounded-e-3xl shadow-sm ">
           <span><Earth size={60} /></span>
-          <h2 className="font-extrabold tracking-wider text-[32px]" style={{textShadow: "2px 2px 4px rgba(0,1,5,0.6)"}}>FIND YOUR NEW DESTINATION</h2>
+          <h2 className="font-extrabold tracking-wider text-[32px]" style={{textShadow: "2px 2px 4px rgba(0,1,5,0.6)"}}>SHAPE YOUR EXPERIENCE </h2>
       </div>
 
+        <div className="mt-20 w-full flex justify-center items-center ">
+          <h1 className="font-semibold text-[1.7pc]">Choose From Our Top Destinations </h1>
+        </div>
       <div className="flex justify-center items-center flex-row flex-wrap gap-10 py-20 w-full" >
       {topPlaces?.map(p => {
         const {pId, img_url, country, description, title} = p
 
-        return (<div key={pId} className="relative p-5 flex flex-col ">
-          <div className="bg-black p-5 rounded-t-md">
+        return (<div key={pId} className="relative p-5 flex flex-col max-w-[350px] h-140">
+          <div className="bg-[#060606]  rounded-t-md border-4 text-center">
 
           <h3 className="text-white font-light text-[2pc] tracking-widest">{title }</h3>
           </div>
+          <div className="">
+            <Sparkles className="absolute z-20 top-1 left-[90%] bg-black p-1 rounded-4xl border-2 border-[#595959]" color='orange' size={40}/>
+            {/* <Sparkles className="absolute z-20 top-25 left-[102%] bg-black p-1 rounded-2xl" color='orange' size={30}/>
+            <Sparkles className="absolute z-20 top-15 left-[100%] bg-black p-1 rounded-2xl" color='orange' size={30}/>
+            <Sparkles className="absolute z-20 top-5 left-[95%] bg-black p-1 rounded-2xl" color='orange' size={30}/> */}
+          </div>
 
-          <div className="relative w-120 h-150 z-0 rounded-b-2xl grayscale-100  hover:grayscale-0">
+          <div className="relative h-70 z-0 rounded-b-2xl ">
           <Image 
-          className="object-cover rounded-bs-2xl border-30 border-black "
+          className="object-cover rounded-bs-2xl border-3 border-black border-b-0 "
           src={img_url} 
           fill
           alt={title + country}/>
           </div>
 
-          <div className="absolute bottom-5 p-5 z-20 bg-[#000000f3] shadow-md">
+          <div className=" bottom-5 p-5 z-20 bg-[#9d9d9df3] shadow-md rounded-b-">
             <p className="text-white tracking-wider">{description}</p>
 
             <div className="py-[16px] ">
-              <span className="text-[#bcbcbc] hover:scale-200"><Link href={`places/${pId}`}>Learn More</Link></span>
+              <span className="text-[#404040] font-bold"><Link href={`places/${pId}`}>Learn More</Link></span>
             </div>
           </div>
-
+   
         </div>)
       })}
       </div>
     </section>
 
+       {/* - Find A cabin to rent  */}
+    <section className="w-screen flex flex-col justify-center items-start pb-10 gap-20 bg-[#fcfcfc2a]">
+      <div className="mt-20 w-full flex justify-center items-center ">
+          <h1 className="font-bold text-[2pc]">Select Cabin That Fits You The Best </h1>
+        </div>
 
-  {/* #SECTION 4: Top Destinations */}
-   
-   
+      <div className="w-full flex justify-center items-center flex-wrap gap-10">
+        {ComfortLvls?.map(c => {
+        const {id, type, tags, desc, perks, img_url} = c;
+          return( <div key={id} className="flex p-5 bg-[#fcfcfc77] rounded-3xl">
+             <div>
+          <h1 className="font-bold text-[1.7pc]" > {type}</h1>
+          <div className="py-2 flex gap-2 ">
+            {tags?.map(t => <span className='bg-black rounded-md text-white px-2 py-1 font-extralight shadow-sm shadow-black' key={t}>{t}</span>)}
+          </div>
+
+        <div className="full w-full h-[50vh] relative">
+        <Image
+          fill
+          src={img_url}
+          alt="hero image"
+          className="object-cover object-center absolute z-0 rounded-b-xl"
+        />
+      </div>
+        </div>
+          </div>)
+        })}
+      </div>
+     
+    </section>
+
+
+ 
 
   {/* #SECTION 4: Bundles & Experiences */}
    
@@ -188,7 +253,6 @@ const HomePage = () => {
 
   {/* #SECTION 5: Footer */}
    
-  
 
     </ section>
   );

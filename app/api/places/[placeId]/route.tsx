@@ -8,8 +8,6 @@ import Group from "@/app/lib/mdb-models/Group";
 export async function GET(_req: Request, { params }: { params: { placeID: string } }) {
   const placeID = params.placeID;
   
-  
-
   if (!placeID) {
     return NextResponse.json({ message: "Invalid placeID" }, { status: 400 });
   }
