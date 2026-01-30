@@ -129,43 +129,43 @@ const topPlaces = [
 const HomePage = () => {
   return (
     <section className="flex flex-col gap-0 w-screen">
+      
       <section className="w-full ">
         {/* <div className="absolute flex justify-center items-start bg-black opacity-60 w-full h-6/12 z-20"></div> */}
-        <div className="absolute h-[50vh] flex flex-col z-50 w-screen px-[15%] py-20 gap-10 bg-[#0000005f]">
-          <h1 className="bg-[#00000073] tracking-widest rounded-sm font-extralight text-white text-[32px] p-10 shadow-xs shadow-black border-3 border-black">
-            <span className="text-[#1cf8d7] font-bold">BREAK FREE FROM</span>{" "}
-            <span>THE EVERYDAY,</span>
-            <span className="text-[#fff] font-extrabold shadow-sm shadow-black bg-[#ec8c06] rounded-3xl">
-              {" "}
-              CHASE NEW HORIZONS{" "}
-            </span>
-            <span>, AND LET THE WORLD</span>
-            <span className="text-[#1cf8d7] font-extrabold"> INSPIRE YOU</span>
-          </h1>
-          <p className="text-[#ffff] tracking-wide">
-            Discover a new way to travel — one that{" "}
-            <span className="text-[#ffffff]">blends nature</span>, connection,
-            and unforgettable experiences. Find your perfect cabin, join guided
-            activities, build meaningful friendships, and explore destinations
-            designed to inspire your mind and energize your spirit.
-          </p>
-
-          <Link
-            className="w-60 text-center font-light   bg-[white] p-2 rounded-xl shadow-lg inset-shadow-[#fffd] text-[black] hover:scale-107 
-    hover:text-[black]  hover:border-[#1cf8d7] hover:cursor-pointer transition-all ease-in-out "
-            href="/cabins"
-          >
-            Start Your Journey
-          </Link>
-        </div>
-
-        <div className="full w-full h-[50vh] relative">
+        <div className="full w-full h-[40vh] relative">
           <Image
             fill
             src="/_assets/title-2-cut.jpg"
             alt="hero image"
-            className="object-cover object-center absolute z-0 "
+            className="object-cover object-top absolute z-0 "
           />
+        </div>
+
+        <div className="p-20 bg-[#ffffffe4]  flex flex-col justify-center items-start ">
+          <h1  className="tracking-widest rounded-sm font-extrabold text-[46px] mb-6 text-shadow-lg leading-20 text-shadow-[black]"  style={{ textShadow: "2px 2px 4px #000" }}>
+            <span className="text-[#1cf8d7] bg-black px-1 font-bold"> BREAK FREE FROM</span>
+            <span> THE EVERYDAY, </span>
+            <span className="text-[#1cf8d7] bg-black px-1 "> CHASE NEW HORIZONS,</span>
+            <span> AND LET THE WORLD </span>
+            <span className="text-[#1cf8d7] font-extrabold bg-black px-1">INSPIRE YOU</span>
+          </h1>
+    
+            <p className="text-[#000] tracking-widest mb-16 text-lg leading-8">
+              Discover a new way to travel — one that{" "}
+              blends nature, connection, and
+              unforgettable experiences. <strong className="text-[#2c2c2c]  rounded-sm">Find your perfect cabin, join guided
+              activities, build meaningful friendships, and explore destinations </strong> 
+              designed to inspire your mind and energize your spirit.
+            </p>
+
+          <div >
+            <Link className=" w-70 flex  h-12 justify-center items-center text-center font-bold  bg-[#1cf8d7] p-2 rounded-xl shadow-lg inset-shadow-[#fffd] text-[black] border-3 border-[#d0d0d0] 
+            hover:text-[black]  hover:scale-110 hover:cursor-pointer transition-all ease-in-out "
+              href="/cabins" 
+            >
+              Start Your Journey
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -179,11 +179,11 @@ const HomePage = () => {
                 key={id}
                 className="flex justify-between items-start flex-col gap-1 h-60 w-50"
               >
+                <span className="px-7 items-center h-35 font-semibold text-[46px] text-black">
+                  {stat}
+                </span>
                 <span className="font-bold rounded-4xl shadow-sm border-5 border-[#0ccbaf]  border-s-black border-x-amber-400 p-5 place-items-baseline ">
                   {logo}
-                </span>
-                <span className="px-7 items-center h-35 font-semibold text-[32px] text-black">
-                  {stat}
                 </span>
                 <h2 className="flex tracking-widest items-start h-40 w-[120px] font-medium  text-[16px] text-[#434643]">
                   {title}
@@ -216,7 +216,6 @@ const HomePage = () => {
         {/* FEATURES LIST */}
         <div className="flex w-screen gap-20 flex-col">
           <div className="flex bg-[#ffffff7d] flex-wrap  justify-center items-start p-20 gap-15">
-
             <div className="flex flex-col gap-5 justify-center items-start  w-150">
               <h2 className="font-bold text-2xl bg-black text-[white] p-1">
                 Find Your Dream Destination
@@ -333,8 +332,6 @@ const HomePage = () => {
                 </li>
               </ul>
             </div>
-
-
           </div>
         </div>
       </section>
@@ -400,8 +397,6 @@ const HomePage = () => {
             Select Cabin That Fits You The Best{" "}
           </h1>
         </div>
-
-        
 
         <div className="w-full flex justify-center items-center flex-wrap gap-10">
           {ComfortLvls?.map((c) => {
