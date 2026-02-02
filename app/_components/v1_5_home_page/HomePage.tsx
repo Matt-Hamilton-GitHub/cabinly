@@ -130,36 +130,40 @@ const HomePage = () => {
   return (
     <section className="flex flex-col gap-0 w-screen">
       
-      <section className="w-full ">
+      <section className="relative h-[70vh] w-screen px-[10%] flex justify-center items-center bg-[#000] overflow-clip
+]">
         {/* <div className="absolute flex justify-center items-start bg-black opacity-60 w-full h-6/12 z-20"></div> */}
-        <div className="full w-full h-[40vh] relative">
+        <div className=" absolute full w-[80vw] h-[100%] z-0 right-[10%]">
           <Image
             fill
             src="/_assets/title-2-cut.jpg"
             alt="hero image"
-            className="object-cover object-top absolute z-0 "
+            className="object-cover object-top absolute z-0 rounded-t-4xl "
           />
+         
         </div>
 
-        <div className="p-20 bg-[#ffffffe4]  flex flex-col justify-center items-start ">
-          <h1  className="tracking-widest rounded-sm font-extrabold text-[46px] mb-6 text-shadow-lg leading-20 text-shadow-[black]"  style={{ textShadow: "2px 2px 4px #000" }}>
-            <span className="text-[#1cf8d7] bg-black px-1 font-bold"> BREAK FREE FROM</span>
+        <div className="relative p-10 z-10 bg-[#0e0e0ec8]  flex flex-col justify-center items-center ">
+          <h1  className="p-5 text-white tracking-widest rounded-sm font-extrabold text-[46px] mb-6 text-shadow-lg leading-15 text-shadow-[black]"  style={{ textShadow: "2px 1px 4px #122" }}>
+            <span className="text-[#339989]  font-bold"> BREAK FREE FROM</span>
             <span> THE EVERYDAY, </span>
-            <span className="text-[#1cf8d7] bg-black px-1 "> CHASE NEW HORIZONS,</span>
+            <span className="text-[#339989]   "> CHASE NEW HORIZONS,</span>
             <span> AND LET THE WORLD </span>
-            <span className="text-[#1cf8d7] font-extrabold bg-black px-1">INSPIRE YOU</span>
+            <span className="text-[#339989] font-extrabold  ">INSPIRE YOU</span>
           </h1>
     
-            <p className="text-[#000] tracking-widest mb-16 text-lg leading-8">
+            <p className="text-[#fff] tracking-widest mb-16 text-lg leading-8">
               Discover a new way to travel — one that{" "}
               blends nature, connection, and
-              unforgettable experiences. <strong className="text-[#2c2c2c]  rounded-sm">Find your perfect cabin, join guided
+              unforgettable experiences. 
+              </p>\
+              {/* <p><strong className="text-[#fff]  rounded-sm">Find your perfect cabin, join guided
               activities, build meaningful friendships, and explore destinations </strong> 
               designed to inspire your mind and energize your spirit.
-            </p>
+            </p> */}
 
-          <div >
-            <Link className=" w-70 flex  h-12 justify-center items-center text-center font-bold  bg-[#1cf8d7] p-2 rounded-xl shadow-lg inset-shadow-[#fffd] text-[black] border-3 border-[#d0d0d0] 
+          <div className="flex w-full " >
+            <Link className=" w-70 flex  h-12 justify-center items-center text-center font-bold  bg-[#FFBA08] p-2 rounded-xl shadow-sm shadow-[#5f5e5e] text-[black] border-2 border-[#d0d0d0] 
             hover:text-[black]  hover:scale-110 hover:cursor-pointer transition-all ease-in-out "
               href="/cabins" 
             >
