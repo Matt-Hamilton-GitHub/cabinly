@@ -128,44 +128,59 @@ const topPlaces = [
 
 const HomePage = () => {
   return (
-    <section className="flex flex-col gap-0 w-screen">
-      
-      <section className="relative h-[70vh] w-screen px-[10%] flex justify-center items-center bg-[#000] overflow-clip
-]">
-        {/* <div className="absolute flex justify-center items-start bg-black opacity-60 w-full h-6/12 z-20"></div> */}
-        <div className=" absolute full w-[80vw] h-[100%] z-0 right-[10%]">
+    <section className="flex flex-col  w-screen">
+      <section
+        className="relative h-[70vh] w-screen px-[15%] flex justify-center items-center bg-[#000] overflow-clip
+]"
+      >
+        <div className="absolute flex justify-center items-start bg-[#000000bb] w-full h-full z-20"></div> 
+        <div className=" absolute full w-[100vw] h-[100%] z-0 shadow-2xl inset-shadow-amber-500">
           <Image
             fill
             src="/_assets/title-2-cut.jpg"
             alt="hero image"
-            className="object-cover object-top absolute z-0 rounded-t-4xl "
+            className="object-cover object-top absolute z-0 "
           />
          
         </div>
 
-        <div className="relative p-10 z-10 bg-[#0e0e0ec8]  flex flex-col justify-center items-center ">
-          <h1  className="p-5 text-white tracking-widest rounded-sm font-extrabold text-[46px] mb-6 text-shadow-lg leading-15 text-shadow-[black]"  style={{ textShadow: "2px 1px 4px #122" }}>
-            <span className="text-[#339989]  font-bold"> BREAK FREE FROM</span>
-            <span> THE EVERYDAY, </span>
-            <span className="text-[#339989]   "> CHASE NEW HORIZONS,</span>
-            <span> AND LET THE WORLD </span>
-            <span className="text-[#339989] font-extrabold  ">INSPIRE YOU</span>
-          </h1>
-    
-            <p className="text-[#fff] tracking-widest mb-16 text-lg leading-8">
-              Discover a new way to travel — one that{" "}
-              blends nature, connection, and
-              unforgettable experiences. 
-              </p>\
-              {/* <p><strong className="text-[#fff]  rounded-sm">Find your perfect cabin, join guided
-              activities, build meaningful friendships, and explore destinations </strong> 
-              designed to inspire your mind and energize your spirit.
-            </p> */}
+        <div className="relative p-10 z-30  flex flex-col justify-center items-start ">
+          <div className="flex flex-col justify-center items-start gap-5"> 
+            <h1
+              className=" text-white tracking-widest rounded-sm font-extrabold text-[46px]  text-shadow-lg leading-15 text-shadow-[black]"
+              style={{ textShadow: "2px 1px 4px #000" }}
+            >
+              <span className="text-[#339989]  font-bold">
+                {" "}
+                BREAK FREE FROM
+              </span>
+              <span> THE EVERYDAY, </span>
+              <span className="text-[#339989]   "> CHASE NEW HORIZONS,</span>
+              <span> AND LET THE WORLD </span>
+              <span className="text-[#339989] font-extrabold  ">
+                INSPIRE YOU
+              </span>
+            </h1>
+            <p className="text-[#000] p-1 bg-white tracking-widest  text-lg leading-8">
+              Discover a new way to travel — one that blends nature, connection,
+              and unforgettable experiences.
+            </p>
+          </div>
 
-          <div className="flex w-full " >
-            <Link className=" w-70 flex  h-12 justify-center items-center text-center font-bold  bg-[#FFBA08] p-2 rounded-xl shadow-sm shadow-[#5f5e5e] text-[black] border-2 border-[#d0d0d0] 
+          <div className="w-full flex  flex-col my-10 justify-center items-start">
+            <p>
+              <strong className=" rounded-sm text-lg leading-8 tracking-widest text-[#fff]">
+                Find your perfect cabin, join guided activities, build
+                meaningful friendships, and explore destinations designed to
+                inspire your mind and energize your spirit.{" "}
+              </strong>
+            </p>
+          </div>
+          <div className="flex w-full ">
+            <Link
+              className=" w-70 flex h-12 justify-center items-center text-center text-xl font-extrabold  bg-[#D33F49] p-2 shadow-sm shadow-[#000000ef] text-[black] border-1 border-[#ffffff] 
             hover:text-[black]  hover:scale-110 hover:cursor-pointer transition-all ease-in-out "
-              href="/cabins" 
+              href="/cabins"
             >
               Start Your Journey
             </Link>
@@ -173,20 +188,20 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className=" relative w-screen flex justify-center items-center border-1 border-[#bcbcbc89] mb-10">
-        <div className="flex flex-row flex-wrap justify-center items-center p-10 w-full gap-10  rounded-b-md">
+      <section className=" relative flex justify-center items-center  ">
+        <div className="flex flex-row flex-wrap justify-center items-center p-10  gap-10  rounded-b-md ">
           {content?.map((i) => {
             const { id, logo, title, stat } = i;
 
             return (
               <div
                 key={id}
-                className="flex justify-between items-start flex-col gap-1 h-60 w-50"
+                className="flex justify-center items-center flex-col gap-1 h-65 w-50 bg-[#ffffff82] rounded-3xl p-5"
               >
                 <span className="px-7 items-center h-35 font-semibold text-[46px] text-black">
                   {stat}
                 </span>
-                <span className="font-bold rounded-4xl shadow-sm border-5 border-[#0ccbaf]  border-s-black border-x-amber-400 p-5 place-items-baseline ">
+                <span className="font-bold rounded-4xl shadow-sm border-5 border-[#339989]  border-s-black border-x-amber-400 p-5 place-items-baseline ">
                   {logo}
                 </span>
                 <h2 className="flex tracking-widest items-start h-40 w-[120px] font-medium  text-[16px] text-[#434643]">
@@ -204,9 +219,9 @@ const HomePage = () => {
         - Sign Up for guided activities 
         - Join Groups */}
 
-      <section className="w-screen flex flex-col justify-center items-start pb-10 border-b-2 border-[#b7b6b6]">
+      <section className="w-screen flex flex-col justify-center items-start ">
         {/* // - Find A perfect Place to visit */}
-        <div className="flex flex-row gap-10 p-5 justify-center items-center bg-green-300 rounded-e-3xl shadow-sm ">
+        <div className="flex flex-row gap-10 p-5 justify-center items-center bg-[#339989] rounded-e-3xl shadow-sm ">
           <span>
             <Earth size={60} />
           </span>
@@ -220,7 +235,11 @@ const HomePage = () => {
         {/* FEATURES LIST */}
         <div className="flex w-screen gap-20 flex-col">
           <div className="flex bg-[#ffffff7d] flex-wrap  justify-center items-start p-20 gap-15">
-            <div className="flex flex-col gap-5 justify-center items-start  w-150">
+
+
+            <div className="flex flex-row gap-5 justify-center items-start  w-150">
+              <div className="flex flex-col gap-5">
+
               <h2 className="font-bold text-2xl bg-black text-[white] p-1">
                 Find Your Dream Destination
               </h2>
@@ -230,6 +249,8 @@ const HomePage = () => {
                 dreaming of vibrant cities, peaceful beaches, or hidden gems,
                 your next journey is just a choice away.
               </h4>
+
+              </div>
               <ul className="flex gap-5 flex-wrap justify-between items-center">
                 <li className="flex justify-center items-center gap-2 border-2 rounded-2xl p-1 border-[#aaa9a9]">
                   <CircleCheckBig color="#ec8c06" size={30} />{" "}
@@ -258,7 +279,8 @@ const HomePage = () => {
               </ul>
             </div>
 
-            <div className="flex flex-col gap-5 justify-center items-start w-150">
+            <div className="flex gap-5 justify-center items-start w-150">
+               <div className="flex flex-col gap-5">
               <h2 className="font-bold text-2xl bg-black text-[white] p-1">
                 Cabins Designed for Every Mood
               </h2>
@@ -267,7 +289,7 @@ const HomePage = () => {
                 retreat, our cabins are designed to enhance your journey while
                 staying true to nature.
               </h4>
-
+            </div>
               <ul className="flex gap-5 flex-wrap justify-between items-center">
                 <li className="flex justify-center items-center gap-2 border-2 rounded-2xl p-1 border-[#aaa9a9]">
                   <CircleCheckBig color="#ec8c06" size={30} />
