@@ -56,25 +56,25 @@ const content = [
     id: 0,
     stat: "500+",
     title: "CABINS ACROSS THE WORLD",
-    logo: <TentTree size={60} color={"#000"} />,
+    logo: <TentTree size={30} color={"#fff"} />,
   },
   {
     id: 1,
     stat: "50+",
     title: "GUIDED EXPERIENCE",
-    logo: <Sparkles size={60} color={"#000"} />,
+    logo: <Sparkles size={30} color={"#fff"} />,
   },
   {
     id: 2,
     stat: "37+",
     title: "ACTIVITIES TO JOIN",
-    logo: <Dumbbell size={60} color={"#000"} />,
+    logo: <Dumbbell size={30} color={"#fff"} />,
   },
   {
     id: 3,
-    stat: <Infinity size={60} />,
+    stat: <Infinity size={35} />,
     title: "NUMBER OF MEMORIES CREATED",
-    logo: <FlameKindling size={60} color={"#000"} />,
+    logo: <FlameKindling size={30} color={"#fff"} />,
   },
 ];
 
@@ -188,23 +188,23 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className=" relative flex justify-center items-center  ">
-        <div className="flex flex-row flex-wrap justify-center items-center p-10  gap-10  rounded-b-md ">
+      <section className=" relative flex justify-center items-center mb-20 ">
+        <div className="flex flex-row flex-wrap justify-center items-center text-center p-10 bg-[#212121]  gap-15 rounded-b-3xl ">
           {content?.map((i) => {
             const { id, logo, title, stat } = i;
 
             return (
               <div
                 key={id}
-                className="flex justify-center items-center flex-col gap-1 h-65 w-50 bg-[#ffffff82] rounded-3xl p-5"
+                className="flex justify-center items-center flex-col gap-1 h-35 w-50  rounded-3xl p-5"
               >
-                <span className="px-7 items-center h-35 font-semibold text-[46px] text-black">
+                <span className="px-7 items-center h-35 font-semibold text-[26px] text-white">
                   {stat}
                 </span>
-                <span className="font-bold rounded-4xl shadow-sm border-5 border-[#339989]  border-s-black border-x-amber-400 p-5 place-items-baseline ">
+                <span className="font-bold rounded-4xl shadow-sm border-5 border-[#339989]  border-s-white border-x-amber-400 p-5 place-items-baseline">
                   {logo}
                 </span>
-                <h2 className="flex tracking-widest items-start h-40 w-[120px] font-medium  text-[16px] text-[#434643]">
+                <h2 className="flex tracking-widest items-start h-40 w-[120px] font-medium  text-[14px] text-[#ffffff]">
                   {title}
                 </h2>
               </div>
