@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, MuseoModerno, Space_Grotesk, Alumni_Sans_Pinstripe } from "next/font/google";
+import { Geist, Geist_Mono, MuseoModerno, Space_Grotesk, Alumni_Sans_Pinstripe,Playfair_Display } from "next/font/google";
+
 import "@/app/_styles/globals.css";
 import Navbar from "./_components/Navbar";
 import Footer from "./_components/Footer";
@@ -17,11 +18,17 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-playfair",
+});
 
 const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"]
-})
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-space",
+});
 
 // const poppins = Poppins({weight: "400", subsets: ["latin"]});
 
@@ -46,6 +53,7 @@ export default function RootLayout({
       </head>
       <body
         className={`
+          ${playfair.variable}
           ${geistSans.variable} 
           ${geistMono.variable} 
           ${spaceGrotesk.variable}
@@ -56,7 +64,7 @@ export default function RootLayout({
           text-green`}
       >
         <UserProvider>
-          <div className="overflow-x-clip">
+          <div className="overflow-x-clip h-full overflow-auto">
             <Navbar />
             <main className="">
               <ReactQueryProvider>
@@ -66,7 +74,7 @@ export default function RootLayout({
           </div>
            
         </UserProvider>
-        {/* <Footer /> */}
+        <Footer />
       </body>
     </html>
   );
