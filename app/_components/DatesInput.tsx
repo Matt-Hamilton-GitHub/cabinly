@@ -1,48 +1,48 @@
-
-
-
-
 const DatesInput = ({ datesRange, setDatesRange }) => {
-
-
   const handleFromChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const from = e.target.value;
     setDatesRange((prev) => ({
-      ...prev, from: from
-    }))
-
-  }
-
+      ...prev,
+      from: from,
+    }));
+  };
 
   const handleToChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const to = e.target.value
+    const to = e.target.value;
 
     setDatesRange((prev) => ({
       ...prev,
-      to: to
-    }))
-  }
+      to: to,
+    }));
+  };
 
   return (
-    <div className="relative flex flex-col items-center  ">
-      <label
-        htmlFor='dates-input' className=' bg-black w-full  text-center text-white block text-sm font-medium rounded-t-2xl'
-      >When</label>
-      <div id='dates-input'
-        className="flex flex-row">
+    <>
+      <div className="search-filter">
+        <label
+          htmlFor="dates-input"
+          className="block text-sm text-gray-400 mb-2"
+        >
+          Check-in
+        </label>
+
         <input
           type="date"
           onChange={handleFromChange}
           placeholder="from"
-          className="p-1 border-2 border-black px-2 h-12  shadow-inner shadow-[#686868] bg-white rounded-b-3xl  hover:placeholder-[black]" />
+          className="w-full px-4 py-3 rounded-lg"
+        />
+      </div>
+      <div className="search-filter">
         <input
           type="date"
           onChange={handleToChange}
           placeholder="to"
-          className="p-1 border-2 border-black px-2 h-12  shadow-inner shadow-[#686868] bg-white rounded-b-3xl  hover:placeholder-[black]" />
+          className="w-full px-4 py-3 rounded-lg"
+        />
       </div>
-    </div>
-  )
-}
+    </>
+  );
+};
 
-export default DatesInput
+export default DatesInput;

@@ -3,60 +3,6 @@ import React from "react";
 const HeroSection = () => {
   return (
     <section className="hero-gradient min-h-screen relative flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 opacity-20">
-        <svg
-          className="w-full h-full"
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-        >
-          <defs>
-            <pattern
-              id="grid"
-              width="10"
-              height="10"
-              patternUnits="userSpaceOnUse"
-            >
-              <path
-                d="M 10 0 L 0 0 0 20"
-                fill="none"
-                stroke="rgba(0, 217, 255, 0.3)"
-                strokeWidth="0.5"
-              />
-            </pattern>
-          </defs>{" "}
-          <rect width="100" height="100" fill="url(#grid)" />
-        </svg>
-      </div>
-      <div className="absolute top-20 left-10 animate-float delay-100">
-        <svg
-          className="w-16 h-16 text-teal-400 opacity-30"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-        >
-          <path d="M12 2L2 22h20L12 2z" />
-        </svg>
-      </div>
-
-      <div className="absolute bottom-40 right-20 animate-float delay-300">
-        <svg
-          className="w-24 h-24 text-emerald-400 opacity-20"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-        >
-          <path d="M12 2L2 22h20L12 2z" />
-        </svg>
-      </div>
-      <div className="absolute top-40 right-40 animate-float delay-500">
-        <svg
-          className="w-12 h-12 text-teal-300 opacity-25"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <circle cx="12" cy="12" r="10" />
-        </svg>
-      </div>
       <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
         <div
           className="opacity-0 animate-fadeInUp"
