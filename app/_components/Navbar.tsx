@@ -35,7 +35,7 @@ export default function Navbar() {
           </Link>
           {/* <Link className="border-2 px-2 rounded-sm" href='/about'>Activitites</Link> */}
 
-          <Link className="px-2 rounded-sm" href="/about">
+          <Link className="px-2 rounded-sm" href="/cabins">
             Cabins
           </Link>
           <Link className="px-2 rounded-sm" href="/about">

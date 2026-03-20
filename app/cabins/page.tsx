@@ -67,7 +67,7 @@ const Cabins = ({
 
   return (
     <>
-      <section className=" hero-gradient relative z-[300] transition-all  py-16 border-b border-orange-500/10">
+      <section className=" hero-gradient pt-40 relative z-[300] transition-all  py-16 border-b border-orange-500/10">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h1
             id="page-title"
@@ -98,7 +98,7 @@ const Cabins = ({
             No cabins found
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8gap-15 gap-10 p-10 px-[10%]">
+          <div className="w-full flex flex-wrap flex-row justify-center items-center gap-10 p-10 px-[10%]">
             {cabins.map((cabin: CabinsType) => (
               <CabinCard cabin={cabin} key={cabin._id || crypto.randomUUID()} />
             ))}

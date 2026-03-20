@@ -1,11 +1,5 @@
-const DatesInput = ({ datesRange, setDatesRange }) => {
-  const handleFromChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const from = e.target.value;
-    setDatesRange((prev) => ({
-      ...prev,
-      from: from,
-    }));
-  };
+const CheckOutInput = ({ setDatesRange }) => {
+  
 
   const handleToChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const to = e.target.value;
@@ -17,23 +11,14 @@ const DatesInput = ({ datesRange, setDatesRange }) => {
   };
 
   return (
-    <>
+     
       <div className="search-filter">
         <label
           htmlFor="dates-input"
           className="block text-sm text-gray-400 mb-2"
         >
-          Check-in
+          Check-out
         </label>
-
-        <input
-          type="date"
-          onChange={handleFromChange}
-          placeholder="from"
-          className="w-full px-4 py-3 rounded-lg"
-        />
-      </div>
-      <div className="search-filter">
         <input
           type="date"
           onChange={handleToChange}
@@ -41,8 +26,7 @@ const DatesInput = ({ datesRange, setDatesRange }) => {
           className="w-full px-4 py-3 rounded-lg"
         />
       </div>
-    </>
   );
 };
 
-export default DatesInput;
+export default CheckOutInput;

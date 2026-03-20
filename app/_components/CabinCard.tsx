@@ -22,14 +22,14 @@ export default function CabinCard({ cabin }: CabinCardProps) {
     const cabinId = cabin._id;
     return (
 
-        <div key={cabinId} className="cabin-card rounded-2xl overflow-hidden glass-card hover:border-orange-400/50 border border-orange-500/10 cursor-pointer group animate-fadeInUp">
-          <div className="h-48 cabin-image relative overflow-hidden bg-cover bg-center" style={{backgroundImage: `url(${cabin.imageUrl})`}}>
+        <div key={cabinId} className="card-hover rounded-2xl max-w-100  overflow-hidden glass-card hover:border-orange-400/50 border border-orange-500/10 cursor-pointer group animate-fadeInUp hover:scale-110">
+          <div className="h-70 cabin-image relative overflow-hidden bg-cover bg-center" style={{backgroundImage: `url(${cabin.imageUrl})`}}>
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
             <div className="absolute top-3 right-3 price-badge px-3 py-1 rounded-lg">
               <span className="text-orange-300 font-semibold">${cabin.price}</span>/night
             </div>
           </div>
-          <div className="p-5">
+          <div className="p-5 ">
             <div className="flex items-start justify-between mb-2">
               <div>
                 <h3 className="font-semibold text-lg">{cabin.title}</h3>
