@@ -17,8 +17,8 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="absolute h-20 z-100 top-0 flex items-center gap-10 p-6 justify-between text-[black] w-screen glass-card">
-      <div className="flex items-center gap-10 p-6 justify-between w-full animate-fadeInLeft">
+    <nav className="absolute h-20 z-100 top-0 flex items-center gap-10 p-6 justify-between text-[black] w-screen ">
+      <div className="flex items-center gap-10 p-6 justify-between w-full animate-fadeInLeft md:p-30">
         <div className="">
           <Link className="flex items-center justify-center flex-col" href="/">
             <Image

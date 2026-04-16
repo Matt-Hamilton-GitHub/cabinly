@@ -2,7 +2,7 @@ import React from 'react'
 
 const MeetLocalsSection = () => {
   return (
-    <section id="locals" className="py-24 bg-gradient-to-b from-black to-neutral-950">
+    <section id="locals" className=" relative py-24 ">
     <div className="max-w-7xl mx-auto px-6">
      <div className="text-center mb-16 "><span className="text-cyan-400 text-sm tracking-widest uppercase">Connect</span>
       <h2 className="font-display text-4xl md:text-5xl font-bold mt-2 mb-4">Meet Your Guides</h2>
@@ -11,8 +11,8 @@ const MeetLocalsSection = () => {
      <div className="grid md:grid-cols-3 gap-8">
         {/* <!-- Guide 1 --> */}
       <div className="text-center " data-delay="100">
-       <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-cyan-400 to-purple-600 p-1 mb-6">
-        <div className="w-full h-full rounded-full bg-neutral-900 flex items-center justify-center">
+       <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br bg-[#3a8f7a]  p-1 mb-6">
+        <div className="w-full h-full rounded-full bg-[#3b3a3a] flex items-center justify-center">
          <svg className="w-16 h-16 text-cyan-400/50" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
          </svg>
         </div>
@@ -47,6 +47,18 @@ const MeetLocalsSection = () => {
       </div>
      </div>
     </div>
+    <div className="absolute bottom-0 left-0 right-0 ">
+        <svg
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+          className="w-full h-20"
+        >
+          <path
+            d="M0,120 L0,80 Q180,30 360,65 Q540,100 720,50 Q900,0 1080,40 Q1260,80 1440,55 L1440,120 Z"
+            fill="#3a8f7a"
+          />
+        </svg>
+      </div>
     </section>
   )
 }

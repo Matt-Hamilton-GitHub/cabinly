@@ -1,63 +1,125 @@
 import React from "react";
+import type { FC, ReactNode } from "react";
+import { PlayCircle, MapPin, Users, Home } from "lucide-react";
 
-const HeroSection = () => {
+// ─── StatCard subcomponent ───────────────────────────────────────
+
+interface StatCardProps {
+  icon: ReactNode;
+  count: string;
+  label: string;
+  sub: string;
+}
+
+const StatCard: FC<StatCardProps> = ({ icon, count, label, sub }) => (
+  <div
+    className="rounded-2xl p-6
+    bg-[#e8f0ed18] border border-[#8ba39a5d]"
+  >
+    <div className="flex items-start justify-between mb-4">
+      <div
+        className="w-10 h-10 rounded-lg flex items-center
+        justify-center bg-[#e8f0ed3e]
+        text-[#a8d5d0]"
+      >
+        {icon}
+      </div>
+      <span
+        className="text-[10px] font-medium px-2 py-1
+        rounded-full bg-[#a8d5d04f] text-[#cdd4d3]"
+      >
+        {count}
+      </span>
+    </div>
+
+    <p className="font-serif text-2xl mb-1 text-[#e8f0ed]">{label}</p>
+    <p className="text-xs font-light text-[#e8f0ed]/50">{sub}</p>
+  </div>
+);
+
+const HeroSection: FC = () => {
   return (
-    <section className="hero-gradient min-h-screen relative flex items-center justify-center overflow-hidden">
-      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
-        <div
-          className="opacity-0 animate-fadeInUp"
-          style={{ animationDelay: "0.2s", MozAnimationFillMode: "forwards" }}
-        >
-          <span className="inline-block px-4 py-2 rounded-full glass-card text-orange-400 text-sm mb-6">
-            {" "}
-            ✦ Guided by Local Experts ✦{" "}
-          </span>
-        </div>
-        <h1
-          id="hero-title"
-          className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 opacity-0 animate-fadeInUp"
-          style={{ animationDelay: "0.4s", MozAnimationFillMode: "forwards" }}
-        >
-          Discover the <span className="text-gradient">Wild</span>
-        </h1>
-        <p
-          id="hero-subtitle"
-          className="text-xl md:text-2xl text-gray-300 mb-10 max-w-2xl mx-auto opacity-0 animate-fadeInUp"
-          style={{ animationDelay: "0.6s", MozAnimationFillMode: "forwards" }}
-        >
-          Handcrafted adventures with stunning views, cozy cabins, and
-          unforgettable experiences guided by locals who know every hidden
-          trail.
-        </p>
-        <div
-          className="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-fadeInUp"
-          style={{ animationDelay: "0.8s", MozAnimationFillMode: "forwards" }}
-        >
-          <button
-            id="hero-cta"
-            className="btn-primary px-10 py-4 rounded-full text-black font-semibold text-lg animate-pulse-glow"
+    <section
+      className="hero-gradient relative min-h-screen flex flex-col
+      justify-center bg-[#0f3d3e] px-6 py-20"
+    >
+      <div className="absolute top-20 right-10 opacity-[0.08]"></div>
+
+      <div className="max-w-[90vw]  w-full mx-0 lg:mx-40">
+        <div className="max-w-4xl">
+          <p
+            className="text-xs font-medium tracking-[0.3em]
+            uppercase mb-6 text-[#e8f0ed69]"
           >
-            {" "}
-            Start Your Journey{" "}
-          </button>{" "}
-          <button className="px-10 py-4 rounded-full border-2 border-white/30 hover:border-cyan-500 hover:text-cyan-400 transition-all font-semibold text-lg">
-            {" "}
-            Watch Stories{" "}
-          </button>
+            Adventure Awaits
+          </p>
+
+          <h1
+            className="font-serif font-extrabold text-[clamp(2.8rem,6vw,6rem)]
+            leading-[1.1] mb-6 text-[#e8f0ed] "
+          >
+            The world is too beautiful to stay in one place
+          </h1>
+
+          <p
+            className="font-light leading-relaxed mb-10
+            text-[#e8f0eda7] max-w-xl md:text-[20px]"
+          >
+            Discover hidden gems guided by locals who know every trail, sunset
+            spot, and secret worth sharing.
+          </p>
+
+          <div className="flex flex-wrap gap-4">
+            <button
+              className="px-10 py-3.5 rounded-full font-medium
+              text-lg bg-[#e8f0ed] text-[#0f3d3e]
+              transition-transform hover:scale-105 hover:cursor-pointer"
+            >
+              Start Your Journey
+            </button>
+            <button
+              className="px-10 py-3.5 rounded-full font-medium
+              text-lg border border-[#e8f0ed]/30
+              text-[#e8f0ed] flex items-center gap-2
+              transition-transform hover:scale-105 hover:cursor-pointer"
+            >
+              <PlayCircle size={18} />
+              Watch Story
+            </button>
+          </div>
+
+          <div className="mt-20 grid sm:grid-cols-3 gap-6 max-w-3xl">
+            <StatCard
+              icon={<MapPin size={20} />}
+              count="120+"
+              label="Destinations"
+              sub="Across 6 continents"
+            />
+            <StatCard
+              icon={<Users size={20} />}
+              count="85"
+              label="Local Guides"
+              sub="Verified experts"
+            />
+            <StatCard
+              icon={<Home size={20} />}
+              count="237"
+              label="Cabins"
+              sub="Handpicked stays"
+            />
+          </div>
         </div>
       </div>
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 scroll-indicator">
+
+      <div className="absolute bottom-0 left-0 right-0 overflow-hidden">
         <svg
-          className="w-8 h-8 text-orange-400"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+          className="w-full h-20"
         >
           <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            d="M0,120 L0,80 Q180,30 360,65 Q540,100 720,50 Q900,0 1080,40 Q1260,80 1440,55 L1440,120 Z"
+            fill="#ffff"
           />
         </svg>
       </div>

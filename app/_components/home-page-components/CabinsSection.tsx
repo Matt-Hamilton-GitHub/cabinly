@@ -1,6 +1,6 @@
 const CabinsSection = () => {
   return (
-    <section id="cabins" className="py-24 bg-neutral-950">
+    <section id="cabins" className="py-24 hero-gradient">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="">
@@ -99,7 +99,7 @@ const CabinsSection = () => {
           >
             <div className="space-y-4">
               <div className="rounded-2xl overflow-hidden card-hover">
-                <div className="h-48 bg-gradient-to-br from-neutral-800 to-neutral-700 flex items-center justify-center">
+                <div className="h-48 bg-[#fafafa73]  flex items-center justify-center">
                   <svg
                     className="w-20 h-20 text-cyan-500/30"
                     viewBox="0 0 100 100"
@@ -121,7 +121,7 @@ const CabinsSection = () => {
                 </div>
               </div>
               <div className="rounded-2xl overflow-hidden card-hover">
-                <div className="h-64 bg-gradient-to-br from-cyan-900/50 to-blue-800/50 flex items-center justify-center">
+                <div className="h-64 bg-gradient-to-br bg-[#fafafa73] flex items-center justify-center">
                   <svg
                     className="w-24 h-24 text-white/20"
                     viewBox="0 0 100 100"
@@ -138,7 +138,7 @@ const CabinsSection = () => {
             </div>
             <div className="space-y-4 pt-8">
               <div className="rounded-2xl overflow-hidden card-hover">
-                <div className="h-64 bg-gradient-to-br from-purple-900/50 to-indigo-800/50 flex items-center justify-center">
+                <div className="h-64 bg-gradient-to-br bg-[#fafafa73]  flex items-center justify-center">
                   <svg
                     className="w-24 h-24 text-white/20"
                     viewBox="0 0 100 100"
@@ -169,7 +169,7 @@ const CabinsSection = () => {
                 </div>
               </div>
               <div className="rounded-2xl overflow-hidden card-hover">
-                <div className="h-48 bg-gradient-to-br from-neutral-800 to-neutral-700 flex items-center justify-center">
+                <div className="h-48 bg-gradient-to-br bg-[#fafafa73]  flex items-center justify-center">
                   <svg
                     className="w-20 h-20 text-cyan-500/30"
                     viewBox="0 0 100 100"
