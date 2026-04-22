@@ -55,7 +55,7 @@ const MeetLocalsSection = () => {
         >
           <path
             d="M0,120 L0,80 Q180,30 360,65 Q540,100 720,50 Q900,0 1080,40 Q1260,80 1440,55 L1440,120 Z"
-            fill="#3a8f7a"
+            fill="#2d7a6e"
           />
         </svg>
       </div>
