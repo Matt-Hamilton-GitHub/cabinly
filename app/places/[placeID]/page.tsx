@@ -3,17 +3,19 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-import { PlaceType } from "../page";
+import { TPlace } from "@/app/places/page";
 import SpinnerBoxJump from "@/app/_components/SpinnerBoxJump";
 import { useParams } from "next/navigation";
-import PlaceHero from "@/app/_components/place/PlaceHero";
+import PlaceHero from "@/app/_components/place-components/PlaceHero";
+import PlaceAbout from "@/app/_components/place-components/PlaceAbout";
+
 
 const PlacePage = () => {
   const  params = useParams<{placeID: string}>()
   
   const {placeID} = params
 
-  const [placeDetails, setPlaceDetails] = useState<PlaceType>();
+  const [placeDetails, setPlaceDetails] = useState<TPlace>();
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchAndSetPlace = async (id: string) => {
@@ -51,7 +53,10 @@ const PlacePage = () => {
   }
 
   return (
+    <>
     <PlaceHero place={placeDetails} />
+    <PlaceAbout place={placeDetails} />
+    </>
   );
 };
 

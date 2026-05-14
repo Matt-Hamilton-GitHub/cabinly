@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PlaceType } from "../places/page";
+import { TPlace } from "../places/page";
 
 const SeasonBadge = ({ seasons }: { seasons: string[] }) => (
   <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#faeeda] text-[#633806]">
@@ -8,7 +8,7 @@ const SeasonBadge = ({ seasons }: { seasons: string[] }) => (
   </span>
 );
 
-const PlaceCard = ({ place }: { place: PlaceType }) => {
+const PlaceCard = ({ place }: { place: TPlace }) => {
     const placeID = place._id
     console.log(placeID)
     
@@ -60,10 +60,10 @@ const PlaceCard = ({ place }: { place: PlaceType }) => {
         </span>
         {place?.activities.map((a) => (
           <span
-            key={a}
+            key={a.name}
             className="text-[10px] px-2 py-0.5 rounded-full bg-[#e1f5ee] text-[#085041]"
           >
-            {a}
+            {a.name}
           </span>
         ))}
         <SeasonBadge seasons={place.seasons} />

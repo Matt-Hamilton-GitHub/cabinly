@@ -3,25 +3,12 @@
 import { useRouter } from "next/navigation";
 import { MapPin, Star, ArrowLeft } from "lucide-react";
 import Image from "next/image";
+import TPlace from '@/app/places/page'
 
-interface Place {
-  title: string;
-  region: string;
-  country: string;
-  continent: string;
-  flag: string;
-  badge?: string;
-  images_url: string;
-  rating: number;
-  reviewCount: number;
-  tags: string[];
-}
 
-interface PlaceHeroProps {
-  place: Place;
-}
 
-const PlaceHero = ({ place }: PlaceHeroProps) => {
+
+const PlaceHero = ({ place }) => {
   const router = useRouter();
 
   return (

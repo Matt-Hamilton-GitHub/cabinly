@@ -5,7 +5,8 @@
 * {
   font-family: var(--font-space);
 }
-html, body{
+html,
+body {
   margin: 0;
   padding: 0;
   /* background-image: url("https://www.transparenttextures.com/patterns/arches.png"); */
@@ -19,7 +20,6 @@ html, body{
   --sec-grey: #cecece1b;
   --sec-comp-sunflower-gold: #f2af29;
 
-
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -30,8 +30,6 @@ body {
   margin: 0;
   padding: 0;
   color: white;
-
-
 }
 
 /* .space-grotesk{
@@ -233,10 +231,10 @@ body {
 
 .hero-gradient-40-deg {
   background: linear-gradient(
-  45deg,
-  #0f3d3e 0%,
-  #1a5c5e 35%,
-  #2d7a6e 65%,
+    45deg,
+    #0f3d3e 0%,
+    #1a5c5e 35%,
+    #2d7a6e 65%,
     #3a8f7a 100%
   );
 }
@@ -332,6 +330,42 @@ body {
   position: absolute;
   opacity: 0.08;
   pointer-events: none;
+}
+
+/* place stats */
+.highlights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+.hl {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #f8faf9;
+  border-radius: 10px;
+  padding: 25px;
+}
+.hl-icon {
+
+  border-radius: 8px;
+  background: #e1f5ee;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+}
+.hl-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: #0f3d3e;
+}
+.hl-sub {
+  font-size: 15px;
+  color: #aaa;
+  margin-top: 1px;
 }
 
 @keyframes gentle-rotate {
@@ -472,7 +506,6 @@ body {
 .delay-600 {
   animation-delay: 0.6s;
 }
-
 
 .card-hover {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);

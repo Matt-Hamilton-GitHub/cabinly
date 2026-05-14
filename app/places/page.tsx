@@ -74,7 +74,7 @@ export type CabinType = {
   tags: string[]
 }
 
-export type PlaceType = {
+export type TPlace = {
   _id: string
   slug: string
   title: string
