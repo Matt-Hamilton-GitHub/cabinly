@@ -1,58 +1,101 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use,useEffect, useState } from "react";
 import Image from "next/image";
 
 import { PlaceType } from "../page";
 import SpinnerBoxJump from "@/app/_components/SpinnerBoxJump";
 import { useParams } from "next/navigation";
-import PlaceHero from "@/app/_components/place/PlaceHero";
 
-const PlacePage = () => {
-  const  params = useParams<{placeID: string}>()
-  
-  const {placeID} = params
 
-  const [placeDetails, setPlaceDetails] = useState<PlaceType>();
-  const [isLoading, setIsLoading] = useState(false);
+import PlaceHero from '@/app/_components/place/PlaceHero'
+import PlaceStats from '@/app/_components/place/PlaceStats'
+import PlaceAbout from '@/app/_components/place/PlaceAbout'
+import CabinSelector from '@/app/_components/place/CabinSelector'
+import ActivitySignup from '@/app/_components/place/ActivitySignup'
+import GuideList from '@/app/_components/place/GuideCard'
+import ReviewList from '@/app/_components/place/ReviewList'
+import BookingSidebar from '@/app/_components/place/BookingSidebar'
 
-  const fetchAndSetPlace = async (id: string) => {
-    setIsLoading(true);
-    const res = await fetch(`/api/places/${id}`);
-    const data = await res.json();
-    setPlaceDetails(data.place);
-    console.log(placeDetails)
-    setIsLoading(false);
-  };
+
+const TripPage = ({ params }: { params: Promise<{ placeID: string }> }) => {
+  const { placeID } = use(params)
+
+  const [place, setPlace] = useState<PlaceType | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [selectedCabinId, setSelectedCabinId] = useState('')
+  const [signedActivityIds, setSignedActivityIds] = useState<string[]>([])
 
   useEffect(() => {
+    if (!placeID) return
+    const fetch_ = async () => {
+      setIsLoading(true)
+      const res = await fetch(`/api/places/${placeID}`)
+      const data = await res.json()
+      setPlace(data.place)
+      setSelectedCabinId(data.place?.cabinsRef?.[0]?._id ?? '')
+      setIsLoading(false)
+    }
+    fetch_()
+  }, [placeID])
 
-    console.log(placeID)
-    // if(!params.placeID) return ;
-    fetchAndSetPlace(placeID);
-  }, [placeID]);
+  if (isLoading) return (
+    <div className="flex h-screen items-center justify-center">
+      <p className="text-[#0f3d3e]/40 text-sm">Loading...</p>
+    </div>
+  )
 
-  console.log(placeDetails)
-
-  if (isLoading) {
-    return (
-      <div className="flex flex-col h-screen justify-start items-center">
-        <SpinnerBoxJump />
-      </div>
-    );
-  }
-
-  if (!placeDetails) {
-    return (
-      <div className="flex h-screen justify-start items-center flex-col text-black">
-        Empty
-      </div>
-    );
-  }
+  if (!place) return (
+    <div className="flex h-screen items-center justify-center">
+      <p className="text-[#0f3d3e]/40 text-sm">Place not found.</p>
+    </div>
+  )
 
   return (
-    <PlaceHero place={placeDetails} />
-  );
-};
+    <main className="bg-white min-h-screen">
+      <PlaceHero place={place} />
+      <PlaceStats place={place} />
 
-export default PlacePage;
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-[1fr_320px]
+        divide-x divide-[#0f3d3e]/08">
+
+        {/* Main content */}
+        <div className="px-8 py-10 space-y-14">
+          <PlaceAbout place={place} />
+          <CabinSelector
+            cabins={place.cabinsRef}
+            selectedCabinId={selectedCabinId}
+            onSelect={setSelectedCabinId}
+          />
+          <ActivitySignup
+            activities={place.activities}
+            signedIds={signedActivityIds}
+            onToggle={(id) =>
+              setSignedActivityIds((prev) =>
+                prev.includes(id)
+                  ? prev.filter((a) => a !== id)
+                  : [...prev, id]
+              )
+            }
+          />
+          <GuideList guides={place.guides} />
+          <ReviewList reviews={place.reviews} />
+        </div>
+
+        {/* Sidebar */}
+        <div className="lg:block hidden">
+          <BookingSidebar
+            place={place}
+            selectedCabinId={selectedCabinId}
+            signedActivityIds={signedActivityIds}
+            onCabinChange={setSelectedCabinId}
+            onActivityChange={setSignedActivityIds}
+          />
+        </div>
+
+      </div>
+    </main>
+  )
+}
+
+export default TripPage

@@ -36,7 +36,7 @@ const StatItem = ({ icon, value, label, highlight }: StatItemProps) => (
 )
 
 const formatNumber = (n: number): string => {
-  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`
+  if (n >= 1000) return `${(n / 1000)}k`
   return n.toString()
 }
 
@@ -64,7 +64,7 @@ const PlaceStats = ({ place }: PlaceStatsProps) => {
     },
     {
       icon: <Star size={18} />,
-      value: place.rating.toFixed(1),
+      value: place.rating,
       label: 'Avg rating',
       highlight: true,
     },
