@@ -3,7 +3,6 @@ import { truncate } from 'node:fs/promises'
 
 const CabinSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  description: {type: String, required: truncate},
   coordinates: {
     type: {
       type: String,
@@ -21,7 +20,7 @@ const CabinSchema = new mongoose.Schema({
   maxGuests: { type: Number, required: true },
   description: { type: String, required: true },
   amenities: [{type: String}],
-  spotsLeft: [{type: Number, required: true}],
+  spotsLeft: {type: Number, required: true},
   imageUrl: { type: String, required: true },
   tags: [{ type: String }]
 }, { timestamps: true })

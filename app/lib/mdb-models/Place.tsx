@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 
 const PlaceSchema = new mongoose.Schema({
     title: { type: String, required: true },
+    slug: {type: String},
     country: { type: String, required: true },
     price: {type: Number, required: true},
     region: {type: String},
@@ -25,17 +26,22 @@ const PlaceSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId, ref: 'Activity'
     }],
     guides: [{ type: Schema.Types.ObjectId, ref: 'Guide'}],
-    reviews: [{type: Schema.Types.ObjectId, ref: 'PlaceReview'}],
-    availableDates: {
-        label: String,
-        from: String,
-        to: String,
-        nights: Number,
+    reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}],
+    availableDates: [{
+        from: Date,
+        to: Date,
+    }],
+    coordinates: {
+    type: {
+      type: String,
+      enum: ['Point'],
+      required: true
     },
     coordinates: {
-        lat: Number,
-        lng: Number
+      type: [Number], 
+      required: true
     }
+  },
 
 })
 

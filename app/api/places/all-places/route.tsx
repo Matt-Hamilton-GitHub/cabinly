@@ -1,39 +1,31 @@
-import Cabin from "@/app/lib/mdb-models/Cabin";
-import Place from "@/app/lib/mdb-models/Place";
 import Activity from "@/app/lib/mdb-models/Activity";
-import { connectMDB } from "@/app/lib/mongodb";
-import { NextResponse } from "next/server";
+import Cabin from "@/app/lib/mdb-models/Cabin";
+import Guide from "@/app/lib/mdb-models/Giude";
 import Group from "@/app/lib/mdb-models/Group";
+import Place from "@/app/lib/mdb-models/Place";
+import Review from "@/app/lib/mdb-models/Giude";
+
+import { connectMDB } from "@/app/lib/mongodb"
+import { NextResponse } from "next/server"
 
 export async function GET(_req: Request) {
-
   try {
-    await connectMDB();
+    await connectMDB()
 
-    const place = await Place.find({})
-      .populate({
-        path: "cabinsRef",
-         model: Cabin})
-      .populate({
-        path: "seasons.activitiesRef",
-        model: Activity,
-        populate: {
-        path: "groups",
-        model: Group
-        }
-    })
+    const places = await Place.find({})
+      .populate({ path: "cabinsRef",  model: Cabin })
+      .populate({ path: "activities", model: Activity })
+      .populate({ path: "guides",     model: Guide })
+      .populate({ path: "reviews",    model: Review })
 
-    if (!place) {
-      return NextResponse.json({ message: "Place not found" }, { status: 404 });
-    }
-
-    return NextResponse.json({ data: place }, { status: 200 });
+    console.log(places)
+    return NextResponse.json({ places }, { status: 200 })
 
   } catch (err) {
-    console.error(err);
+    console.error(err)
     return NextResponse.json(
       { message: err instanceof Error ? err.message : String(err) },
       { status: 500 }
-    );
+    )
   }
 }
