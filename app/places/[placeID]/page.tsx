@@ -8,14 +8,14 @@ import SpinnerBoxJump from "@/app/_components/SpinnerBoxJump";
 import { useParams } from "next/navigation";
 
 
-import PlaceHero from '@/app/_components/place/PlaceHero'
-import PlaceStats from '@/app/_components/place/PlaceStats'
-import PlaceAbout from '@/app/_components/place/PlaceAbout'
-import CabinSelector from '@/app/_components/place/CabinSelector'
-import ActivitySignup from '@/app/_components/place/ActivitySignup'
-import GuideList from '@/app/_components/place/GuideCard'
-import ReviewList from '@/app/_components/place/ReviewList'
-import BookingSidebar from '@/app/_components/place/BookingSidebar'
+import PlaceHero from '@/app/_components/place.components/PlaceHero'
+import PlaceStats from '@/app/_components/place.components/PlaceStats'
+import PlaceAbout from '@/app/_components/place.components/PlaceAbout'
+import CabinSelector from '@/app/_components/place.components/CabinSelector'
+import ActivitySignup from '@/app/_components/place.components/ActivitySignup'
+import GuideList from '@/app/_components/place.components/GuideCard'
+import ReviewList from '@/app/_components/place.components/ReviewList'
+import BookingSidebar from '@/app/_components/place.components/BookingSidebar'
 
 
 const TripPage = ({ params }: { params: Promise<{ placeID: string }> }) => {
@@ -33,6 +33,7 @@ const TripPage = ({ params }: { params: Promise<{ placeID: string }> }) => {
       const res = await fetch(`/api/places/${placeID}`)
       const data = await res.json()
       setPlace(data.place)
+      console.log(data.place)
       setSelectedCabinId(data.place?.cabinsRef?.[0]?._id ?? '')
       setIsLoading(false)
     }

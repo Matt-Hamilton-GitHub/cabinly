@@ -1,13 +1,13 @@
+// app/api/guides/route.ts
 import { connectMDB } from "@/app/lib/mongodb"
-import Activity from '@/app/lib/mdb-models/Activity'
+import Guide from "@/app/lib/mdb-models/Guide"
 import { NextResponse } from "next/server"
 
 export async function GET(_req: Request) {
   try {
     await connectMDB()
-    const activities = await Activity.find({})
-    return NextResponse.json({ data: activities }, { status: 200 })
-
+    const guides = await Guide.find({})
+    return NextResponse.json({ data: guides }, { status: 200 })
   } catch (err) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : "Unknown error occurred" },
@@ -23,15 +23,15 @@ export async function POST(req: Request) {
     if (!body?.name) {
       return NextResponse.json(
         { error: "Missing required field: name" },
-        { status: 400 }   // ← 400 not 500, it's a client error
+        { status: 400 }
       )
     }
 
     await connectMDB()
-    const newActivity = new Activity(body)
-    await newActivity.save()
+    const newGuide = new Guide(body)
+    await newGuide.save()
 
-    return NextResponse.json({ data: newActivity }, { status: 201 })
+    return NextResponse.json({ data: newGuide }, { status: 201 })
 
   } catch (err) {
     return NextResponse.json(

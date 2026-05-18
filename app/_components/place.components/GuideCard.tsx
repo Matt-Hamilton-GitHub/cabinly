@@ -64,6 +64,7 @@ const GuideCard = ({ guide }: { guide: GuideType }) => (
 )
 
 const GuideList = ({ guides }: { guides: GuideType[] }) => (
+  
   <section>
     <p className="text-[10px] font-medium tracking-[0.2em] uppercase
       text-[#a8d5d0] mb-1">
