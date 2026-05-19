@@ -3,7 +3,7 @@ import Cabin from "@/app/lib/mdb-models/Cabin";
 import Guide from "@/app/lib/mdb-models/Guide";
 import Group from "@/app/lib/mdb-models/Group";
 import Place from "@/app/lib/mdb-models/Place";
-import Review from "@/app/lib/mdb-models/Guide";
+import Review from "@/app/lib/mdb-models/Review";
 
 import { connectMDB } from "@/app/lib/mongodb"
 import { NextResponse } from "next/server"

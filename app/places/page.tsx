@@ -252,9 +252,11 @@ const PlacesPage = () => {
       </div>
 
       {/* Grid */}
+      {filtered.length > 0 ?
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {filtered.map((p, idx) => <PlaceCard key={idx} place={p} />)}
-      </div>
+      </div> : <div className="flex w-full  text-gray-600 justify-center items-center h-110"><h1>Empty</h1></div>
+      }
     </main>
  
   );

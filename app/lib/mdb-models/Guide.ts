@@ -1,5 +1,8 @@
-// app/lib/mdb-models/Guide.ts
-import { Schema, model, models } from "mongoose"
+
+import mongoose from "mongoose";
+
+const { Schema } = mongoose;
+
 
 const GuideSchema = new Schema({
   name:        { type: String, required: true },
@@ -13,6 +16,4 @@ const GuideSchema = new Schema({
   imgUrl:      { type: String, default: "" },
 })
 
-const Guide = models.Guide || model("Guide", GuideSchema)
-
-export default Guide
+export default mongoose.models.Guide || mongoose.model('Guide', GuideSchema, 'Guides')

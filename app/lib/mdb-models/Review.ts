@@ -1,5 +1,7 @@
-// app/lib/mdb-models/Review.ts
-import { Schema, model, models, Types } from "mongoose"
+
+import mongoose from "mongoose";
+
+const { Schema } = mongoose;
 
 const ReviewSchema = new Schema({
   authorName:     { type: String, required: true },
@@ -7,11 +9,8 @@ const ReviewSchema = new Schema({
   rating:         { type: Number, required: true, min: 1, max: 5 },
   date:           { type: String, required: true },
   body:           { type: String, required: true },
-  placeRef:       { type: Types.ObjectId, ref: "Place", required: true },
 }, {
   timestamps: true,
 })
 
-const Review = models.Review || model("Review", ReviewSchema)
-
-export default Review
+export default mongoose.models.Review || mongoose.model('Review', ReviewSchema, 'Reviews')

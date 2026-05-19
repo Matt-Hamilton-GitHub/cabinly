@@ -63,7 +63,7 @@ const PlaceCard = ({ place }: { place: PlaceType }) => {
             key={a._id}
             className="text-[10px] px-2 py-0.5 rounded-full bg-[#e1f5ee] text-[#085041]"
           >
-            {a._id}
+            {a.name}
           </span>
         ))}
         <SeasonBadge seasons={place.seasons} />
