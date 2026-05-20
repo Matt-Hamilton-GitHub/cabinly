@@ -178,7 +178,7 @@ const PriceSummary = ({
         <div className="space-y-2.5">
           {selectedCabin && (
             <LineItem
-              label={`${selectedCabin.name} × ${selectedDate.nights} nights`}
+              label={`${selectedCabin.name} × ${1} nights`}
               value={`$${cabinSubtotal}`}
             />
           )}
@@ -350,7 +350,7 @@ const BookingSidebar = ({
   const [selectedDate, setSelectedDate] = useState<AvailableDateType>(
     place.availableDates
   )
-  const [adults, setAdults] = useState(2)
+  const [adults, setAdults] = useState(1)
   const [children, setChildren] = useState(0)
   const [wishlist, setWishlist] = useState(false)
   const [breakdownOpen, setBreakdownOpen] = useState(false)
@@ -360,6 +360,8 @@ const BookingSidebar = ({
   const signedActivities = allActivities.filter((a) =>
     signedActivityIds.includes(a._id)
   )
+
+  
 
   const toggleActivity = (id: string) =>
     onActivityChange(
@@ -397,12 +399,14 @@ const BookingSidebar = ({
             onDecrement={() => setAdults((n) => Math.max(1, n - 1))}
             onIncrement={() => setAdults((n) => Math.min(10, n + 1))}
             min={1}
+            max={place.cabinsRef.find(c => c._id === selectedCabinId)?.maxGuests - children}
           />
           <GuestCounter
             label="Children"
             value={children}
             onDecrement={() => setChildren((n) => Math.max(0, n - 1))}
             onIncrement={() => setChildren((n) => Math.min(8, n + 1))}
+            max={place.cabinsRef.find(c => c._id === selectedCabinId).maxGuests - adults} 
           />
         </div>
       </div>
