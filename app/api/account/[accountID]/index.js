@@ -19,11 +19,16 @@ export async function GET(req, { params }) {
        }
    
        if (user && await bcrypt.compare(uHash, user.hash)) {
-         const { _id, name, email } = user;
+         const { _id, name, email, medals, avatarUrl, points,tier } = user;
          const userData = {
            userId: _id,
            name: name,
            email: email,
+           medals: medals,
+           avatarUrl: avatarUrl,
+           points: points,
+           tier: tier,
+
          }
          
          return NextResponse.json({ userData, status: 200 })

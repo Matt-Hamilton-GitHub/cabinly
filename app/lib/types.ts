@@ -9,7 +9,7 @@ export type MedalType = {
 }
 
 export type UserType = {
-  _id: string
+  userId: string
   name: string
   email: string
   avatarUrl?: string

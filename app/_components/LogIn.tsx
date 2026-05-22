@@ -31,12 +31,7 @@ export default function Login() {
       const data = await res.json()
 
       if (res.ok) {
-        const user = {
-          userId: data.user._id,
-          name:   data.user.name,
-          email:  data.user.email,
-        }
-        setUser(user)
+        setUser(data)
         setPassword('')
         setEmail('')
         router.push('/places')

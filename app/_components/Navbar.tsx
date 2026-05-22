@@ -1,65 +1,251 @@
-"use client";
-import Link from "next/link";
-import cabinlyLogo from "../../public/_assets/icon.png";
-import Image from "next/image";
-import { useUserContext } from "../contexts/UserContext";
-import { CircleUserRound } from "lucide-react";
-import { useRouter } from "next/navigation";
+'use client'
+
+import Link from 'next/link'
+import Image from 'next/image'
+import { useRouter, usePathname } from 'next/navigation'
+import { Mountain, LogOut, User, Menu, X } from 'lucide-react'
+import { useState } from 'react'
+import cabinlyLogo from '../../public/_assets/icon.png'
+import { useUserContext } from '../contexts/UserContext'
+import { TierType } from '@/app/lib/types'
+
+const TIER_COLORS: Record<TierType, string> = {
+  Explorer:   'bg-[#e1f5ee] text-[#085041]',
+  Adventurer: 'bg-[#faeeda] text-[#633806]',
+  Pioneer:    'bg-[#e8e1fa] text-[#3d0663]',
+  Summit:     'bg-[#a8d5d0] text-[#0f3d3e]',
+}
+
+const NAV_LINKS = [
+  { href: '/places',     label: 'Destinations' },
+  { href: '/activities', label: 'Activities' },
+  { href: '/about',      label: 'About' },
+]
 
 export default function Navbar() {
-  const { user, setUser } = useUserContext();
-  const router = useRouter();
+  const { user, setUser, isValidating } = useUserContext()
+  const router   = useRouter()
+  const pathname = usePathname()
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   const handleLogout = async () => {
-    await fetch("/api/account/logout", { method: "POST" });
-    setUser(null);
-    router.push("/");
-  };
+    await fetch('/api/account/logout', { method: 'POST' })
+    setUser(null)
+    router.push('/')
+  }
+
+  const isActive = (href: string) => pathname === href
 
   return (
-    <nav className="relative  bg-gradient-to-br bg-[#2d7a6e] h-20 z-100 top-0 flex items-center gap-10 p-6 justify-between text-[black] w-screen ">
-      <div className="flex items-center gap-10 p-6 justify-between w-full animate-fadeInLeft md:p-30">
-        <div className="">
-          <Link className="flex items-center justify-center flex-col" href="/">
-            <Image
-              className="w-10 rounded-lg"
-              src={cabinlyLogo}
-              alt="cabinly-logo"
-            />
-            <h2 className="text-white">Cabinly</h2>
-          </Link>
-        </div>
-        <div className=" text-white items-start gap-5 hidden sm:flex">
-          <Link className=" px-2 " href="/places">
-            Destinstions
-          </Link>
-          {/* <Link className="border-2 px-2 rounded-sm" href='/about'>Activitites</Link> */}
+    <nav className="sticky top-0 z-50 bg-[#0f3d3e] border-b
+      border-[#e8f0ed]/08">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center
+        justify-between">
 
-          <Link className="px-2 rounded-sm" href="/cabins">
-            Cabins
-          </Link>
-          <Link className="px-2 rounded-sm" href="/about">
-            Activities
-          </Link>
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+          <div className="w-8 h-8  rounded-lg flex items-center
+            justify-center overflow-hidden">
+            <Image
+              src={cabinlyLogo}
+              alt="Cabinly"
+              width={32}
+              height={32}
+              className="object-cover"
+            />
+          </div>
+          <span className="text-[#e8f0ed] font-medium text-base">
+            Cabinly
+          </span>
+        </Link>
+
+        {/* Desktop nav links */}
+        <div className="hidden md:flex items-center gap-1">
+          {NAV_LINKS.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className={`px-4 py-2 rounded-xl text-sm transition-colors ${
+                isActive(href)
+                  ? 'bg-[#e8f0ed]/10 text-[#e8f0ed]'
+                  : 'text-[#e8f0ed]/60 hover:text-[#e8f0ed] hover:bg-[#e8f0ed]/05'
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
         </div>
-        <div className="flex flex-row gap-2 border-1 p-2 rounded-xl  text-[white] hover:scale-110 hover:text-[white]  hover:border-[white] transition-all ease-in-out ">
-          {user ? (
+
+        {/* Right side */}
+        <div className="hidden md:flex items-center gap-3">
+          {isValidating ? (
+            <div className="w-8 h-8 rounded-full border-2 border-[#e8f0ed]/20
+              border-t-[#a8d5d0] animate-spin" />
+          ) : user ? (
             <>
-              <Link className="  " href="/account">
-                Account
-              </Link>
-              <button
-                className="px-2 hover:cursor-pointer"
-                onClick={() => handleLogout()}
+              {/* Points */}
+              <div className="flex items-center gap-1.5 px-3 py-1.5
+                bg-[#e8f0ed]/08 border border-[#e8f0ed]/10 rounded-xl">
+                <span className="text-sm">⛰️</span>
+                <span className="text-xs font-medium text-[#a8d5d0]">
+                  {user.points?.toLocaleString() ?? 0} pts
+                </span>
+              </div>
+
+              {/* Tier badge */}
+              {user.tier && (
+                <span className={`text-[10px] font-medium px-2.5 py-1
+                  rounded-full ${TIER_COLORS[user.tier]}`}>
+                  {user.tier}
+                </span>
+              )}
+
+              {/* Account link */}
+              <Link
+                href="/account"
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-xl
+                  border transition-colors text-sm ${
+                    isActive('/account')
+                      ? 'bg-[#e8f0ed]/10 border-[#e8f0ed]/20 text-[#e8f0ed]'
+                      : 'border-[#e8f0ed]/15 text-[#e8f0ed]/70 hover:text-[#e8f0ed] hover:border-[#e8f0ed]/30'
+                  }`}
               >
-                Log Out
+                {user.avatarUrl ? (
+                  <Image
+                    src={user.avatarUrl}
+                    alt={user.name}
+                    width={20}
+                    height={20}
+                    className="rounded-full object-cover"
+                  />
+                ) : (
+                  <div className="w-5 h-5 rounded-full bg-[#a8d5d0]/20
+                    flex items-center justify-center">
+                    <User size={11} className="text-[#a8d5d0]" />
+                  </div>
+                )}
+                {user.name.split(' ')[0]}
+              </Link>
+
+              {/* Logout */}
+              <button
+                onClick={handleLogout}
+                className="p-2 rounded-xl text-[#e8f0ed]/50
+                  hover:text-[#e8f0ed] hover:bg-[#e8f0ed]/08
+                  transition-colors"
+                title="Log out"
+              >
+                <LogOut size={15} />
               </button>
             </>
           ) : (
-            <Link href="/log-in">Log in</Link>
+            <div className="flex items-center gap-2">
+              <Link
+                href="/log-in"
+                className="px-4 py-2 text-sm text-[#e8f0ed]/70
+                  hover:text-[#e8f0ed] transition-colors"
+              >
+                Sign in
+              </Link>
+              <Link
+                href="/sign-up"
+                className="px-4 py-2 text-sm font-medium bg-[#a8d5d0]
+                  text-[#0f3d3e] rounded-xl hover:bg-[#bce0db]
+                  transition-colors"
+              >
+                Sign up
+              </Link>
+            </div>
           )}
         </div>
+
+        {/* Mobile menu toggle */}
+        <button
+          onClick={() => setMobileOpen((o) => !o)}
+          className="md:hidden p-2 text-[#e8f0ed]/70 hover:text-[#e8f0ed]
+            transition-colors"
+        >
+          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
       </div>
+
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="md:hidden bg-[#0a2e2f] border-t border-[#e8f0ed]/08
+          px-6 py-4 space-y-1">
+          {NAV_LINKS.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              onClick={() => setMobileOpen(false)}
+              className={`block px-4 py-2.5 rounded-xl text-sm
+                transition-colors ${
+                  isActive(href)
+                    ? 'bg-[#e8f0ed]/10 text-[#e8f0ed]'
+                    : 'text-[#e8f0ed]/60 hover:text-[#e8f0ed]'
+                }`}
+            >
+              {label}
+            </Link>
+          ))}
+
+          <div className="border-t border-[#e8f0ed]/08 pt-3 mt-3">
+            {user ? (
+              <div className="space-y-1">
+                <div className="flex items-center justify-between px-4 py-2">
+                  <span className="text-sm text-[#e8f0ed]/70">{user.name}</span>
+                  <div className="flex items-center gap-2">
+                    {user.tier && (
+                      <span className={`text-[10px] font-medium px-2 py-0.5
+                        rounded-full ${TIER_COLORS[user.tier]}`}>
+                        {user.tier}
+                      </span>
+                    )}
+                    <span className="text-xs text-[#a8d5d0]">
+                      {user.points?.toLocaleString() ?? 0} pts
+                    </span>
+                  </div>
+                </div>
+                <Link
+                  href="/account"
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-4 py-2.5 rounded-xl text-sm
+                    text-[#e8f0ed]/60 hover:text-[#e8f0ed] transition-colors"
+                >
+                  My Account
+                </Link>
+                <button
+                  onClick={() => { handleLogout(); setMobileOpen(false) }}
+                  className="w-full text-left px-4 py-2.5 rounded-xl text-sm
+                    text-[#e8f0ed]/60 hover:text-[#e8f0ed] transition-colors"
+                >
+                  Log out
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-2 pt-1">
+                <Link
+                  href="/log-in"
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-4 py-2.5 rounded-xl text-sm
+                    text-[#e8f0ed]/60 hover:text-[#e8f0ed] transition-colors"
+                >
+                  Sign in
+                </Link>
+                <Link
+                  href="/sign-up"
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-4 py-2.5 rounded-xl text-sm
+                    font-medium bg-[#a8d5d0] text-[#0f3d3e] text-center
+                    hover:bg-[#bce0db] transition-colors"
+                >
+                  Sign up free
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </nav>
-  );
+  )
 }

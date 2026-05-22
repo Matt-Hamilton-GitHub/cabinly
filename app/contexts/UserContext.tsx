@@ -1,70 +1,70 @@
-
 'use client'
 
-import { createContext, useState, ReactNode, useContext, useEffect } from "react";
-import { GroupType } from "../groups/[groupID]/page";
-// TYPES
-type UserType = {
-    userId: string,
-    name: string,
-    email: string,
-};
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useContext,
+  useEffect,
+} from 'react'
 
-type AuthContextType = {
-    user: UserType | null;
-    setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
-    userGroups : GroupType[] | [] ;
-    getAndSetUserGroups: () => Promise<void>;
-};
+// ─── Types ───────────────────────────────────────────────────────
 
-// CONTEXT
-const UserContext = createContext<AuthContextType | null>(null);
+import { UserType,AuthContextType} from '../lib/types'
 
-// PROVIDER
+// ─── Context ─────────────────────────────────────────────────────
+
+const UserContext = createContext<AuthContextType | null>(null)
+
+// ─── Provider ────────────────────────────────────────────────────
+
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<UserType | null>(null);
-    const [userGroups, setUserGroups] = useState<GroupType[]>([])
+  const [user, setUser]             = useState<UserType | null>(null)
+  const [isValidating, setIsValidating] = useState(true)
 
-
-    const getAndSetUserGroups = async () => {
-    const res = await fetch(`/api/groups/user-groups?userID=${user?.userId}`, {
-      method: 'GET',
-      headers : {'Content-Type': 'application/json'}
-    })
-
-    const data = await res.json()
-    console.log(data.userGroups)
-    setUserGroups(data.userGroups)
+  const validateAndSetUser = async () => {
+    try {
+      setIsValidating(true)
+      const res  = await fetch('/api/validate-token')
+      const data = await res.json()
+      if (data.safeUser) setUser(data.safeUser)
+      else setUser(null)
+    } catch {
+      setUser(null)
+    } finally {
+      setIsValidating(false)
+    }
   }
 
-    useEffect(() => {
-    fetch('/api/validate-token').then(res => res.json()).then(data => {
-      if (data.safeUser) setUser(data.safeUser);
-      else console.log('faild to validate')
-    });
-
-  }, []);
-
-  useEffect(()=> {
-    if(user){
-        getAndSetUserGroups()
+  // fetch full user profile (for account page)
+  const refreshUser = async () => {
+    if (!user?.userId) return
+    try {
+      const res  = await fetch(`/api/account/${user.userId}`)
+      const data = await res.json()
+      if (data.user) {
+        setUser((prev) => prev ? { ...prev, ...data.user } : prev)
+      }
+    } catch {
+      console.error('Failed to refresh user')
     }
-  }, [user?.userId])
-    return (
-        <UserContext.Provider value={{ user, setUser, userGroups, getAndSetUserGroups}}>
-            {children}
-        </UserContext.Provider>
-    );
-};
+  }
 
+  useEffect(() => {
+    validateAndSetUser()
+  }, [])
 
-// HOOK
+  return (
+    <UserContext.Provider value={{ user, setUser, isValidating, refreshUser }}>
+      {children}
+    </UserContext.Provider>
+  )
+}
+
+// ─── Hook ────────────────────────────────────────────────────────
+
 export const useUserContext = () => {
-    const userContext = useContext(UserContext);
-    if (!userContext) {
-        throw new Error('useUserContext must be used inside UserProvider');
-    }
-    return userContext;
-};
-
-
+  const ctx = useContext(UserContext)
+  if (!ctx) throw new Error('useUserContext must be used inside UserProvider')
+  return ctx
+}

@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema(
     },
 
     // medals
-    medals: { type: [MedalSchema], default: [] },
+    medals: [{ type: String, default: [] }],
 
     // references
     bookings:            [{ type: Schema.Types.ObjectId, ref: 'Booking' }],

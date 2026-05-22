@@ -1,0 +1,17 @@
+export const ALL_MEDALS = [
+  { id: 'first-summit',   emoji: '🏔️', name: 'First Summit',     description: 'Complete your first hike'                        },
+  { id: 'first-descent',  emoji: '⛷️', name: 'First Descent',    description: 'Complete your first ski activity'                 },
+  { id: 'vertical-soul',  emoji: '🧗', name: 'Vertical Soul',    description: 'Complete an ice or rock climbing activity'        },
+  { id: 'golden-hour',    emoji: '📸', name: 'Golden Hour',      description: 'Complete a photography walk'                      },
+  { id: 'local-heart',    emoji: '🍷', name: 'Local at Heart',   description: 'Complete a cultural or food experience'           },
+  { id: 'open-water',     emoji: '🌊', name: 'Open Water',       description: 'Complete a kayaking or water activity'            },
+  { id: 'trailblazer',    emoji: '🔥', name: 'Trailblazer',      description: 'Book 3 trips in one year'                        },
+  { id: 'hopper',         emoji: '🌍', name: 'Continent Hopper', description: 'Visit destinations on 2+ continents'             },
+  { id: 'four-seasons',   emoji: '❄️', name: 'Four Seasons',     description: 'Travel in all 4 seasons'                         },
+  { id: 'pack-leader',    emoji: '👥', name: 'Pack Leader',      description: 'Travel with a group of 6+'                       },
+  { id: 'trusted-voice',  emoji: '⭐', name: 'Trusted Voice',    description: 'Leave 5 reviews'                                 },
+  { id: 'cabin-collect',  emoji: '🏕️', name: 'Cabin Collector',  description: 'Stay in 10 different cabins'                     },
+  { id: 'explorer-badge', emoji: '🗺️', name: "Explorer's Badge", description: 'Visit 5 different countries'                     },
+  { id: 'legend',         emoji: '👑', name: 'Legend',           description: 'Complete 50 activities total'                    },
+  { id: 'summit-elite',   emoji: '💎', name: 'Summit Elite',     description: 'Reach Summit tier'                               },
+]

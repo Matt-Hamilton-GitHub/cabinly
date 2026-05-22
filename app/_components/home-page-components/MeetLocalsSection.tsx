@@ -47,18 +47,7 @@ const MeetLocalsSection = () => {
       </div>
      </div>
     </div>
-    <div className="absolute bottom-0 left-0 right-0 ">
-        <svg
-          viewBox="0 0 1440 120"
-          preserveAspectRatio="none"
-          className="w-full h-20"
-        >
-          <path
-            d="M0,120 L0,80 Q180,30 360,65 Q540,100 720,50 Q900,0 1080,40 Q1260,80 1440,55 L1440,120 Z"
-            fill="#2d7a6e"
-          />
-        </svg>
-      </div>
+    
     </section>
   )
 }
