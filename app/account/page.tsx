@@ -92,7 +92,7 @@ const OverviewTab = ({ user }: { user: any }) => {
     ? 100
     : Math.round(((points - thresholds.min) / (thresholds.max - thresholds.min)) * 100)
 
-  const earnedMedals = (user.medals ?? []).filter((m: any) => m.earnedAt)
+  const earnedMedals = (user.medals ?? []).filter((m: any) => m)
 
   const quickStats = [
     { icon: <MapPin size={16} />,      label: 'Trips',      val: user.completedTrips?.length ?? 0 },
@@ -184,11 +184,11 @@ const OverviewTab = ({ user }: { user: any }) => {
           </div>
           <div className="flex gap-3">
             {earnedMedals.slice(0, 5).map((medal: any) => (
-              <div key={medal.id}
+              <div key={medal}
                 className="w-12 h-12 rounded-full bg-[#e1f5ee] border
                 border-[#0f3d3e]/10 flex items-center justify-center
-                text-2xl" title={medal.name}>
-                {medal.emoji}
+                text-2xl" title={medal}>
+                {ALL_MEDALS.map((m) => m.id == medal && m.emoji)}
               </div>
             ))}
           </div>
@@ -357,9 +357,8 @@ const TripsTab = ({ user }: { user: any }) => {
 
 const MedalsTab = ({ user }: { user: any }) => {
   const [hoveredInfo, setHoveredInfo] = useState(false)
-  const earnedIds = (user.medals ?? [])
-    .filter((m: any) => m.earnedAt)
-    .map((m: any) => m.id)
+  const earnedIds = (user.medals ?? []) 
+  console.log(earnedIds)
 
   return (
     <div>
@@ -417,8 +416,8 @@ const MedalsTab = ({ user }: { user: any }) => {
       {/* Medal grid */}
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
         {ALL_MEDALS.map((medal) => {
-          const earned = earnedIds.includes(medal.id)
-          const earnedData = user.medals?.find((m: any) => m.id === medal.id)
+          const earned = earnedIds.includes(medal)
+          const earnedData = user.medals?.find((m: any) => m === medal.id)
 
           return (
             <div key={medal.id} className="group relative flex flex-col
@@ -643,7 +642,7 @@ export default function AccountPage() {
 
   const tier       = user.tier ?? 'Explorer'
   const tierColors = TIER_COLORS[tier as keyof typeof TIER_COLORS]
-  const initials   = user.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()
+  const initials   = user.name && user.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()
   const joinedYear = user.joinedAt
     ? new Date(user.joinedAt).getFullYear()
     : new Date().getFullYear()

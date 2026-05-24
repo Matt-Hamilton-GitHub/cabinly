@@ -98,7 +98,10 @@ export async function userSignUp(req: Request) {
     const safeUser = {
       userId: newUser._id,
       name: newUser.name,
-      email: newUser.email
+      email: newUser.email,
+      avatarUrl: newUser.avatarUrl,
+      points: newUser.points,
+      tier: newUser.tier,
     };
 
     return NextResponse.json({ user: safeUser });

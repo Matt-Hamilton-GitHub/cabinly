@@ -124,7 +124,7 @@ export default function Navbar() {
                     <User size={11} className="text-[#a8d5d0]" />
                   </div>
                 )}
-                {user.name.split(' ')[0]}
+                {user && user?.name}
               </Link>
 
               {/* Logout */}

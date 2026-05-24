@@ -1,12 +1,5 @@
 export type TierType = 'Explorer' | 'Adventurer' | 'Pioneer' | 'Summit'
 
-export type MedalType = {
-  id: string
-  name: string
-  emoji: string
-  description: string
-  earnedAt?: string    // undefined = locked
-}
 
 export type UserType = {
   userId: string
@@ -16,7 +9,7 @@ export type UserType = {
   joinedAt: string
   points: number
   tier: TierType
-  medals: MedalType[]
+  medals: string[]
   completedActivities: string[]   // activity IDs
   completedTrips: string[]        // place IDs
   savedPlaces: string[]           // wishlist

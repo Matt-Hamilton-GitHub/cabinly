@@ -22,15 +22,15 @@ export async function GET(req, { params }) {
          const { _id, name, email, medals, avatarUrl, points,tier } = user;
          const userData = {
            userId: _id,
-           name: name,
-           email: email,
-           medals: medals,
-           avatarUrl: avatarUrl,
-           points: points,
-           tier: tier,
+           name,
+           email,
+           medals,
+           avatarUrl,
+           points,
+           tier,
 
          }
-         
+         console.log(userData)
          return NextResponse.json({ userData, status: 200 })
        } else {
          return NextResponse.json({ status: 401 })
@@ -39,3 +39,4 @@ export async function GET(req, { params }) {
        return NextResponse.json({ status: 500 })
      }
 }
+s

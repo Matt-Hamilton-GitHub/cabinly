@@ -42,8 +42,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     try {
       const res  = await fetch(`/api/account/${user.userId}`)
       const data = await res.json()
+      console.table(user)
       if (data.user) {
-        setUser((prev) => prev ? { ...prev, ...data.user } : prev)
+        setUser((prev) => prev )
+        console.table(user)
       }
     } catch {
       console.error('Failed to refresh user')

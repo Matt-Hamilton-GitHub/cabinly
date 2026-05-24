@@ -20,7 +20,11 @@ const token = cookieStore.get('token')?.value
     const safeUser = {
       userId: user._id,
       name: user.name,
-      email: user.email
+      email: user.email,
+      points: user.points,
+      tier: user.tier,
+      medals: user.medals
+
     };
 
     return NextResponse.json({ safeUser }, {status: 200});
