@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useUserContext } from '../contexts/UserContext'
+import { useUserProfile } from '../_hooks/useUserProfile'
 import {
   User, Settings, Trophy, Gift, MapPin,
   Lock, Info, Zap, Star, ArrowRight,
@@ -612,10 +613,10 @@ const SettingsTab = ({ user }: { user: any }) => {
 // ─── Main Page ───────────────────────────────────────────────────
 
 export default function AccountPage() {
-  const { user, isValidating } = useUserContext()
+  const { data: user, isLoading, error } = useUserProfile()
   const [activeTab, setActiveTab] = useState<TabType>('overview')
 
-  if (isValidating) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="w-8 h-8 rounded-full border-2 border-[#0f3d3e]/20
@@ -624,18 +625,14 @@ export default function AccountPage() {
     )
   }
 
+  
   if (!user) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center
         gap-4">
         <p className="text-sm text-gray-400">
-          You need to be signed in to view your account.
+          We Could Not Find Your Profile
         </p>
-        <Link href="/log-in"
-          className="px-5 py-2.5 rounded-xl bg-[#0f3d3e] text-[#e8f0ed]
-          text-sm font-medium hover:bg-[#1a5c5e] transition-colors">
-          Sign in
-        </Link>
       </div>
     )
   }

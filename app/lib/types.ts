@@ -30,8 +30,13 @@ export type BookingType = {
 }
 
 export type AuthContextType = {
-  user: UserType | null
-  setUser: React.Dispatch<React.SetStateAction<UserType | null>>
+  authUser: AuthUser | null
+  setAuthUser: React.Dispatch<React.SetStateAction<AuthUser | null>>
   isValidating: boolean
-  refreshUser: () => Promise<void>
+}
+
+export type AuthUser = {
+  userId: string
+  name: string
+  email: string
 }

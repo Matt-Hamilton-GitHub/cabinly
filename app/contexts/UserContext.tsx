@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   createContext,
@@ -6,67 +6,44 @@ import {
   ReactNode,
   useContext,
   useEffect,
-} from 'react'
+} from "react";
 
 // ─── Types ───────────────────────────────────────────────────────
-
-import { UserType,AuthContextType} from '../lib/types'
+import { AuthUser, AuthContextType } from "../lib/types";
 
 // ─── Context ─────────────────────────────────────────────────────
 
-const UserContext = createContext<AuthContextType | null>(null)
+const UserContext = createContext<AuthContextType | null>(null);
 
 // ─── Provider ────────────────────────────────────────────────────
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser]             = useState<UserType | null>(null)
-  const [isValidating, setIsValidating] = useState(true)
-
-  const validateAndSetUser = async () => {
-    try {
-      setIsValidating(true)
-      const res  = await fetch('/api/validate-token')
-      const data = await res.json()
-      if (data.safeUser) setUser(data.safeUser)
-      else setUser(null)
-    } catch {
-      setUser(null)
-    } finally {
-      setIsValidating(false)
-    }
-  }
-
-  // fetch full user profile (for account page)
-  const refreshUser = async () => {
-    if (!user?.userId) return
-    try {
-      const res  = await fetch(`/api/account/${user.userId}`)
-      const data = await res.json()
-      console.table(user)
-      if (data.user) {
-        setUser((prev) => prev )
-        console.table(user)
-      }
-    } catch {
-      console.error('Failed to refresh user')
-    }
-  }
+  const [authUser, setAuthUser] = useState<AuthUser | null>(null);
+  const [isValidating, setIsValidating] = useState(true);
 
   useEffect(() => {
-    validateAndSetUser()
-  }, [])
+    fetch("/api/validate-token")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.user)
+          setAuthUser(data.user); // { userId } only
+        else setAuthUser(null);
+      })
+      .catch(() => setAuthUser(null))
+      .finally(() => setIsValidating(false));
+  }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser, isValidating, refreshUser }}>
+    <UserContext.Provider value={{ authUser, setAuthUser, isValidating }}>
       {children}
     </UserContext.Provider>
-  )
-}
+  );
+};
 
 // ─── Hook ────────────────────────────────────────────────────────
 
 export const useUserContext = () => {
-  const ctx = useContext(UserContext)
-  if (!ctx) throw new Error('useUserContext must be used inside UserProvider')
-  return ctx
-}
+  const ctx = useContext(UserContext);
+  if (!ctx) throw new Error("useUserContext must be used inside UserProvider");
+  return ctx;
+};

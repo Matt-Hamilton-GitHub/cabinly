@@ -1,35 +1,30 @@
-import { cookies } from 'next/headers';
-import { NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
-import User from '@/app/lib/mdb-models/User';
+import { cookies } from 'next/headers'
+import { NextResponse } from 'next/server'
+import jwt from 'jsonwebtoken'
 
-export async function GET(){
-const cookieStore = await cookies();
-const token = cookieStore.get('token')?.value
+export async function GET() {
+  const cookieStore = await cookies()
+  const token = cookieStore.get('token')?.value
 
+  if (!token) {
+    return NextResponse.json({ user: null }, { status: 401 })
+  }
 
- if (!token) return NextResponse.json({ user: null });
+  try {
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_SECRET!
+    ) as { userId: string }
 
- try {
-    const decoded: any = jwt.verify(token, process.env.JWT_SECRET!)
-    const userId = decoded.userId
+    return NextResponse.json(
+      { user: { userId: decoded.userId } },
+      { status: 200 }
+    )
 
-    console.log('succesfuly validated ')
-    const user = await User.findOne({_id: userId});
-
-    const safeUser = {
-      userId: user._id,
-      name: user.name,
-      email: user.email,
-      points: user.points,
-      tier: user.tier,
-      medals: user.medals
-
-    };
-
-    return NextResponse.json({ safeUser }, {status: 200});
-  } catch (err) {
-    console.log('faild to validate')
-    return NextResponse.json({ user: null });
-}
+  } catch {
+    // token expired or tampered — clear the cookie
+    const res = NextResponse.json({ user: null }, { status: 401 })
+    res.cookies.set('token', '', { httpOnly: true, maxAge: 0, path: '/' })
+    return res
+  }
 }

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, MuseoModerno, Space_Grotesk, Alumni_Sans_Pinstripe,Playfair_Display } from "next/font/google";
 
-import "@/app/_styles/globals.css";
+import "../app/_styles/globals.css"
+
 import Navbar from "./_components/Navbar";
 import Footer from "./_components/Footer";
 import { UserProvider } from "./contexts/UserContext";
-import ReactQueryProvider from "./lib/ReactQueryProvider";
+import Providers from "./lib/ReactQueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,9 +68,9 @@ export default function RootLayout({
           <div className="overflow-x-clip h-full overflow-auto">
             <Navbar />
             <main className="">
-              <ReactQueryProvider>
+              <Providers>
               {children}
-              </ReactQueryProvider>
+              </Providers>
             </main>
           </div>
            
