@@ -25,12 +25,22 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     fetch("/api/validate-token")
       .then((res) => res.json())
       .then((data) => {
-        if (data.user)
+        if (data.user){
+
           setAuthUser(data.user); // { userId } only
+          console.log('@userContext setAuthUser', data)
+        }
         else setAuthUser(null);
       })
-      .catch(() => setAuthUser(null))
-      .finally(() => setIsValidating(false));
+      .catch(() => {
+        setAuthUser(null)
+        console.log('user validation failed')
+      
+      })
+      .finally(() => {
+        console.log('user validated succesfully')
+        setIsValidating(false)
+      });
   }, []);
 
   return (

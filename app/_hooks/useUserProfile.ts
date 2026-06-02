@@ -4,19 +4,21 @@ import { useUserContext } from '@/app/contexts/UserContext'
 import { UserType } from '@/app/lib/types'
 
 const fetchUserProfile = async (userId: string): Promise<UserType> => {
-  const res = await fetch(`/api/account/${userId}`)
+  console.log('fetching user profile',userId)
+  const res = await fetch(`/api/user/${userId}`)
   if (!res.ok) throw new Error('Failed to fetch profile')
   const data = await res.json()
+  console.log(data.user)
   return data.user
 }
 
 export const useUserProfile = () => {
   const { authUser } = useUserContext()
-
+  console.log('@useUserProfile:', authUser)
   return useQuery({
     queryKey: ['user', authUser?.userId],
     queryFn:  () => fetchUserProfile(authUser!.userId),
-    enabled:  !!authUser?.userId,   // only fetch if logged in
+    enabled:  authUser?.userId != null,   // only fetch if logged in
     staleTime: 1000 * 60 * 5,      // cache for 5 minutes
   })
 }

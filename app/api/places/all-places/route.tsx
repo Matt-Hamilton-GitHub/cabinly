@@ -18,7 +18,7 @@ export async function GET(_req: Request) {
       .populate({ path: "guides",     model: Guide })
       .populate({ path: "reviews",    model: Review })
 
-    console.log(places)
+    // console.log(places)
     return NextResponse.json({ places }, { status: 200 })
 
   } catch (err) {

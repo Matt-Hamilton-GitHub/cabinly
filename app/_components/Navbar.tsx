@@ -3,10 +3,11 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter, usePathname } from 'next/navigation'
-import { Mountain, LogOut, User, Menu, X } from 'lucide-react'
+import { Mountain, LogOut, User, Menu, X, Zap } from 'lucide-react'
 import { useState } from 'react'
 import cabinlyLogo from '../../public/_assets/icon.png'
 import { useUserContext } from '../contexts/UserContext'
+import { useUserProfile } from '../_hooks/useUserProfile'
 import { TierType } from '@/app/lib/types'
 
 const TIER_COLORS: Record<TierType, string> = {
@@ -23,14 +24,15 @@ const NAV_LINKS = [
 ]
 
 export default function Navbar() {
-  const { user, setUser, isValidating } = useUserContext()
+  const { authUser, setAuthUser, isValidating } = useUserContext()
+  const { data: profile } = useUserProfile()   // ← full profile, cached
   const router   = useRouter()
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const handleLogout = async () => {
-    await fetch('/api/account/logout', { method: 'POST' })
-    setUser(null)
+    await fetch('/api/user/logout', { method: 'POST' })
+    setAuthUser(null)
     router.push('/')
   }
 
@@ -44,7 +46,7 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 flex-shrink-0">
-          <div className="w-8 h-8  rounded-lg flex items-center
+          <div className="w-8 h-8 rounded-lg flex items-center
             justify-center overflow-hidden">
             <Image
               src={cabinlyLogo}
@@ -79,41 +81,41 @@ export default function Navbar() {
         {/* Right side */}
         <div className="hidden md:flex items-center gap-3">
           {isValidating ? (
-            <div className="w-8 h-8 rounded-full border-2 border-[#e8f0ed]/20
-              border-t-[#a8d5d0] animate-spin" />
-          ) : user ? (
+            <div className="w-5 h-5 rounded-full border-2
+              border-[#e8f0ed]/20 border-t-[#a8d5d0] animate-spin" />
+          ) : authUser ? (
             <>
-              {/* Points */}
+              {/* Points — from profile, falls back gracefully */}
               <div className="flex items-center gap-1.5 px-3 py-1.5
                 bg-[#e8f0ed]/08 border border-[#e8f0ed]/10 rounded-xl">
-                <span className="text-sm">⛰️</span>
+                <Zap size={13} className="text-[#a8d5d0]" />
                 <span className="text-xs font-medium text-[#a8d5d0]">
-                  {user.points?.toLocaleString() ?? 0} pts
+                  {profile?.points?.toLocaleString() ?? '—'} pts
                 </span>
               </div>
 
-              {/* Tier badge */}
-              {user.tier && (
+              {/* Tier badge — from profile */}
+              {profile?.tier && (
                 <span className={`text-[10px] font-medium px-2.5 py-1
-                  rounded-full ${TIER_COLORS[user.tier]}`}>
-                  {user.tier}
+                  rounded-full ${TIER_COLORS[profile.tier]}`}>
+                  {profile.tier}
                 </span>
               )}
 
-              {/* Account link */}
+              {/* Account link — name from authUser (always available) */}
               <Link
-                href="/account"
+                href={`/user/${authUser.userId}`}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-xl
                   border transition-colors text-sm ${
-                    isActive('/account')
+                    isActive('/user')
                       ? 'bg-[#e8f0ed]/10 border-[#e8f0ed]/20 text-[#e8f0ed]'
                       : 'border-[#e8f0ed]/15 text-[#e8f0ed]/70 hover:text-[#e8f0ed] hover:border-[#e8f0ed]/30'
                   }`}
               >
-                {user.avatarUrl ? (
+                {profile?.avatarUrl ? (
                   <Image
-                    src={user.avatarUrl}
-                    alt={user.name}
+                    src={profile.avatarUrl}
+                    alt={authUser.name}
                     width={20}
                     height={20}
                     className="rounded-full object-cover"
@@ -124,7 +126,7 @@ export default function Navbar() {
                     <User size={11} className="text-[#a8d5d0]" />
                   </div>
                 )}
-                {user && user?.name}
+                {authUser?.name?.split(' ')[0] ?? ""}  {/* first name only */}
               </Link>
 
               {/* Logout */}
@@ -159,7 +161,7 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Mobile menu toggle */}
+        {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen((o) => !o)}
           className="md:hidden p-2 text-[#e8f0ed]/70 hover:text-[#e8f0ed]
@@ -190,24 +192,26 @@ export default function Navbar() {
           ))}
 
           <div className="border-t border-[#e8f0ed]/08 pt-3 mt-3">
-            {user ? (
+            {authUser ? (
               <div className="space-y-1">
                 <div className="flex items-center justify-between px-4 py-2">
-                  <span className="text-sm text-[#e8f0ed]/70">{user.name}</span>
+                  <span className="text-sm text-[#e8f0ed]/70">
+                    {authUser.name}
+                  </span>
                   <div className="flex items-center gap-2">
-                    {user.tier && (
+                    {profile?.tier && (
                       <span className={`text-[10px] font-medium px-2 py-0.5
-                        rounded-full ${TIER_COLORS[user.tier]}`}>
-                        {user.tier}
+                        rounded-full ${TIER_COLORS[profile.tier]}`}>
+                        {profile.tier}
                       </span>
                     )}
                     <span className="text-xs text-[#a8d5d0]">
-                      {user.points?.toLocaleString() ?? 0} pts
+                      {profile?.points?.toLocaleString() ?? '—'} pts
                     </span>
                   </div>
                 </div>
                 <Link
-                  href="/account"
+                  href={`/user/${authUser.userId}`}
                   onClick={() => setMobileOpen(false)}
                   className="block px-4 py-2.5 rounded-xl text-sm
                     text-[#e8f0ed]/60 hover:text-[#e8f0ed] transition-colors"
@@ -235,8 +239,8 @@ export default function Navbar() {
                 <Link
                   href="/sign-up"
                   onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-2.5 rounded-xl text-sm
-                    font-medium bg-[#a8d5d0] text-[#0f3d3e] text-center
+                  className="block px-4 py-2.5 rounded-xl text-sm font-medium
+                    bg-[#a8d5d0] text-[#0f3d3e] text-center
                     hover:bg-[#bce0db] transition-colors"
                 >
                   Sign up free

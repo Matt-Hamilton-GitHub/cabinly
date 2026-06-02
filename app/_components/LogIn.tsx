@@ -5,6 +5,7 @@ import { useUserContext } from '../contexts/UserContext'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Mail, Lock, ArrowRight, Mountain } from 'lucide-react'
+import { useUserProfile } from '../_hooks/useUserProfile'
 
 export default function Login() {
   const [email, setEmail]       = useState('')
@@ -14,7 +15,7 @@ export default function Login() {
   const [focusedField, setFocusedField] = useState<string | null>(null)
 
   const router = useRouter()
-  const { setUser } = useUserContext()
+  const { setAuthUser } = useUserContext()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -22,19 +23,24 @@ export default function Login() {
     setError(null)
 
     try {
-      const res = await fetch('/api/account/log-in', {
+      const res = await fetch('/api/user/log-in', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       })
 
       const data = await res.json()
-
+      console.log('@ log in returns:', data)
       if (res.ok) {
-        setUser(data)
+        setAuthUser({
+        userId: data.user.userId,
+        name:   data.user.name,
+        email:  data.user.email,
+      })
         setPassword('')
         setEmail('')
-        router.push('/places')
+       
+        router.push(`/places`)
       } else {
         setError(data.message)
       }

@@ -26,7 +26,7 @@ export async function GET(
       .populate({ path: "guides", model: Guide})
       .populate({ path: "reviews", model: Review});
 
-    console.log(place)
+    // console.log(place)
     
     
     if (!place) {

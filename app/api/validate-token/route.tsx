@@ -17,9 +17,9 @@ export async function GET() {
     ) as { userId: string }
 
     return NextResponse.json(
-      { user: { userId: decoded.userId } },
-      { status: 200 }
-    )
+  { user: { userId: decoded.userId } },
+  { status: 200 }
+)
 
   } catch {
     // token expired or tampered — clear the cookie

@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { useUserContext } from '../contexts/UserContext'
-import { useUserProfile } from '../_hooks/useUserProfile'
+import { useUserContext } from '../../contexts/UserContext'
+import { useUserProfile } from '../../_hooks/useUserProfile'
 import {
   User, Settings, Trophy, Gift, MapPin,
   Lock, Info, Zap, Star, ArrowRight,
@@ -10,7 +10,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 
-import { ALL_MEDALS } from '../lib/medals'
+import { ALL_MEDALS } from '../../lib/medals'
 
 // ─── Types ───────────────────────────────────────────────────────
 
@@ -614,6 +614,7 @@ const SettingsTab = ({ user }: { user: any }) => {
 
 export default function AccountPage() {
   const { data: user, isLoading, error } = useUserProfile()
+  console.log(user, error)
   const [activeTab, setActiveTab] = useState<TabType>('overview')
 
   if (isLoading) {

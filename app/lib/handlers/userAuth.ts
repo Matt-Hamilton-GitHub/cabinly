@@ -10,7 +10,7 @@ type userSignUpReq = { email: string; password: string; name: string }
 const TOKEN_MAX_AGE = 60 * 60 * 24 * 7 // 7 days — single source of truth
 
 function createAuthToken(userId: string) {
-  return jwt.sign({ userId }, process.env.JWT_SECRET!, { expiresIn: '7d' })
+  return jwt.sign({ userId,  }, process.env.JWT_SECRET!, { expiresIn: '7d' })
 }
 
 function setAuthCookie(res: NextResponse, token: string) {
@@ -19,22 +19,20 @@ function setAuthCookie(res: NextResponse, token: string) {
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
     path: '/',
-    maxAge: TOKEN_MAX_AGE, // fix 4: matches JWT expiry
+    maxAge: TOKEN_MAX_AGE, 
   })
 }
 
-function safeUser(user: any) { // fix 1: centralised safe-user shape
+function safeUser(user: any) { 
   return {
-    userId:    user._id,
+    userId:    user._id.toString(),
     name:      user.name,
     email:     user.email,
-    avatarUrl: user.avatarUrl,
-    points:    user.points,
-    tier:      user.tier,
   }
 }
 
 export async function userLogIn(req: Request) {
+  console.log('@ user log-in')
   const { email, password }: userLogInReq = await req.json()
 
   if (!email || !password) {
@@ -55,6 +53,7 @@ export async function userLogIn(req: Request) {
     }
 
     const res = NextResponse.json({ user: safeUser(user) }) // fix 1
+    console.log("@ userLogIn", user, safeUser(user))
     setAuthCookie(res, createAuthToken(user._id.toString()))
     return res
 
@@ -77,7 +76,7 @@ export async function userSignUp(req: Request) {
   }
 
   try {
-    await connectMDB() // fix 2: awaited and moved before any DB calls
+    await connectMDB() 
 
     const existingUser = await User.findOne({ email })
     if (existingUser) {
