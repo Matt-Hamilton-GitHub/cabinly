@@ -1,19 +1,30 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, MuseoModerno, Space_Grotesk, Alumni_Sans_Pinstripe,Playfair_Display } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  MuseoModerno,
+  Space_Grotesk,
+  Alumni_Sans_Pinstripe,
+  Playfair_Display,
+} from "next/font/google";
 
-import "@/app/_styles/globals.css";
+import "../app/_styles/globals.css";
+
 import Navbar from "./_components/Navbar";
 import Footer from "./_components/Footer";
 import { UserProvider } from "./contexts/UserContext";
-import ReactQueryProvider from "./lib/ReactQueryProvider";
+import Providers from "./lib/ReactQueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const museoModerno = MuseoModerno({ weight: "400", subsets: ["latin"] })
-const alumniSansPri = Alumni_Sans_Pinstripe({ weight: "400",variable: "--alumni-sans-pinstripe"})
+const museoModerno = MuseoModerno({ weight: "400", subsets: ["latin"] });
+const alumniSansPri = Alumni_Sans_Pinstripe({
+  weight: "400",
+  variable: "--alumni-sans-pinstripe",
+});
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -45,14 +56,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-         <script
-        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_GEO_API}&libraries=places`}
-        async
-        defer
-      />
+        <script
+          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_GEO_API}&libraries=places`}
+          async
+          defer
+        />
       </head>
-      <body
-        className={`
+      <Providers>
+        <body
+          className={`
           ${playfair.variable}
           ${geistSans.variable} 
           ${geistMono.variable} 
@@ -62,20 +74,14 @@ export default function RootLayout({
           antialiased
           min-h-screen
           text-green`}
-      >
-        <UserProvider>
+        >
           <div className="overflow-x-clip h-full overflow-auto">
             <Navbar />
-            <main className="">
-              <ReactQueryProvider>
-              {children}
-              </ReactQueryProvider>
-            </main>
+            <main className="">{children}</main>
           </div>
-           
-        </UserProvider>
-        <Footer />
-      </body>
+          <Footer />
+        </body>
+      </Providers>
     </html>
   );
 }

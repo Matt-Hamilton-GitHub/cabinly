@@ -60,7 +60,7 @@ const PlaceCard = ({ place }: { place: TPlace }) => {
         </span>
         {place?.activities.map((a) => (
           <span
-            key={a.name}
+            key={a._id}
             className="text-[10px] px-2 py-0.5 rounded-full bg-[#e1f5ee] text-[#085041]"
           >
             {a.name}
@@ -72,8 +72,8 @@ const PlaceCard = ({ place }: { place: TPlace }) => {
       <div className="grid grid-cols-3 gap-2 border-t border-[#0f3d3e]/[0.08] pt-3">
         {[
           { val: place?.travellers, key: "Travellers" },
-          { val: place?.activities.length, key: "Activities" },
-          { val: place?.cabinsRef.length, key: "Cabins" },
+          { val: place?.activities.length ? place?.activities.length : 0, key: "Activities" },
+          { val: place?.cabinsRef.length ?  place?.cabinsRef.length : 0, key: "Cabins" },
         ].map((s) => (
           <div key={s.key} className="text-center">
             <span className="block text-sm font-medium text-[#0f3d3e]">

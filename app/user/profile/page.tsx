@@ -3,14 +3,15 @@
 import Image from "next/image";
 import { useUserContext } from "../../contexts/UserContext"
 import Link from "next/link";
+import { useUserProfile } from "@/app/_hooks/useUserProfile";
 
 
 export default function Page() {
 
-    const { user } = useUserContext()
+    const { data: user, isLoading, error } = useUserProfile()
     console.log(user)
   
-      if (!user) {
+      if (!user ) {
          return  <Link href='/account/log-in'>Log in</Link>
       }
 

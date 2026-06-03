@@ -56,7 +56,6 @@ export type AvailableDateType = {
   label: string
   from: string
   to: string
-  nights: number
 }
 
 export type CabinType = {
@@ -102,46 +101,6 @@ export type TPlace = {
     lng: number
   }
 }
-
-const PLACES = [
-  {
-    id: 1,
-    title: "Swiss Alps",
-    country: "Switzerland",
-    flag: "🇨🇭",
-    description:
-      "Majestic peaks, pristine snow, and legendary skiing trails above the clouds.",
-    type: "Mountain",
-    seasons: ["Winter", "Summer"],
-    activities: ["Skiing", "Hiking"],
-    travellers: "2.4k",
-    activityCount: 18,
-    cabinCount: 34,
-    price: 299,
-    badge: "Popular",
-    imgClass: "from-[#0f3d3e] to-[#1a5c5e]",
-  },
-  {
-    id: 2,
-    title: "Norwegian Fjords",
-    country: "Norway",
-    flag: "🇳🇴",
-    description:
-      "Dramatic cliffs plunging into crystal waters, with northern lights overhead.",
-    type: "Coastal",
-    seasons: ["Autumn", "Winter"],
-    activities: ["Kayaking", "Wildlife"],
-    travellers: "1.8k",
-    activityCount: 12,
-    cabinCount: 21,
-    price: 349,
-    badge: null,
-    imgClass: "from-[#0c3540] to-[#0f4a5e]",
-  },
-];
-
-// type Place = (typeof PLACES)[number];
-
 
 
 const FILTER_OPTIONS = {
@@ -205,7 +164,7 @@ const FilterRow = ({ label, options, active, onChange }: {
 )
 
 const PlacesPage = () => {
-  const [places, setPlaces] = useState<[]>([]);
+  const [places, setPlaces] = useState<TPlace[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [filters, setFilters] = useState({
@@ -231,8 +190,8 @@ const PlacesPage = () => {
     setIsLoading(true);
     const res = await fetch("/api/places/all-places");
     const data = await res.json();
-    setPlaces(data.data);
-    console.log(data);
+    setPlaces(data.places);
+    console.log(data.places);
     setIsLoading(false);
   };
 
@@ -292,9 +251,11 @@ const PlacesPage = () => {
       </div>
 
       {/* Grid */}
+      {filtered.length > 0 ?
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {filtered.map((p, idx) => <PlaceCard key={idx} place={p} />)}
-      </div>
+      </div> : <div className="flex w-full  text-gray-600 justify-center items-center h-110"><h1>Empty</h1></div>
+      }
     </main>
  
   );

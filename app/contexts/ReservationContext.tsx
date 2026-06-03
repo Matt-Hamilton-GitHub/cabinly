@@ -60,7 +60,6 @@ export const ReservationProvider = ({ children }: { children: ReactNode }) => {
         try {
             const res = await fetch(`/api/reservations/${userID}`);
             const data = await res.json()
-            console.log(data)
             
             setReservations(data.userReservations || [])
             
