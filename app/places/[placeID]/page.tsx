@@ -1,11 +1,7 @@
 "use client";
 
 import { use,useEffect, useState } from "react";
-import Image from "next/image";
-
 import { TPlace } from "@/app/places/page";
-import SpinnerBoxJump from "@/app/_components/SpinnerBoxJump";
-import { useParams } from "next/navigation";
 
 
 import PlaceHero from '@/app/_components/place.components/PlaceHero'
@@ -21,7 +17,7 @@ import BookingSidebar from '@/app/_components/place.components/BookingSidebar'
 const TripPage = ({ params }: { params: Promise<{ placeID: string }> }) => {
   const { placeID } = use(params)
 
-  const [place, setPlace] = useState<PlaceType | null>(null)
+  const [place, setPlace] = useState<TPlace | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [selectedCabinId, setSelectedCabinId] = useState('')
   const [signedActivityIds, setSignedActivityIds] = useState<string[]>([])

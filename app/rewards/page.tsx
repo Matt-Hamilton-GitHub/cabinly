@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link'
 import {
   Zap, ArrowLeft, Star, Home, MapPin,
@@ -5,6 +6,7 @@ import {
   ArrowRight, Info
 } from 'lucide-react'
 
+import { useUserContext } from '../contexts/UserContext'
 // ─── Data ────────────────────────────────────────────────────────
 
 const EARN_WAYS = [
@@ -146,6 +148,7 @@ const FAQS = [
 // ─── Page ────────────────────────────────────────────────────────
 
 export default function RewardsInfo() {
+  const {authUser} = useUserContext()
   return (
     <div className="min-h-screen bg-white">
 
@@ -168,7 +171,7 @@ export default function RewardsInfo() {
         </div>
 
         <div className="max-w-3xl mx-auto relative">
-          <Link href="/account"
+          <Link href={`/user/${authUser?.userId}`}
             className="inline-flex items-center gap-2 text-[#e8f0ed]/50
             text-xs mb-10 hover:text-[#e8f0ed] transition-colors">
             <ArrowLeft size={13} />

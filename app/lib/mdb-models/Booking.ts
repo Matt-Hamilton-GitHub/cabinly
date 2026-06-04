@@ -31,10 +31,6 @@ const BookingSchema = new Schema(
       type: String,
       required: true,
     },
-    nights: {
-      type: Number,
-      required: true,
-    },
     guests: {
       type: Number,
       required: true,

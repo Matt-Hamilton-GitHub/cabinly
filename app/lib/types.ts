@@ -24,8 +24,8 @@ export type BookingType = {
   from: string
   to: string
   guests: number
-  totalPaid: number
-  pointsEarned: number
+  totalPaid: Date
+  pointsEarned: Date
   status: 'upcoming' | 'completed' | 'cancelled'
 }
 

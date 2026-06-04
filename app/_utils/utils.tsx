@@ -47,3 +47,7 @@
   console.log(userId, groupId);
   }
 
+  export const getNights = (from, to) =>  Math.round(
+  (new Date(to).getTime() - new Date(from).getTime())
+  / (1000 * 60 * 60 * 24)
+)

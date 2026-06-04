@@ -60,7 +60,7 @@ const PlaceCard = ({ place }: { place: TPlace }) => {
         </span>
         {place?.activities.map((a) => (
           <span
-            key={a._id}
+            key={a.name}
             className="text-[10px] px-2 py-0.5 rounded-full bg-[#e1f5ee] text-[#085041]"
           >
             {a.name}

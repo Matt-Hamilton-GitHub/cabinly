@@ -1,40 +1,40 @@
-import { NextResponse } from 'next/server'
-import { connectMDB } from '@/app/lib/mongodb'
-import Booking from '@/app/lib/mdb-models/Booking'
-import User from '@/app/lib/mdb-models/User'
-import Place from '@/app/lib/mdb-models/Place'
-import Cabin from '@/app/lib/mdb-models/Cabin'
-import Activity from '@/app/lib/mdb-models/Activity'
-import { getTier } from '@/app/lib/points'
+import { NextResponse } from "next/server";
+import { connectMDB } from "@/app/lib/mongodb";
+import Booking from "@/app/lib/mdb-models/Booking";
+import User from "@/app/lib/mdb-models/User";
+import Place from "@/app/lib/mdb-models/Place";
+import Cabin from "@/app/lib/mdb-models/Cabin";
+import Activity from "@/app/lib/mdb-models/Activity";
+import { getTier } from "@/app/lib/points";
 
+import { getNights } from "@/app/_utils/utils";
 // ─── GET all bookings for a user ─────────────────────────────────
 export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url)
-  const userID = searchParams.get('userID')
+  const { searchParams } = new URL(req.url);
+  const userID = searchParams.get("userID");
 
   if (!userID) {
     return NextResponse.json(
-      { error: 'Missing required query param: userID' },
-      { status: 400 }
-    )
+      { error: "Missing required query param: userID" },
+      { status: 400 },
+    );
   }
 
   try {
-    await connectMDB()
+    await connectMDB();
 
     const bookings = await Booking.find({ userRef: userID })
-      .populate({ path: 'placeRef',    model: Place })
-      .populate({ path: 'cabinRef',    model: Cabin })
-      .populate({ path: 'activities',  model: Activity })
-      .sort({ createdAt: -1 })
+      .populate({ path: "placeRef", model: Place })
+      .populate({ path: "cabinRef", model: Cabin })
+      .populate({ path: "activities", model: Activity })
+      .sort({ createdAt: -1 });
 
-    return NextResponse.json({ data: bookings }, { status: 200 })
-
+    return NextResponse.json({ data: bookings }, { status: 200 });
   } catch (err) {
     return NextResponse.json(
-      { error: err instanceof Error ? err.message : 'Unknown error occurred' },
-      { status: 500 }
-    )
+      { error: err instanceof Error ? err.message : "Unknown error occurred" },
+      { status: 500 },
+    );
   }
 }
 
@@ -43,12 +43,9 @@ export async function POST(req: Request) {
   try {
     const body = await req.json()
 
-    const { userRef, placeRef, cabinRef, activities, from, to,
-            nights, guests, totalPaid } = body
+    const { userRef, placeRef, cabinRef, activities, from, to, guests, totalPaid } = body
 
-    // validate required fields
-    if (!userRef || !placeRef || !cabinRef || !from || !to ||
-        !nights || !guests || !totalPaid) {
+    if (!userRef || !placeRef || !cabinRef || !from || !to || !guests || !totalPaid) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -57,14 +54,52 @@ export async function POST(req: Request) {
 
     await connectMDB()
 
-    // calculate points earned
-    const cabinPoints  = nights * 50               // 50 pts per night
-    const activityPoints = (activities?.length ?? 0) * 75  // 75 pts per activity
-    const bookingPoints  = 100                      // 100 pts per booking
-    const bonusPoints    = (activities?.length ?? 0) >= 3 ? 250 : 0 // 3+ activities bonus
+    // ── 1. Check cabin availability ───────────────────────────
+    const updatedCabin = await Cabin.findOneAndUpdate(
+      { _id: cabinRef, spotsLeft: { $gt: 0 } },
+      { $inc: { spotsLeft: -1 } },
+      { new: true }
+    )
+
+    if (!updatedCabin) {
+      return NextResponse.json(
+        { error: 'Cabin is fully booked' },
+        { status: 409 }
+      )
+    }
+
+    // ── 2. Check activity availability ────────────────────────
+    if (activities?.length > 0) {
+      const updatedActivities = await Promise.all(
+        activities.map((activityId: string) =>
+          Activity.findOneAndUpdate(
+            { _id: activityId, spotsLeft: { $gt: 0 } },
+            { $inc: { spotsLeft: -1 } },
+            { new: true }
+          )
+        )
+      )
+
+      const fullyBooked = updatedActivities.some((r) => r === null)
+      if (fullyBooked) {
+        // rollback cabin
+        await Cabin.findByIdAndUpdate(cabinRef, { $inc: { spotsLeft: 1 } })
+        return NextResponse.json(
+          { error: 'One or more activities are fully booked' },
+          { status: 409 }
+        )
+      }
+    }
+
+    // ── 3. Calculate points ───────────────────────────────────
+    const nights         = getNights(from, to)
+    const cabinPoints    = nights * 50
+    const activityPoints = (activities?.length ?? 0) * 75
+    const bookingPoints  = 100
+    const bonusPoints    = (activities?.length ?? 0) >= 3 ? 250 : 0
     const pointsEarned   = cabinPoints + activityPoints + bookingPoints + bonusPoints
 
-    // create booking
+    // ── 4. Create booking ─────────────────────────────────────
     const newBooking = await Booking.create({
       userRef,
       placeRef,
@@ -79,13 +114,16 @@ export async function POST(req: Request) {
       status: 'upcoming',
     })
 
-    // update user points
-    await User.findByIdAndUpdate(userRef, {
-      $inc: { points: pointsEarned },
-    })
+    // ── 5. Update user points + bookings + tier ───────────────
+    const updatedUser = await User.findByIdAndUpdate(
+      userRef,
+      {
+        $inc:  { points: pointsEarned },
+        $push: { bookings: newBooking._id },
+      },
+      { new: true }
+    )
 
-    // update tier based on new points total
-    const updatedUser = await User.findById(userRef)
     if (updatedUser) {
       const newTier = getTier(updatedUser.points)
       if (newTier !== updatedUser.tier) {
