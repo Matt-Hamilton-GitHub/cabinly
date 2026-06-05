@@ -42,6 +42,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const body = await req.json()
+    console.log(body)
 
     const { userRef, placeRef, cabinRef, activities, from, to, guests, totalPaid } = body
 
@@ -113,7 +114,7 @@ export async function POST(req: Request) {
       pointsEarned,
       status: 'upcoming',
     })
-
+    console.log(newBooking)
     // ── 5. Update user points + bookings + tier ───────────────
     const updatedUser = await User.findByIdAndUpdate(
       userRef,

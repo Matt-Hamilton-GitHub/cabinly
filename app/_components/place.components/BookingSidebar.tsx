@@ -9,8 +9,9 @@ import {
   AvailableDateType,
 } from "@/app/places/page";
 import { getNights } from "@/app/_utils/utils";
-import Router from "next/router";
+import { useRouter } from 'next/navigation'
 import { useUserContext } from "@/app/contexts/UserContext";
+import { useInvalidateProfile } from "@/app/_hooks/useUserProfile";
 
 // ─── Types ───────────────────────────────────────────────────────
 
@@ -115,6 +116,10 @@ interface PriceSummaryProps {
   onWishlistToggle: () => void;
   breakdownOpen: boolean;
   onBreakdownToggle: () => void;
+  onBook: () => void;
+  bookingLoading: boolean;
+  bookingError: {status: boolean; msg: string}
+
 }
 
 const PriceSummary = ({
@@ -127,6 +132,9 @@ const PriceSummary = ({
   onWishlistToggle,
   breakdownOpen,
   onBreakdownToggle,
+  onBook,
+  bookingLoading,
+  bookingError,
 }: PriceSummaryProps) => {
   const totalGuests = adults + childCount;
 
@@ -215,12 +223,30 @@ const PriceSummary = ({
       <LineItem label="Total" value={`$${total.toLocaleString()}`} bold />
 
       <button
-        onClick={handleTripBooking(total)}
+        onClick={onBook}
+        disabled={bookingLoading}
         className="w-full py-3 rounded-full bg-[#a8d5d0] text-[#0f3d3e]
-        text-sm font-medium hover:bg-[#bce0db] transition-colors"
+          text-sm font-medium hover:bg-[#bce0db] transition-colors
+          disabled:opacity-60 disabled:cursor-not-allowed
+          flex items-center justify-center gap-2"
       >
-        Book this trip
+         {bookingLoading ? (
+          <>
+            <div className="w-4 h-4 rounded-full border-2
+              border-[#0f3d3e]/30 border-t-[#0f3d3e] animate-spin" />
+            Booking...
+          </>
+        ) : (
+          'Book this trip'
+        )}
       </button>
+       {bookingError.status && (
+        <div className="flex items-center gap-2 bg-red-50 border
+          border-red-100 rounded-xl px-4 py-3">
+          <div className="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0" />
+          <p className="text-xs text-red-600">{bookingError.msg}</p>
+        </div>
+      )}
 
       <button
         onClick={onWishlistToggle}
@@ -391,64 +417,74 @@ const BookingSidebar = ({
   const signedActivities = allActivities.filter((a) =>
     signedActivityIds.includes(a._id),
   );
-
+  const router = useRouter()
   const [bookingError, setBookingError] = useState({
         status: false,
         msg: ""
       })
-      const [isBookingLoading, setIsBookingLoading] = useState(false)
+      
+
+  const [isBookingLoading, setIsBookingLoading] = useState(false)
   const {authUser} = useUserContext()
 
-  const handleBooking = async (total : number) => {
-    console.log("booking initiated");
-    setIsBookingLoading(true)
-    // make sure user is logged in
-    if (!authUser?.userId) {
-      Router.push("/user/log-in");
-      return;
-    }
+  const nights             = selectedDate ? getNights(selectedDate.from, selectedDate.to) : 0
+  const cabinSubtotal      = selectedCabin ? selectedCabin.pricePerNight * nights : 0
+  const activitiesSubtotal = signedActivities.reduce(
+    (sum, act) => sum + act.price * (adults + children), 0
+  )
+  const serviceFee = Math.round((cabinSubtotal + activitiesSubtotal) * 0.07)
+  const total      = cabinSubtotal + activitiesSubtotal + serviceFee
 
+   const handleBooking = async () => {
+    if (!authUser?.userId) {
+      router.push('/log-in')
+      return
+    }
     if (!selectedCabin) {
-      setBookingError({status: true, msg:"Please select a cabin"});
+      setBookingError({ status: true, msg: 'Please select a cabin' })
+      return
+    }
+    if (!selectedDate) {
+      setBookingError({ status: true, msg: 'Please select dates' })
       return
     }
 
-    if (!selectedDate) {
-    setBookingError({status: true,msg:'Please select dates'})
-    return
-  }
+    setIsBookingLoading(true)
+    setBookingError({ status: false, msg: '' })
 
-  try{
-    const res = await fetch(
-      'api/bookings', {
+    try {
+      const res = await fetch('/api/bookings', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          placeRef: place,
-          cabinRef: selectedCabinId,
+          userRef:    authUser.userId,   // ← don't forget this
+          placeRef:   place._id,         // ← was place (the whole object)
+          cabinRef:   selectedCabinId,
           activities: signedActivityIds,
-          from: selectedDate.from,
-          to: selectedDate.to,
-          guests: adults + children,
-          totalPaid: total,
-
+          from:       selectedDate.from,
+          to:         selectedDate.to,
+          guests:     adults + children,
+          totalPaid:  total,             // ← from closure
         })
       })
 
       const data = await res.json()
 
       if (!res.ok) {
-        setBookingError({status: true, msg: data.message})
+        setBookingError({ status: true, msg: data.error ?? data.message })
+        return
       }
 
-  }catch{
-    setBookingError({status: true, msg:'Something went wrong. Please try again.'})
+      useInvalidateProfile()              // ← refresh points in navbar
+      router.push(`user/`)
 
-
-  }finally {
-    setIsBookingLoading(false)
+    } catch (err){
+      setBookingError({ status: true, msg: 'Something went wrong. Please try again.' })
+    } finally {
+      setIsBookingLoading(false)
+    }
   }
-
+  
   const toggleActivity = (id: string) =>
     onActivityChange(
       signedActivityIds.includes(id)
@@ -474,6 +510,9 @@ const BookingSidebar = ({
         onWishlistToggle={() => setWishlist((w) => !w)}
         breakdownOpen={breakdownOpen}
         onBreakdownToggle={() => setBreakdownOpen((o) => !o)}
+        onBook={handleBooking}           // ← pass down
+        bookingLoading={isBookingLoading}
+        bookingError={bookingError}
       />
 
       <DatePicker
