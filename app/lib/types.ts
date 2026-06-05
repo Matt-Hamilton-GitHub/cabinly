@@ -40,3 +40,7 @@ export type AuthUser = {
   name: string
   email: string
 }
+
+export type TabType = 'overview' | 'trips' | 'medals' | 'rewards' | 'settings'
+
+

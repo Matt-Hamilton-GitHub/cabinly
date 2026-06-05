@@ -11,42 +11,8 @@ import {
 import Link from 'next/link'
 
 import { ALL_MEDALS } from '../lib/medals'
-
-// ─── Types ───────────────────────────────────────────────────────
-
-type TabType = 'overview' | 'trips' | 'medals' | 'rewards' | 'settings'
-
-// ─── Constants ───────────────────────────────────────────────────
-
-const TIER_COLORS = {
-  Explorer:   { bg: 'bg-[#e1f5ee]', text: 'text-[#085041]', bar: 'bg-[#085041]' },
-  Adventurer: { bg: 'bg-[#faeeda]', text: 'text-[#633806]', bar: 'bg-[#633806]' },
-  Pioneer:    { bg: 'bg-[#e8e1fa]', text: 'text-[#3d0663]', bar: 'bg-[#3d0663]' },
-  Summit:     { bg: 'bg-[#a8d5d0]', text: 'text-[#0f3d3e]', bar: 'bg-[#0f3d3e]' },
-}
-
-const TIER_THRESHOLDS = {
-  Explorer:   { min: 0,     max: 1000  },
-  Adventurer: { min: 1000,  max: 5000  },
-  Pioneer:    { min: 5000,  max: 10000 },
-  Summit:     { min: 10000, max: 10000 },
-}
-
-const NEXT_TIER = {
-  Explorer:   'Adventurer',
-  Adventurer: 'Pioneer',
-  Pioneer:    'Summit',
-  Summit:     null,
-}
-
-const POINTS_INFO = [
-  { action: 'Complete a booking',       pts: 100  },
-  { action: 'Reserve a cabin per night',pts: 50   },
-  { action: 'Sign up for an activity',  pts: 75   },
-  { action: 'Complete an activity',     pts: 150  },
-  { action: 'Leave a review',           pts: 50   },
-  { action: 'Refer a friend',           pts: 300  },
-]
+import { TabType } from '../lib/types'
+import { TIER_COLORS, TIER_THRESHOLDS, NEXT_TIER, POINTS_INFO } from '../lib/points'
 
 // ─── Sub-components ──────────────────────────────────────────────
 
@@ -253,7 +219,7 @@ const TripsTab = ({ user }: { user: any }) => {
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
             <p className="text-sm font-medium text-[#0f3d3e] truncate">
-              {booking.placeRef?.title ?? 'Trip'}
+              {booking.placeRef?.cabin ?? 'Trip'}
             </p>
             <span className={`text-[10px] font-medium px-2 py-1 rounded-full
               flex-shrink-0 ${
