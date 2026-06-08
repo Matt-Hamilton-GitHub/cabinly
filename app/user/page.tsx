@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useUserContext } from '../contexts/UserContext'
 import { useUserProfile } from '../_hooks/useUserProfile'
+import { useUserBookings } from '../_hooks/useUserBookings'
 import {
   User, Settings, Trophy, Gift, MapPin,
   Lock, Info, Zap, Star, ArrowRight,
@@ -201,6 +202,7 @@ const OverviewTab = ({ user }: { user: any }) => {
 // ─── Trips Tab ───────────────────────────────────────────────────
 
 const TripsTab = ({ user }: { user: any }) => {
+
   const bookings    = user.bookings ?? []
   const upcoming    = bookings.filter((b: any) => b.status === 'upcoming')
   const past        = bookings.filter((b: any) => b.status === 'completed')
@@ -582,6 +584,8 @@ export default function AccountPage() {
   const { data: user, isLoading, error } = useUserProfile()
   console.log(user, error)
   const [activeTab, setActiveTab] = useState<TabType>('overview')
+  const {data: bookings} = useUserBookings()
+ 
 
   if (isLoading) {
     return (
@@ -603,6 +607,8 @@ export default function AccountPage() {
       </div>
     )
   }
+
+
 
   const tier       = user.tier ?? 'Explorer'
   const tierColors = TIER_COLORS[tier as keyof typeof TIER_COLORS]

@@ -31,6 +31,7 @@ export async function GET(
         }
 
         await connectMDB()
+        console.log('fetching bookings', userID)
 
         const bookings = await Booking.find({userRef: userID})
         .populate({path: 'placeRef', model: Place})

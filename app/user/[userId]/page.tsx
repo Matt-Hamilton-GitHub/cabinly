@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useUserContext } from '../../contexts/UserContext'
 import { useUserProfile } from '../../_hooks/useUserProfile'
+import { useUserBookings } from '@/app/_hooks/useUserBookings'
 import {
   User, Settings, Trophy, Gift, MapPin,
   Lock, Info, Zap, Star, ArrowRight,
@@ -11,6 +12,8 @@ import {
 import Link from 'next/link'
 
 import { ALL_MEDALS } from '../../lib/medals'
+import { BookingType } from '@/app/lib/types'
+import { formatDate } from '@/app/_utils/utils'
 
 // ─── Types ───────────────────────────────────────────────────────
 
@@ -234,12 +237,12 @@ const OverviewTab = ({ user }: { user: any }) => {
 
 // ─── Trips Tab ───────────────────────────────────────────────────
 
-const TripsTab = ({ user }: { user: any }) => {
-  const bookings    = user.bookings ?? []
+const TripsTab = ({ bookings }: { bookings: BookingType }) => {
+  
   const upcoming    = bookings.filter((b: any) => b.status === 'upcoming')
   const past        = bookings.filter((b: any) => b.status === 'completed')
   const cancelled   = bookings.filter((b: any) => b.status === 'cancelled')
-  console.log(user)
+
 
   const BookingCard = ({ booking }: { booking: any }) => (
     <div className="border border-[#0f3d3e]/08 rounded-2xl p-5
@@ -269,7 +272,7 @@ const TripsTab = ({ user }: { user: any }) => {
           <div className="flex items-center gap-3 mt-1.5 flex-wrap">
             <span className="flex items-center gap-1 text-xs text-gray-400">
               <Calendar size={11} />
-              {booking.from} – {booking.to}
+              {formatDate(booking.from)} – {formatDate(booking.to)}
             </span>
             <span className="flex items-center gap-1 text-xs text-gray-400">
               <Home size={11} />
@@ -616,6 +619,8 @@ export default function AccountPage() {
   const { data: user, isLoading, error } = useUserProfile()
   console.log(user, error)
   const [activeTab, setActiveTab] = useState<TabType>('overview')
+  const {data: bookings} = useUserBookings()
+   console.log(bookings)
 
   if (isLoading) {
     return (
@@ -804,7 +809,7 @@ export default function AccountPage() {
         {/* Tab content */}
         <div className="pb-16">
           {activeTab === 'overview'  && <OverviewTab  user={user} />}
-          {activeTab === 'trips'     && <TripsTab     user={user} />}
+          {activeTab === 'trips'     && <TripsTab     bookings={bookings} />}
           {activeTab === 'medals'    && <MedalsTab    user={user} />}
           {activeTab === 'rewards'   && <RewardsTab   user={user} />}
           {activeTab === 'settings'  && <SettingsTab  user={user} />}

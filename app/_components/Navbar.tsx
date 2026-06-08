@@ -115,7 +115,7 @@ export default function Navbar() {
                 {profile?.avatarUrl ? (
                   <Image
                     src={profile.avatarUrl}
-                    alt={authUser.name}
+                    alt='user'
                     width={20}
                     height={20}
                     className="rounded-full object-cover"
