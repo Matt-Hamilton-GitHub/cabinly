@@ -40,14 +40,7 @@ export default function Footer() {
                   Destinations
                 </a>
               </li>
-              <li>
-                <a
-                  href="#cabins"
-                  className="hover:text-cyan-400 transition-colors"
-                >
-                  Cabins
-                </a>
-              </li>
+              
               <li>
                 <a
                   href="#activities"
@@ -58,7 +51,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="#bundles"
+                  href="/places"
                   className="hover:text-cyan-400 transition-colors"
                 >
                   Bundles
@@ -71,7 +64,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Company</h4>
             <ul className="space-y-2 text-[#f9f9f9]text-sm">
               <li>
-                <a href="#" className="hover:text-cyan-400 transition-colors">
+                <a href="/about" className="hover:text-cyan-400 transition-colors">
                   About Us
                 </a>
               </li>
@@ -83,11 +76,6 @@ export default function Footer() {
               <li>
                 <a href="#" className="hover:text-cyan-400 transition-colors">
                   Careers
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-cyan-400 transition-colors">
-                  Press
                 </a>
               </li>
             </ul>

@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { useUserContext } from '../../contexts/UserContext'
 import { useUserProfile } from '../../_hooks/useUserProfile'
 import { useUserBookings } from '@/app/_hooks/useUserBookings'
 import {
@@ -237,7 +236,7 @@ const OverviewTab = ({ user }: { user: any }) => {
 
 // ─── Trips Tab ───────────────────────────────────────────────────
 
-const TripsTab = ({ bookings }: { bookings: BookingType }) => {
+const TripsTab = ({ bookings }: { bookings: BookingType[] }) => {
   
   const upcoming    = bookings.filter((b: any) => b.status === 'upcoming')
   const past        = bookings.filter((b: any) => b.status === 'completed')
@@ -407,9 +406,9 @@ const MedalsTab = ({ user }: { user: any }) => {
           </span>{' '}
           of {ALL_MEDALS.length} medals earned
         </p>
-        <div className="h-1.5 w-32 bg-[#0f3d3e]/08 rounded-full overflow-hidden">
+        <div className="h-2.5 w-32 bg-[#0f3d3e]/08 rounded-full overflow-hidden border-1 border-[#bcbcbca1]">
           <div
-            className="h-full bg-[#a8d5d0] rounded-full"
+            className="h-full bg-[#2a867c] rounded-ms"
             style={{
               width: `${Math.round((earnedIds.length / ALL_MEDALS.length) * 100)}%`
             }}
@@ -420,9 +419,10 @@ const MedalsTab = ({ user }: { user: any }) => {
       {/* Medal grid */}
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
         {ALL_MEDALS.map((medal) => {
-          const earned = earnedIds.includes(medal)
-          const earnedData = user.medals?.find((m: any) => m === medal.id)
-
+  
+          const earned = earnedIds.includes(medal.id)
+          const earnedData = user.medals?.find((m: string) => m === medal.id)
+       
           return (
             <div key={medal.id} className="group relative flex flex-col
               items-center gap-2">
@@ -489,7 +489,7 @@ const RewardsTab = ({ user }: { user: any }) => (
       <Gift size={24} className="text-[#0f3d3e]/30" />
     </div>
     <p className="text-sm font-medium text-[#0f3d3e] mb-2">
-      Rewards store coming soon
+      Rewards can be spent at local shops 
     </p>
     <p className="text-xs text-gray-400 font-light max-w-xs mx-auto">
       Spend your Summit Points on gear discounts, exclusive activities,
@@ -636,9 +636,9 @@ export default function AccountPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center
         gap-4">
-        <p className="text-sm text-gray-400">
-          We Could Not Find Your Profile
-        </p>
+        <h1 className="text-lg text-gray-400">
+           <Link href='/log-in' className='text-black font-bold'>Log In</Link> to view your account
+        </h1>
       </div>
     )
   }
@@ -708,7 +708,7 @@ export default function AccountPage() {
                 <span className="flex items-center gap-1.5 text-xs
                   text-[#e8f0ed]/40 font-light">
                   <Trophy size={12} />
-                  {(user.medals ?? []).filter((m: any) => m.earnedAt).length} medals
+                  {(user.medals.length )} medals
                 </span>
               </div>
             </div>
@@ -809,7 +809,7 @@ export default function AccountPage() {
         {/* Tab content */}
         <div className="pb-16">
           {activeTab === 'overview'  && <OverviewTab  user={user} />}
-          {activeTab === 'trips'     && <TripsTab     bookings={bookings} />}
+          {activeTab === 'trips'     && <TripsTab     bookings={bookings ?? []} />}
           {activeTab === 'medals'    && <MedalsTab    user={user} />}
           {activeTab === 'rewards'   && <RewardsTab   user={user} />}
           {activeTab === 'settings'  && <SettingsTab  user={user} />}
