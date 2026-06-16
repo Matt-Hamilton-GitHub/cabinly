@@ -52,21 +52,23 @@ const LocationInput = ({location, setLocation}) => {
     }
 
   return (
-    <div className="relative flex flex-col items-center overflow-x-clip ">
+    
+    <div className="search-filter">
       <label 
-      htmlFor='location-input' className=' bg-black w-full  text-center text-white block text-sm font-medium rounded-t-2xl'
-      >Where</label>
+      htmlFor='location-input' className='block text-sm text-gray-400 mb-2'
+      >Location</label>
       <input
         id='location-input'
         value={value}
         onChange={handleInput}
         disabled={!ready}
         placeholder="Enter a location"
-        className="p-1 border-2 border-black px-2 h-12 shadow-inner shadow-[#686868] bg-white rounded-b-3xl  hover:placeholder-[black]"
+        className="w-full px-4 py-3 rounded-lg"
       />
+      
       {status === 'OK' && (
         
-        <ul className="absolute z-50 top-[79px] text-start w-full border-2 border-black mt-1 max-h-60 overflow-auto shadow-lg bg-black text-white hover:shadow-inner hover:shadow-[black]">
+        <ul className="">
           {data.map(({ place_id, description }) => (
             <li
               key={place_id}

@@ -1,14 +1,8 @@
 import mongoose from 'mongoose'
+import { truncate } from 'node:fs/promises'
 
 const CabinSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  location: { type: String, required: true },
-  address: {
-    city: { type: String, required: true },
-    state: { type: String },
-    zip_code: { type: String || null }, 
-    country: { type: String, required: true }
-  },
+  name: { type: String, required: true },
   coordinates: {
     type: {
       type: String,
@@ -21,12 +15,13 @@ const CabinSchema = new mongoose.Schema({
     }
   },
   rating: { type: Number, default: 5.0 },
-  price: { type: Number, required: true },
+  pricePerNight: { type: Number, required: true },
   discount: { type: Number, default: 0.0 },
-  occupancy: { type: Number, required: true },
+  maxGuests: { type: Number, required: true },
   description: { type: String, required: true },
+  amenities: [{type: String}],
+  spotsLeft: {type: Number, required: true},
   imageUrl: { type: String, required: true },
-  linkedActivities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Activity' }],
   tags: [{ type: String }]
 }, { timestamps: true })
 
