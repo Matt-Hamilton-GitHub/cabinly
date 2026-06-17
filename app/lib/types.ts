@@ -1,6 +1,7 @@
 export type TierType = 'Explorer' | 'Adventurer' | 'Pioneer' | 'Summit'
 
 
+
 export type UserType = {
   userId: string
   name: string
@@ -14,6 +15,122 @@ export type UserType = {
   completedTrips: string[]        // place IDs
   savedPlaces: string[]           // wishlist
   bookings: BookingType[]
+}
+
+export type SeasonsType = 'Spring' | 'Summer' | 'Autumn' | 'Winter' | 'All year'
+
+export type PlaceTagType =
+  | 'Mountain'
+  | 'Coastal'
+  | 'Forest'
+  | 'Desert'
+  | 'Arctic'
+  | 'Tropical'
+
+export const ACTIVITY_VARIATIONS = ['Hiking',
+  'Skiing',
+  'Kayaking', 
+  'Cycling', 
+  'Wildlife',
+  'Cultural',
+  'Climbing',
+  'Photography' ] as const
+
+export type ActivityVariations = typeof ACTIVITY_VARIATIONS[number]
+
+export type ActivityPlaceRef = {
+  _id: string
+  title: string
+  country: string
+  flag: string
+  images_url: string[]
+  type: string
+}
+
+export type ActivityType = {
+  _id: string
+  name: string
+  description: string
+  price: number
+  duration: string
+  difficulty: 'All levels' | 'Beginner' | 'Intermediate' | 'Advanced'
+  label: ActivityVariations
+  maxPeople: number
+  spotsLeft: number
+  gearIncluded: boolean
+  placesRef: ActivityPlaceRef
+}
+
+export type GuideType = {
+  _id: string
+  name: string
+  initials: string
+  role: string
+  bio: string
+  yrsExp: number
+  rating: number
+  reviewCount: number
+  tags: string[]
+  imgUrl: string
+}
+
+export type ReviewType = {
+  _id: string
+  authorName: string
+  authorInitials: string
+  rating: number
+  date: string
+  body: string
+}
+
+export type AvailableDateType = {
+  label: string
+  from: string
+  to: string
+}
+
+export type CabinType = {
+  _id: string
+  name: string
+  description: string
+  coordinates: number[]
+  discount: number
+  rating: number
+  pricePerNight: number
+  maxGuests: number
+  amenities: string[]
+  spotsLeft: number
+  imageUrl: string
+  tags: string[]
+}
+
+export type TPlace = {
+  _id: string
+  slug: string
+  title: string
+  type: string
+  region: string
+  country: string
+  continent: string
+  flag: string
+  description: string
+  images_url: string
+  tags: PlaceTagType[]
+  seasons: SeasonsType[]
+  badge?: 'Popular' | 'New' | 'Trending'
+  rating: number
+  price: number
+  reviewCount: number
+  travellers: number
+  cabinsRef: CabinType[]
+  activities: ActivityType[]
+  guides: GuideType[]
+  reviews: ReviewType[]
+  availableDates: AvailableDateType[]
+  coordinates: {
+    lat: number
+    lng: number
+  }
 }
 
 export type BookingType = {
