@@ -14,6 +14,7 @@ const GuideSchema = new Schema({
   reviewCount: { type: Number, default: 0 },
   tags:        [{ type: String }],
   imgUrl:      { type: String, default: "" },
+  xpPoints:    {type: Number, default: 0}
 })
 
 export default mongoose.models.Guide || mongoose.model('Guide', GuideSchema, 'Guides')

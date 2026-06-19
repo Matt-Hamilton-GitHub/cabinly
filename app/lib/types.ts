@@ -71,7 +71,8 @@ export type GuideType = {
   rating: number
   reviewCount: number
   tags: string[]
-  imgUrl: string
+  imgUrl: string,
+  xpPoints: number
 }
 
 export type ReviewType = {
