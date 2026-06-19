@@ -40,7 +40,7 @@ const PlaceChip = ({
     onClick={onClick}
     className="flex items-center gap-2.5 pl-1.5 pr-3 py-1.5 rounded-full
       border border-[#0f3d3e]/10 hover:border-[#a8d5d0] hover:bg-[#f8faf9]
-      transition-all group"
+      transition-all group hover:cursor-pointer shadow-inner shadow-[#d3d2d2]"
   >
     <div className="w-7 h-7 rounded-full overflow-hidden relative flex-shrink-0
       bg-gradient-to-br from-[#0f3d3e] to-[#1a5c5e]">
@@ -50,6 +50,9 @@ const PlaceChip = ({
           alt={place?.title}
           fill
           className="object-cover"
+          quality={10}
+          loading='lazy'
+          unoptimized
         />
       )}
     </div>
@@ -62,11 +65,14 @@ const PlaceChip = ({
           width={14}
           height={10}
           className="rounded-sm"
+          quality={10}
+          loading='lazy'
+          unoptimized
         />
       )}
     </span>
-    <ArrowRight size={12} className="text-[#0f3d3e]/30
-      group-hover:text-[#a8d5d0] group-hover:translate-x-0.5 transition-all" />
+    <ArrowRight size={15} className="text-[#0f3d3e]
+      group-hover:text-[#01473f] group-hover:translate-x-0.5 transition-all" />
   </button>
 )
 
@@ -74,18 +80,18 @@ const ActivityCard = ({ activity }: { activity: any }) => {
   const router = useRouter()
 
   return (
-    <div className="border border-[#0f3d3e]/08 rounded-2xl p-5
-      hover:border-[#a8d5d0]/50 transition-colors">
+    <div className="border-3 border-[#0f3d3e]/15 rounded-2xl p-5
+      hover:border-[#0b9484] transition-colors shadow-sm">
 
       {/* Header */}
-      <div className="flex items-start gap-3 mb-3">
+      <div className="flex items-start gap-3 mb-5">
         <div className="w-10 h-10 rounded-xl bg-[#e1f5ee] flex items-center
           justify-center text-[#0f3d3e] flex-shrink-0">
           {LABEL_ICONS[activity.label] ?? <Zap size={16} />}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-[#0f3d3e]">{activity.name}</p>
-          <p className="text-xs text-gray-400 mt-0.5 line-clamp-2 font-light">
+          <p className="py-2 text-md font-medium text-[#0d8d8f]">{activity.name}</p>
+          <p className="text-sm text-gray-600 mt-0.5 line-clamp-2 font-light">
             {activity.description}
           </p>
         </div>
@@ -93,24 +99,24 @@ const ActivityCard = ({ activity }: { activity: any }) => {
 
       {/* Meta */}
       <div className="flex items-center gap-3 mb-4 flex-wrap">
-        <span className={`text-[10px] px-2 py-0.5 rounded-full
+        <span className={`text-[12px] px-2 py-0.5 rounded-full
           ${DIFFICULTY_COLORS[activity.difficulty]}`}>
           {activity.difficulty}
         </span>
-        <span className="flex items-center gap-1 text-[10px] text-gray-400">
+        <span className="flex items-center gap-1 text-[12px] text-gray-400">
           <Clock size={11} />{activity.duration}
         </span>
-        <span className="flex items-center gap-1 text-[10px] text-gray-400">
+        <span className="flex items-center gap-1 text-[12px] text-gray-400">
           <Users size={11} />Max {activity.maxPeople}
         </span>
-        <span className="text-[10px] font-medium text-[#0f3d3e] ml-auto">
+        <span className="text-[12px] font-medium text-[#0f3d3e] ml-auto">
           ${activity.price}/person
         </span>
       </div>
 
       {/* Places offering this activity */}
       <div className="border-t border-[#0f3d3e]/06 pt-3">
-        <p className="text-[10px] text-gray-400 mb-2 font-light">
+        <p className="text-[12px] text-gray-400 mb-2 font-light">
           Available at {activity.placeRef?.length } destination
         </p>
         <div className="flex flex-wrap gap-2">
