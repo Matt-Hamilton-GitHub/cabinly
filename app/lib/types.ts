@@ -134,6 +134,7 @@ export type TPlace = {
   }
 }
 
+export type BookingStatusType = 'pending' | 'upcoming' | 'completed' | 'cancelled'
 export type BookingType = {
   _id: string
   placeRef: string
@@ -144,7 +145,7 @@ export type BookingType = {
   guests: number
   totalPaid: Date
   pointsEarned: Date
-  status: 'upcoming' | 'completed' | 'cancelled'
+  status: BookingStatusType
 }
 
 export type AuthContextType = {

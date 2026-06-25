@@ -7,6 +7,7 @@ import Cabin from "@/app/lib/mdb-models/Cabin";
 import Activity from "@/app/lib/mdb-models/Activity";
 import { getTier } from "@/app/lib/points";
 
+import jwt from 'jsonwebtoken';
 import { getNights } from "@/app/_utils/utils";
 // ─── GET all bookings for a user ─────────────────────────────────
 export async function GET(req: Request) {
@@ -41,32 +42,49 @@ export async function GET(req: Request) {
 // ─── POST create a new booking ────────────────────────────────────
 export async function POST(req: Request) {
   try {
-    const body = await req.json()
-    console.log(body)
+    const body = await req.json();
+    console.log(body);
 
-    const { userRef, placeRef, cabinRef, activities, from, to, guests, totalPaid } = body
+    const {
+      userRef,
+      placeRef,
+      cabinRef,
+      activities,
+      from,
+      to,
+      guests,
+      totalPaid,
+    } = body;
 
-    if (!userRef || !placeRef || !cabinRef || !from || !to || !guests || !totalPaid) {
+    if (
+      !userRef ||
+      !placeRef ||
+      !cabinRef ||
+      !from ||
+      !to ||
+      !guests ||
+      !totalPaid
+    ) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      )
+        { error: "Missing required fields" },
+        { status: 400 },
+      );
     }
 
-    await connectMDB()
+    await connectMDB();
 
     // ── 1. Check cabin availability ───────────────────────────
     const updatedCabin = await Cabin.findOneAndUpdate(
       { _id: cabinRef, spotsLeft: { $gt: 0 } },
       { $inc: { spotsLeft: -1 } },
-      { new: true }
-    )
+      { new: true },
+    );
 
     if (!updatedCabin) {
       return NextResponse.json(
-        { error: 'Cabin is fully booked' },
-        { status: 409 }
-      )
+        { error: "Cabin is fully booked" },
+        { status: 409 },
+      );
     }
 
     // ── 2. Check activity availability ────────────────────────
@@ -76,29 +94,30 @@ export async function POST(req: Request) {
           Activity.findOneAndUpdate(
             { _id: activityId, spotsLeft: { $gt: 0 } },
             { $inc: { spotsLeft: -1 } },
-            { new: true }
-          )
-        )
-      )
+            { new: true },
+          ),
+        ),
+      );
 
-      const fullyBooked = updatedActivities.some((r) => r === null)
+      const fullyBooked = updatedActivities.some((r) => r === null);
       if (fullyBooked) {
         // rollback cabin
-        await Cabin.findByIdAndUpdate(cabinRef, { $inc: { spotsLeft: 1 } })
+        await Cabin.findByIdAndUpdate(cabinRef, { $inc: { spotsLeft: 1 } });
         return NextResponse.json(
-          { error: 'One or more activities are fully booked' },
-          { status: 409 }
-        )
+          { error: "One or more activities are fully booked" },
+          { status: 409 },
+        );
       }
     }
 
     // ── 3. Calculate points ───────────────────────────────────
-    const nights         = getNights(from, to)
-    const cabinPoints    = nights * 50
-    const activityPoints = (activities?.length ?? 0) * 75
-    const bookingPoints  = 100
-    const bonusPoints    = (activities?.length ?? 0) >= 3 ? 250 : 0
-    const pointsEarned   = cabinPoints + activityPoints + bookingPoints + bonusPoints
+    const nights = getNights(from, to);
+    const cabinPoints = nights * 50;
+    const activityPoints = (activities?.length ?? 0) * 75;
+    const bookingPoints = 100;
+    const bonusPoints = (activities?.length ?? 0) >= 3 ? 250 : 0;
+    const pointsEarned =
+      cabinPoints + activityPoints + bookingPoints + bonusPoints;
 
     // ── 4. Create booking ─────────────────────────────────────
     const newBooking = await Booking.create({
@@ -112,35 +131,61 @@ export async function POST(req: Request) {
       guests,
       totalPaid,
       pointsEarned,
-      status: 'upcoming',
-    })
-    console.log(newBooking)
+      status: "pending",
+    });
+    console.log(newBooking);
     // ── 5. Update user points + bookings + tier ───────────────
     const updatedUser = await User.findByIdAndUpdate(
       userRef,
       {
-        $inc:  { points: pointsEarned },
+        $inc: { points: pointsEarned },
         $push: { bookings: newBooking._id },
       },
-      { new: true }
-    )
+      { new: true },
+    );
 
     if (updatedUser) {
-      const newTier = getTier(updatedUser.points)
+      const newTier = getTier(updatedUser.points);
       if (newTier !== updatedUser.tier) {
-        await User.findByIdAndUpdate(userRef, { tier: newTier })
+        await User.findByIdAndUpdate(userRef, { tier: newTier });
       }
     }
 
+    // ── 6. Generate confirmation token + send email ───────────────
+    const confirmToken = jwt.sign(
+      { bookingId: newBooking._id.toString() },
+      process.env.JWT_SECRET!,
+      { expiresIn: "24h" },
+    );
+
+    const confirmUrl = `${process.env.NEXT_PUBLIC_URL}/api/bookings/confirm?token=${confirmToken}`;
+
+    const user = await User.findById(userRef).select("email name");
+
+    await sendEmail({
+      to: user.email,
+      subject: "Confirm your Cabinly booking",
+      body: `Hi ${user.name},\n\nClick the link below to confirm your booking. This link expires in 24 hours.\n\n${confirmUrl}\n\nIf you did not make this booking, you can ignore this email.`,
+    });
+
+    // ── 7. Return response ────────────────────────────────────────
+    return NextResponse.json(
+      {
+        data: newBooking,
+        pointsEarned,
+        message: "Booking created — check your email to confirm",
+      },
+      { status: 201 },
+    );
+
     return NextResponse.json(
       { data: newBooking, pointsEarned },
-      { status: 201 }
-    )
-
+      { status: 201 },
+    );
   } catch (err) {
     return NextResponse.json(
-      { error: err instanceof Error ? err.message : 'Unknown error occurred' },
-      { status: 500 }
-    )
+      { error: err instanceof Error ? err.message : "Unknown error occurred" },
+      { status: 500 },
+    );
   }
 }
