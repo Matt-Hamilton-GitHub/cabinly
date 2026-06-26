@@ -9,6 +9,7 @@ import { getTier } from "@/app/lib/points";
 
 import jwt from 'jsonwebtoken';
 import { getNights } from "@/app/_utils/utils";
+import { sendEmail } from "@/app/lib/email";
 // ─── GET all bookings for a user ─────────────────────────────────
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -165,7 +166,7 @@ export async function POST(req: Request) {
     await sendEmail({
       to: user.email,
       subject: "Confirm your Cabinly booking",
-      body: `Hi ${user.name},\n\nClick the link below to confirm your booking. This link expires in 24 hours.\n\n${confirmUrl}\n\nIf you did not make this booking, you can ignore this email.`,
+      body: `Hi ${user.name},\n\n Please, click the link below to confirm your booking. This link expires in 24 hours.\n\n${confirmUrl}\n\n`,
     });
 
     // ── 7. Return response ────────────────────────────────────────
@@ -178,10 +179,6 @@ export async function POST(req: Request) {
       { status: 201 },
     );
 
-    return NextResponse.json(
-      { data: newBooking, pointsEarned },
-      { status: 201 },
-    );
   } catch (err) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : "Unknown error occurred" },
