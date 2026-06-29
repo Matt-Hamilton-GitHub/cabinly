@@ -4,14 +4,14 @@
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { CheckCircle2, XCircle, Clock, AlertCircle } from 'lucide-react'
-
+import { useUserContext } from '@/app/contexts/UserContext'
 const STATES = {
   success: {
     icon: <CheckCircle2 size={52} className="text-[#a8d5d0]" />,
     title: 'Booking confirmed!',
     desc: 'Your adventure is locked in. Check your account for trip details and get ready to explore.',
-    cta: 'View my trips',
-    href: '/account',
+    cta: 'Browse destinations',
+    href: '/places',
     bg: 'bg-[#e1f5ee]',
   },
   expired: {
@@ -26,8 +26,8 @@ const STATES = {
     icon: <CheckCircle2 size={52} className="text-[#a8d5d0]" />,
     title: 'Already confirmed',
     desc: 'This booking has already been confirmed. You\'re all set!',
-    cta: 'View my trips',
-    href: '/account',
+    cta: 'Go home',
+    href: '/',
     bg: 'bg-[#e1f5ee]',
   },
   cancelled: {
@@ -42,26 +42,35 @@ const STATES = {
     icon: <AlertCircle size={52} className="text-gray-400" />,
     title: 'Booking not found',
     desc: 'We couldn\'t find this booking. It may have already expired and been removed.',
-    cta: 'Go home',
-    href: '/',
+    cta: 'Browse destinations',
+    href: '/places',
     bg: 'bg-gray-50',
   },
   invalid: {
     icon: <XCircle size={52} className="text-red-400" />,
     title: 'Invalid link',
     desc: 'This confirmation link is invalid. Please check your email for the correct link.',
-    cta: 'Go home',
-    href: '/',
+    cta: 'Browse destinations',
+    href: '/places',
     bg: 'bg-red-50',
   },
+  reserved: {
+    icon: <Clock size={52} className="text-[#a8d5d0]" />,
+    title: 'Cabin reserved!',
+    desc: 'Your cabin is being held for 24 hours. We\'ve sent a confirmation email — click the link inside to secure your booking before it expires.',
+    cta: 'Return home',
+    href: '/',
+    bg: 'bg-[#e1f5ee]',
+  },
 }
+
 
 export default function BookingConfirmedPage() {
   const searchParams = useSearchParams()
   const status = searchParams.get('status') as keyof typeof STATES ?? 'invalid'
   const state  = STATES[status] ?? STATES.invalid
-
-  return (
+  const {authUser} = useUserContext()
+   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="max-w-md w-full text-center">
 
@@ -95,13 +104,13 @@ export default function BookingConfirmedPage() {
         </Link>
 
         {/* Home link */}
-        <div className="mt-4">
+        {/* <div className="mt-4">
           <Link href="/"
             className="text-xs text-gray-400 hover:text-[#0f3d3e]
             transition-colors">
             Return to home
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   )

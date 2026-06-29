@@ -475,8 +475,7 @@ const BookingSidebar = ({
         return
       }
 
-      // useInvalidateProfile()              // ← refresh points in navbar
-      router.push(`user/`)
+      router.push('/booking/confirmed?status=reserved')
 
     } catch (err){
       setBookingError({ status: true, msg: 'Something went wrong. Please try again.' })
