@@ -3,6 +3,8 @@ import Booking from '@/app/lib/mdb-models/Booking'
 import { connectMDB } from '@/app/lib/mongodb'
 import { NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken'
+import User from '@/app/lib/mdb-models/User'
+import { getTier } from '@/app/lib/points'
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
@@ -41,6 +43,23 @@ export async function GET(req: Request) {
       status:    'upcoming',
       expiresAt: null,
     })
+
+    // Award User with Points and New Tier if applicable 
+
+     const updatedUser = await User.findByIdAndUpdate(
+      booking.userRef,
+      {
+        $inc: { points: booking.pointsEarned },
+      },
+      { new: true },
+    );
+
+    if (updatedUser) {
+      const newTier = getTier(updatedUser.points);
+      if (newTier !== updatedUser.tier) {
+        await User.findByIdAndUpdate(booking.userRef, { tier: newTier });
+      }
+    }
 
     return NextResponse.redirect(
       new URL(`/booking/confirmed?status=success&bookingId=${bookingId}`, req.url)

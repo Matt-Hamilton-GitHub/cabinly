@@ -7,7 +7,7 @@ import {
   CabinType,
   ActivityType,
   AvailableDateType,
-} from "@/app/places/page";
+} from "@/app/lib/types";
 import { getNights } from "@/app/_utils/utils";
 import { useRouter } from 'next/navigation'
 import { useUserContext } from "@/app/contexts/UserContext";
@@ -475,7 +475,7 @@ const BookingSidebar = ({
         return
       }
 
-      useInvalidateProfile()              // ← refresh points in navbar
+      // useInvalidateProfile()              // ← refresh points in navbar
       router.push(`user/`)
 
     } catch (err){

@@ -5,6 +5,7 @@ import Activity from './mdb-models/Activity'
 import User from './mdb-models/User'
 import { connectMDB } from './mongodb'
 
+console.log('booking watcher activated')
 let isWatching = false
 
 export const watchExpiredBookings = async () => {
@@ -44,16 +45,6 @@ export const watchExpiredBookings = async () => {
         )
       }
 
-      // deduct points that were awarded
-      if (booking.pointsEarned > 0) {
-        await User.findByIdAndUpdate(
-          booking.userRef,
-          {
-            $inc:  { points: -booking.pointsEarned },
-            $pull: { bookings: booking._id },
-          }
-        )
-      }
 
       console.log(`✅ Availability restored for booking ${booking._id}`)
     } catch (err) {

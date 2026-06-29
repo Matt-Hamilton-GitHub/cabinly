@@ -135,22 +135,13 @@ export async function POST(req: Request) {
       status: "pending",
     });
     console.log(newBooking);
-    // ── 5. Update user points + bookings + tier ───────────────
-    const updatedUser = await User.findByIdAndUpdate(
-      userRef,
-      {
-        $inc: { points: pointsEarned },
-        $push: { bookings: newBooking._id },
-      },
-      { new: true },
-    );
 
-    if (updatedUser) {
-      const newTier = getTier(updatedUser.points);
-      if (newTier !== updatedUser.tier) {
-        await User.findByIdAndUpdate(userRef, { tier: newTier });
-      }
-    }
+
+    // ── 5. Add booking to user
+    await User.findByIdAndUpdate(userRef, {
+      $push :{bookings: newBooking._id}
+    })
+
 
     // ── 6. Generate confirmation token + send email ───────────────
     const confirmToken = jwt.sign(
