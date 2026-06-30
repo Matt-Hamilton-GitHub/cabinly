@@ -20,7 +20,7 @@ const TIER_COLORS: Record<TierType, string> = {
 const NAV_LINKS = [
   { href: '/places',     label: 'Destinations' },
   { href: '/activities', label: 'Activities' },
-  { href: '/about',      label: 'About' },
+  { href: '/guides',      label: 'Our Guides' },
 ]
 
 export default function Navbar() {

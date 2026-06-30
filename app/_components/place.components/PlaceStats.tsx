@@ -1,14 +1,7 @@
+import { TPlace } from '@/app/lib/types'
 import { Users, Zap, Home, Compass, Star } from 'lucide-react'
 
-interface PlaceStatsProps {
-  place: {
-    travellers: number
-    activityCount: number
-    cabinCount: number
-    guideCount: number
-    rating: number
-  }
-}
+
 
 interface StatItemProps {
   icon: React.ReactNode
@@ -40,7 +33,7 @@ const formatNumber = (n: number): string => {
   return n.toString()
 }
 
-const PlaceStats = ({ place }: PlaceStatsProps) => {
+const PlaceStats = ({ place }: {place: TPlace}) => {
   const stats = [
     {
       icon: <Users size={18} />,
@@ -49,17 +42,17 @@ const PlaceStats = ({ place }: PlaceStatsProps) => {
     },
     {
       icon: <Zap size={18} />,
-      value: place.activityCount,
+      value: place.activities.length,
       label: 'Activities',
     },
     {
       icon: <Home size={18} />,
-      value: place.cabinCount,
+      value: place.cabinsRef.length,
       label: 'Cabins',
     },
     {
       icon: <Compass size={18} />,
-      value: place.guideCount,
+      value: place.guides.length,
       label: 'Local guides',
     },
     {

@@ -1,7 +1,7 @@
 "use client";
 
 import { use,useEffect, useState } from "react";
-import { TPlace } from "@/app/places/page";
+import { TPlace } from "@/app/lib/types";
 
 
 import PlaceHero from '@/app/_components/place.components/PlaceHero'
@@ -12,6 +12,7 @@ import ActivitySignup from '@/app/_components/place.components/ActivitySignup'
 import GuideList from '@/app/_components/place.components/GuideCard'
 import ReviewList from '@/app/_components/place.components/ReviewList'
 import BookingSidebar from '@/app/_components/place.components/BookingSidebar'
+import PlacePageSkeleton from "@/app/_components/place.components/PlacePageSkeleton";
 
 
 const TripPage = ({ params }: { params: Promise<{ placeID: string }> }) => {
@@ -36,11 +37,7 @@ const TripPage = ({ params }: { params: Promise<{ placeID: string }> }) => {
     fetch_()
   }, [placeID])
 
-  if (isLoading) return (
-    <div className="flex h-screen items-center justify-center">
-      <p className="text-[#0f3d3e]/40 text-sm">Loading...</p>
-    </div>
-  )
+  if (isLoading) return <PlacePageSkeleton />
 
   if (!place) return (
     <div className="flex h-screen items-center justify-center">
