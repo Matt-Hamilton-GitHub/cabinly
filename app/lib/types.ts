@@ -1,3 +1,5 @@
+import { StaticImageData } from "next/image"
+
 export type TierType = 'Explorer' | 'Adventurer' | 'Pioneer' | 'Summit'
 
 
@@ -163,3 +165,13 @@ export type AuthUser = {
 export type TabType = 'overview' | 'trips' | 'medals' | 'rewards' | 'settings'
 
 
+export type TTop3 = {
+    id: number,
+    title: string,
+    stat_img: StaticImageData,
+    tag: string,
+    desc: string,
+    rating: string
+    srtPrice: number,
+    dest_ref_url: string
+}

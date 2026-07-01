@@ -1,4 +1,10 @@
+import { TOP3 } from "@/app/lib/data";
+import Image from "next/image";
+
+
+
 const DestinationSection = () => {
+
   return (
     <section id="destinations" className="py-24 bg-gradient-to-b">
     <div className="max-w-7xl mx-auto px-6">
@@ -8,25 +14,31 @@ const DestinationSection = () => {
      </div>
      <div className="grid md:grid-cols-3 gap-8">
         {/* <!-- Destination 1 --> */}
-        {[1,2,3].map((idx) => {
-          return (<div key={idx} className="card-hover rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm transition-transform hover:-translate-y-1 hover:border-[#a8d5d0]/50 duration-300">
+        {TOP3.map((place) => {
+          return (<div key={place.id} className="card-hover rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm transition-transform hover:-translate-y-1 hover:border-[#a8d5d0]/50 duration-300">
        <div className="h-64 relative overflow-hidden">
         <div className="absolute inset-0 hero-gradient flex items-center justify-center">
-         <svg className="w-32 h-32 text-white/20" viewBox="0 0 100 100"><path d="M50 10 L20 90 L80 90 Z" fill="currentColor" /> <path d="M50 30 L30 90 L70 90 Z" fill="currentColor" opacity="0.5" /> <circle cx="75" cy="25" r="8" fill="currentColor" opacity="0.3" />
-         </svg>
+         <Image 
+            src={place.stat_img}
+            alt={place.title}
+            fill
+            className="object-cover object-center"
+
+         />
         </div>
         <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-         Popular
+         {place.tag}
         </div>
        </div>
        <div className="p-6">
-        <h3 className="font-serif text-2xl font-semibold mb-2 text-[#0f3d3e]">Swiss Alps</h3>
+        <h3 className="font-serif text-2xl font-semibold mb-2 text-[#0f3d3e]">{place.title}</h3>
         <p className="text-gray-400 mb-4 font-light text-sm">Majestic peaks, pristine snow, and legendary skiing trails</p>
         <div className="flex items-center justify-between">
-         <div className="flex items-center gap-2 text-orange-400">
+         <div className="flex items-center gap-4 text-orange-400">
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg><span>4.9 (2.4k reviews)</span>
-         </div><span className="text-white font-semibold">From $299</span>
+          </svg><span>{place.rating}</span>
+         </div>
+         {/* <span className="text-green-600 font-semibold">from ${place.srtPrice}</span> */}
         </div>
        </div>
       </div>
