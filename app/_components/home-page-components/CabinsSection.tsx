@@ -1,3 +1,9 @@
+import Image from "next/image";
+import img1 from "@/public/_assets/bali-002.jpg";
+import img2 from "@/public/_assets/cabin-004.jpg";
+import img3 from "@/public/_assets//surfing-001.jpg";
+import img4 from "@/public/_assets/cabin-interior.jpg";
+
 const CabinsSection = () => {
   return (
     <section id="cabins" className="py-24 hero-gradient">
@@ -17,21 +23,26 @@ const CabinsSection = () => {
             </p>
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center flex-shrink-0">
-                  <svg
-                    className="w-6 h-6 text-orange-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                    />
-                  </svg>
+
+                <div className="relative w-12 h-12 flex-shrink-0">
+                  <div className="absolute inset-0 rounded-full bg-orange-500/20 animate-ping [animation-duration:2.5s]" />
+                  <div className="relative w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-orange-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      />
+                    </svg>
+                  </div>
                 </div>
+
                 <div>
                   <h3 className="text-xl font-semibold mb-1">
                     Authentic Local Stays
@@ -41,8 +52,13 @@ const CabinsSection = () => {
                   </p>
                 </div>
               </div>
+
+
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center flex-shrink-0">
+
+                 <div className="relative w-12 h-12 flex-shrink-0">
+                  <div className="absolute inset-0 rounded-full bg-orange-500/20 animate-ping [animation-duration:2.5s]" />
+                  <div className="relative w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center">
                   <svg
                     className="w-6 h-6 text-orange-400"
                     fill="none"
@@ -57,6 +73,10 @@ const CabinsSection = () => {
                     />
                   </svg>
                 </div>
+                </div>
+                
+
+
                 <div>
                   <h3 className="text-xl font-semibold mb-1">
                     Stunning Views Guaranteed
@@ -67,7 +87,9 @@ const CabinsSection = () => {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center flex-shrink-0">
+                 <div className="relative w-12 h-12 flex-shrink-0">
+                  <div className="absolute inset-0 rounded-full bg-orange-500/20 animate-ping [animation-duration:2.5s]" />
+                  <div className="relative w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center">
                   <svg
                     className="w-6 h-6 text-orange-400"
                     fill="none"
@@ -82,6 +104,7 @@ const CabinsSection = () => {
                     />
                   </svg>
                 </div>
+                </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-1">
                     Verified &amp; Trusted
@@ -93,93 +116,52 @@ const CabinsSection = () => {
               </div>
             </div>
           </div>
-          <div
-            className="grid grid-cols-2 gap-4 "
-            data-delay="200"
-          >
+          <div className="grid grid-cols-2 gap-4 " data-delay="200">
             <div className="space-y-4">
-              <div className="rounded-2xl overflow-hidden card-hover">
-                <div className="h-48 bg-[#fafafa73]  flex items-center justify-center">
-                  <svg
-                    className="w-20 h-20 text-cyan-500/30"
-                    viewBox="0 0 100 100"
-                  >
-                    <rect
-                      x="20"
-                      y="40"
-                      width="60"
-                      height="45"
-                      fill="currentColor"
-                    />{" "}
-                    <polygon
-                      points="10,45 50,15 90,45"
-                      fill="currentColor"
-                      opacity="0.7"
-                    />{" "}
-                    <rect x="40" y="55" width="20" height="30" fill="#1a1a1a" />
-                  </svg>
+              <div className="rounded-sm border-2 hover:border-orange-400 overflow-hidden card-hover">
+                <div className="relative h-48 bg-[#fafafa73]  flex items-center justify-center">
+                  <Image
+                    src={img1}
+                    fill
+                    alt="cabin in tropical woods"
+                    className="object-cover object-center"
+                    quality={50}
+                  />
                 </div>
               </div>
-              <div className="rounded-2xl overflow-hidden card-hover">
-                <div className="h-64 bg-gradient-to-br bg-[#fafafa73] flex items-center justify-center">
-                  <svg
-                    className="w-24 h-24 text-white/20"
-                    viewBox="0 0 100 100"
-                  >
-                    <path
-                      d="M50 20 L20 50 L20 80 L80 80 L80 50 Z"
-                      fill="currentColor"
-                    />{" "}
-                    <rect x="35" y="55" width="12" height="12" fill="#1a1a1a" />{" "}
-                    <rect x="53" y="55" width="12" height="12" fill="#1a1a1a" />
-                  </svg>
+              <div className="rounded-sm border-2 hover:border-orange-400 overflow-hidden card-hover">
+                <div className="relative h-64 bg-gradient-to-br bg-[#fafafa73] flex items-center justify-center">
+                  <Image
+                    src={img3}
+                    fill
+                    alt="cabin in tropical woods"
+                    className="object-cover object-center"
+                    quality={50}
+                  />
                 </div>
               </div>
             </div>
             <div className="space-y-4 pt-8">
-              <div className="rounded-2xl overflow-hidden card-hover">
-                <div className="h-64 bg-gradient-to-br bg-[#fafafa73]  flex items-center justify-center">
-                  <svg
-                    className="w-24 h-24 text-white/20"
-                    viewBox="0 0 100 100"
-                  >
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="35"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                    />{" "}
-                    <path
-                      d="M50 25 L50 50 L70 50"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                    />{" "}
-                    <rect
-                      x="30"
-                      y="60"
-                      width="40"
-                      height="25"
-                      fill="currentColor"
-                      opacity="0.5"
-                    />
-                  </svg>
+              <div className="rounded-sm border-2 hover:border-orange-400 overflow-hidden card-hover">
+                <div className=" relative h-64 bg-gradient-to-br bg-[#fafafa73]  flex items-center justify-center">
+                  <Image
+                    src={img4}
+                    fill
+                    alt="cabin in tropical woods"
+                    className="object-cover object-center"
+                    quality={50}
+                  />
                 </div>
               </div>
-              <div className="rounded-2xl overflow-hidden card-hover">
-                <div className="h-48 bg-gradient-to-br bg-[#fafafa73]  flex items-center justify-center">
-                  <svg
-                    className="w-20 h-20 text-cyan-500/30"
-                    viewBox="0 0 100 100"
-                  >
-                    <polygon
-                      points="50,10 15,45 15,90 85,90 85,45"
-                      fill="currentColor"
-                    />{" "}
-                    <rect x="35" y="60" width="30" height="30" fill="#1a1a1a" />
-                  </svg>
+              <div className="rounded-sm border-2 hover:border-orange-400 overflow-hidden card-hover">
+                <div className="relative h-48 bg-gradient-to-br bg-[#fafafa73]  flex items-center justify-center">
+                  <Image
+                    src={img2}
+                    fill
+                    alt="cabin in tropical woods"
+                    className="object-cover object-center"
+                    quality={50}
+                  />
                 </div>
               </div>
             </div>

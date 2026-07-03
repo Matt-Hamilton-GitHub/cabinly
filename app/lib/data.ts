@@ -4,7 +4,6 @@ import bagar from '@/public/_assets/places-images/bagar-001.jpg'
 import patag from '@/public/_assets/places-images/patagonia-001.jpg'
 import alps from '@/public/_assets/places-images/alps-001.jpg'
 
-
 export const TOP3 : TTop3[] = [
     {
         id: 1,
