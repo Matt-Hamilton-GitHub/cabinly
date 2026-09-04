@@ -499,20 +499,6 @@ const BookingSidebar = ({
 
   return (
     <aside className="sticky top-8 px-6 py-8 space-y-6">
-      <PriceSummary
-        selectedCabin={selectedCabin}
-        signedActivities={signedActivities}
-        selectedDate={selectedDate}
-        adults={adults}
-        children={children}
-        wishlist={wishlist}
-        onWishlistToggle={() => setWishlist((w) => !w)}
-        breakdownOpen={breakdownOpen}
-        onBreakdownToggle={() => setBreakdownOpen((o) => !o)}
-        onBook={handleBooking}           // ← pass down
-        bookingLoading={isBookingLoading}
-        bookingError={bookingError}
-      />
 
       <DatePicker
         dates={place.availableDates}
@@ -550,6 +536,20 @@ const BookingSidebar = ({
         signedIds={signedActivityIds}
         onToggle={toggleActivity}
       />
+            <PriceSummary
+              selectedCabin={selectedCabin}
+              signedActivities={signedActivities}
+              selectedDate={selectedDate}
+              adults={adults}
+              children={children}
+              wishlist={wishlist}
+              onWishlistToggle={() => setWishlist((w) => !w)}
+              breakdownOpen={breakdownOpen}
+              onBreakdownToggle={() => setBreakdownOpen((o) => !o)}
+              onBook={handleBooking}           // ← pass down
+              bookingLoading={isBookingLoading}
+              bookingError={bookingError}
+            />
 
       <InfoNote />
     </aside>

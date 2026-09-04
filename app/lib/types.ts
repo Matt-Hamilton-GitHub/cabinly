@@ -77,6 +77,7 @@ export type GuideType = {
   xpPoints: number
 }
 
+
 export type ReviewType = {
   _id: string
   authorName: string

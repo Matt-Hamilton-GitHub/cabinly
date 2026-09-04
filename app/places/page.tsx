@@ -42,10 +42,7 @@ const ACTIVITIES = [
   { label: 'Photography', icon: <Camera size={13} /> },
 ]
 
-const COUNTRIES = [
-  'All', 'Switzerland', 'Norway', 'Argentina',
-  'Indonesia', 'Morocco', 'Scotland',
-]
+
 
 const MIN_PRICE = 0
 const MAX_PRICE = 1000
@@ -138,6 +135,9 @@ const PlacesPage = () => {
     country:  'All',
     maxPrice: MAX_PRICE,
   })
+  
+  let COUNTRIES = places.map(p => p.country )
+  COUNTRIES.splice(0,0,'All')
 
   const setFilter = (key: keyof typeof filters) => (val: string | number) =>
     setFilters((f) => ({ ...f, [key]: val }))

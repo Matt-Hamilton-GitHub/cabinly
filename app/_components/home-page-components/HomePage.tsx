@@ -4,7 +4,7 @@ import CabinsSection from "./CabinsSection"
 import DestinationSection from "./DestinationSection"
 import HeroSection from "./HeroSection"
 import MeetLocalsSection from "./MeetLocalsSection"
-
+import ServicesSection from './ServicesSection'
 
 
 const HomePage = () => {
@@ -15,7 +15,8 @@ const HomePage = () => {
         <DestinationSection />
         <CabinsSection />
         <ActivitiesSection />
-        <BundlesSection />
+        {/* <BundlesSection /> */}
+        <ServicesSection />
         <MeetLocalsSection />
     </>
   )
