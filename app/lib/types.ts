@@ -132,8 +132,7 @@ export type TPlace = {
   reviews: ReviewType[]
   availableDates: AvailableDateType[]
   coordinates: {
-    lat: number
-    lng: number
+    coordinates: number[]
   }
 }
 
@@ -176,3 +175,7 @@ export type TTop3 = {
     srtPrice: number,
     dest_ref_url: string
 }
+
+
+
+

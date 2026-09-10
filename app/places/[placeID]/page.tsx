@@ -12,6 +12,7 @@ import GuideList from "@/app/_components/place.components/GuideCard";
 import ReviewList from "@/app/_components/place.components/ReviewList";
 import BookingSidebar from "@/app/_components/place.components/BookingSidebar";
 import PlacePageSkeleton from "@/app/_components/place.components/PlacePageSkeleton";
+import CabinMap from "@/app/_components/GoogleMaps";
 
 const TripPage = ({ params }: { params: Promise<{ placeID: string }> }) => {
   const { placeID } = use(params);
@@ -28,24 +29,26 @@ const TripPage = ({ params }: { params: Promise<{ placeID: string }> }) => {
       const res = await fetch(`/api/places/${placeID}`);
       const data = await res.json();
       setPlace(data.place);
-      console.log(data.place);
+      // console.log(data.place);
       setSelectedCabinId(data.place?.cabinsRef?.[0]?._id ?? "");
       setIsLoading(false);
     };
     fetch_();
   }, [placeID]);
+  console.log(place?.coordinates)
 
   if (isLoading) return <PlacePageSkeleton />;
 
+
   if (!place)
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex h-screen w-full items-center justify-center">
         <p className="text-[#0f3d3e]/40 text-sm">Place not found.</p>
       </div>
     );
 
   return (
-    <main className="bg-white min-h-screen">
+    <main className="bg-white min-h-screen mb-20">
       <PlaceHero place={place} />
       <PlaceStats place={place} />
 
@@ -56,6 +59,7 @@ const TripPage = ({ params }: { params: Promise<{ placeID: string }> }) => {
         {/* Main content */}
         <div className="px-8 py-10 space-y-14">
           <PlaceAbout place={place} />
+          <CabinMap locationProp={place.coordinates.coordinates} />
           <CabinSelector
             cabins={place.cabinsRef}
             selectedCabinId={selectedCabinId}

@@ -1,48 +1,64 @@
-// components/MyMap.js
 'use client';
 
 import React from 'react';
-// import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
-import {createRoot} from 'react-dom/client';
-import {APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
+import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
+import Loading from '../user/loading';
 
+const CabinMap = ({
+  locationProp,
+}: {
+  locationProp: number[];
+}) => {
+  const googleAPIKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+console.log('coordinates',locationProp)
 
-const containerStyle = {
-  width: '100%',
-  height: 'auto',
-};
+  if (!googleAPIKey) {
+    return (
+      <div className="w-full h-40 bg-gray-500 rounded-xl flex items-center justify-center">
+        Google Maps API key is missing.
+      </div>
+    );
+  }
 
+  if (!locationProp) {
+    return (
+      <div className="w-full h-40 bg-gray-500 rounded-xl flex flex-col justify-center items-center">
+        <Loading />
+        <h3>Loading Google Maps ...</h3>
+      </div>
+    );
+  }
 
+  const lat = Number(locationProp[1]);
+  const lng = Number(locationProp[0]);
 
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+    return (
+      <div className="w-full h-40 bg-gray-500 rounded-xl flex items-center justify-center">
+        Invalid map coordinates.
+      </div>
+    );
+  }
 
-const CabinMap = ({locationProp} : {locationProp : {lat: number, lng: number}}) => {
+  const position = { lat, lng };
 
-
-  // const { isLoaded, loadError } = useLoadScript({
-  //   googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY , 
-  // });
-
-  const googleAPIKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY 
-  
-
-  if (!locationProp) return <div className="w-full bg-gray-100" />
   return (
-    <APIProvider apiKey={googleAPIKey}>
-    <Map
-      style={containerStyle}
-      defaultCenter={locationProp}
-      defaultZoom={15}
-      gestureHandling={'greedy'}
-      disableDefaultUI
-      mapTypeId="roadmap"
-    />
-     <Marker
-  position={locationProp}
-  title="Cabin Location"
-  draggable={false}
-  // icon={} // custom icon (optional)
-/>
-  </APIProvider>
+    <div className="w-full h-[400px] rounded-xl overflow-hidden">
+      <APIProvider apiKey={googleAPIKey}>
+        <Map
+          defaultCenter={position}
+          defaultZoom={15}
+          gestureHandling="greedy"
+          disableDefaultUI
+          mapTypeId="roadmap"
+        >
+          <Marker
+            position={position}
+            title="Cabin Location"
+          />
+        </Map>
+      </APIProvider>
+    </div>
   );
 };
 

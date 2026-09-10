@@ -52,6 +52,20 @@ body {
          transition-all duration-500 placeholder-[orange] hover:placeholder-[black];
 }
 
+
+/*  DEFAULT STYLES  */
+
+.div-border{
+  border:#aaaaaa87 2px solid;
+  border-radius: 10px;
+  transition: all 200ms ease-in-out;
+
+}
+.div-border:hover{
+   border:#0f3d3ecc 5px solid; 
+
+  
+}
 /* Loadin Box */
 .loader {
   width: 48px;
@@ -689,4 +703,9 @@ input::placeholder {
   text-align: center;
   padding: 60px 20px;
   opacity: 0.6;
+}
+
+.textile{
+background-image: url("https://www.transparenttextures.com/patterns/back-pattern.png");
+
 }

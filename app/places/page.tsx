@@ -194,7 +194,7 @@ const PlacesPage = () => {
   )
 
   return (
-    <main className="max-w-7xl mx-auto px-6 py-12">
+    <main className="max-w-[90vw] mx-auto px-6 py-12 mb-20 ">
 
       {/* ── Page header ── */}
       <div className="flex items-end justify-between mb-8 flex-wrap gap-4">
@@ -376,21 +376,18 @@ const PlacesPage = () => {
           </aside>
         )}
 
-        {/* Results grid */}
-        <div className="flex-1 min-w-0">
+  
+        <div className="flex flex-wrap w-[100vw]  ">
           {filtered.length > 0 ? (
-            <div className={`grid gap-5 ${
-              sidebarOpen
-                ? 'sm:grid-cols-2 xl:grid-cols-3'
-                : 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-            }`}>
+            <div className={`flex gap-5 flex-row items-center justify-center
+                 flex-wrap  `}>
               {filtered.map((p, idx) => (
                 <PlaceCard key={idx} place={p} />
               ))}
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center
-              h-80 text-center">
+              h-80 w-full text-center">
               <div className="w-14 h-14 rounded-full bg-[#f8faf9] flex
                 items-center justify-center mb-4">
                 <Globe size={22} className="text-[#0f3d3e]/30" />

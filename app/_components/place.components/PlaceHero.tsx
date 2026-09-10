@@ -59,26 +59,26 @@ const PlaceHero = ({ place }) => {
 
       {/* Bottom content — flag, title, location, tags */}
       <div className="relative flex flex-col flex-wrap">
-        <span className="w-fit rounded-2xl text-3xl mb-3 p-2 bg-[#0000007a] border-[#0f3d3e] border-2">
+        <span className="text-3xl mb-3 ">
           <Image
             src={`https://flagcdn.com/w40/${place.flag.toLowerCase()}.png`}
             alt={place.country}
             width={40}
             height={30}
-            className="rounded-xl "
+            className=" "
           />
         </span>
 
         <h1
           className=" w-fit font-serif text-[clamp(2rem,5vw,3.2rem)] leading-[1.1]
-          text-[#fcfcfc] mb-3 bg-[#0f3d3e] p-2 rounded-md"
+          text-[#efeeee] mb-3 bg-[#0f3d3ece] p-2 rounded-md"
         >
           {place.title}
         </h1>
 
         <div
           className="flex items-center gap-1.5 text-[#e8f0ed]/60 text-sm
-          font-light mb-4 bg-[#0000006a] p-2"
+          font-light mb-4 p-2"
         >
           <MapPin size={13} className="text-[#ffffff]" />
           <span className="bg-white text-green-950 px-[5px] ">
@@ -99,7 +99,7 @@ const PlaceHero = ({ place }) => {
             <span
               key={tag}
               className="text-xs px-3 py-1 rounded-full
-                bg-[#e8f0ed]/10 border border-[#e8f0ed]/15 text-[#e8f0ed]
+                bg-[#090909] border border-[#e8f0ed]/15 text-[#fafbfb]
                 font-light"
             >
               {tag}

@@ -185,7 +185,7 @@ const MeetLocalsSection = () => {
               hover:bg-[#0f3d3e] hover:text-[#e8f0ed] hover:border-[#0f3d3e]
               transition-all duration-200 group"
           >
-            Meet all {guides.length}+ guides
+            Meet all guides
             <ArrowRight size={14} className="group-hover:translate-x-0.5
               transition-transform" />
           </Link>

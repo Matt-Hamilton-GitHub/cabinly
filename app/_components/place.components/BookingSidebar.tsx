@@ -16,7 +16,7 @@ import { useInvalidateProfile } from "@/app/_hooks/useUserProfile";
 // ─── Types ───────────────────────────────────────────────────────
 
 interface BookingSidebarProps {
-  place;
+  place:TPlace;
   selectedCabinId: string;
   signedActivityIds: string[];
   onCabinChange: (id: string) => void;
@@ -289,13 +289,13 @@ const DatePicker = ({
       <div className="grid grid-cols-2 gap-2">
         {dates &&
           dates.map((date) => {
-            const active = selected.label === date.label;
+            const active = selected.from === date.from && selected.to === date.to;
             return (
               <button
                 key={date.label}
                 onClick={() => onSelect(date)}
                 className={`text-xs py-2.5 px-3 rounded-xl border text-center
-              transition-all ${
+              transition-all hover:cursor-pointer ${
                 active
                   ? "bg-[#0f3d3e] text-[#e8f0ed] border-[#0f3d3e]"
                   : "bg-white text-[#0f3d3e] border-[#0f3d3e]/12 hover:border-[#a8d5d0]"
@@ -308,7 +308,7 @@ const DatePicker = ({
                     active ? "text-[#e8f0ed]/50" : "text-gray-400"
                   }`}
                 >
-                  {getNights(date.to, date.from)} nights
+                  {getNights(date.from ,date.to)} nights
                 </span>
               </button>
             );
@@ -422,7 +422,7 @@ const BookingSidebar = ({
         status: false,
         msg: ""
       })
-      
+      console.log(selectedDate)
 
   const [isBookingLoading, setIsBookingLoading] = useState(false)
   const {authUser} = useUserContext()
@@ -457,14 +457,14 @@ const BookingSidebar = ({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          userRef:    authUser.userId,   // ← don't forget this
-          placeRef:   place._id,         // ← was place (the whole object)
+          userRef:    authUser.userId,   
+          placeRef:   place._id,         
           cabinRef:   selectedCabinId,
           activities: signedActivityIds,
           from:       selectedDate.from,
           to:         selectedDate.to,
           guests:     adults + children,
-          totalPaid:  total,             // ← from closure
+          totalPaid:  total,             
         })
       })
 

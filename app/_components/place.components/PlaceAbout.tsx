@@ -1,5 +1,6 @@
 import { Home, Clock, Users, Star } from "lucide-react";
-import { PlaceType } from "@/app/places/page";
+
+import { TPlace } from "@/app/lib/types";
 
 interface HighlightItem {
   icon: React.ReactNode;
@@ -22,11 +23,11 @@ const Highlight = ({ icon, title, sub }: HighlightItem) => (
   </div>
 );
 
-const PlaceAbout = ({ place }: { place: PlaceType }) => {
+const PlaceAbout = ({ place }: { place: TPlace }) => {
   const highlights: HighlightItem[] = [
     {
       icon: <Home size={16} />,
-      title: `0 cabins`, // cabins → cabinsRef
+      title: `${place.cabinsRef.length} cabins`, // cabins → cabinsRef
       sub: "From cosy to luxury",
     },
     {
@@ -36,7 +37,7 @@ const PlaceAbout = ({ place }: { place: PlaceType }) => {
     },
     {
       icon: <Users size={16} />,
-      title: `0 local guides`,
+      title: `${place.guides.length} local guides`,
       sub: "Certified experts",
     },
     {
