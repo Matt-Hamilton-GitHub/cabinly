@@ -43,7 +43,7 @@ console.log('coordinates',locationProp)
   const position = { lat, lng };
 
   return (
-    <div className="w-full h-[400px] rounded-xl overflow-hidden">
+    <div className="w-full h-[400px] rounded-xl overflow-hidden ">
       <APIProvider apiKey={googleAPIKey}>
         <Map
           defaultCenter={position}

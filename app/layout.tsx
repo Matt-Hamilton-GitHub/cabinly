@@ -12,7 +12,6 @@ import "../app/_styles/globals.css";
 
 import Navbar from "./_components/Navbar";
 import Footer from "./_components/Footer";
-import { UserProvider } from "./contexts/UserContext";
 import Providers from "./lib/ReactQueryProvider";
 
 const geistSans = Geist({
@@ -73,7 +72,8 @@ export default function RootLayout({
           ${museoModerno.className} 
           antialiased
           min-h-screen
-          text-green`}
+          text-green
+          `}
         >
           <div className="overflow-x-clip h-full overflow-auto">
             <Navbar />

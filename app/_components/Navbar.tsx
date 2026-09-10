@@ -67,7 +67,7 @@ export default function Navbar() {
             <Link
               key={href}
               href={href}
-              className={`px-4 py-2 rounded-xl text-sm transition-colors ${
+              className={`px-4 py- rounded-xl text-sm transition-colors ${
                 isActive(href)
                   ? 'bg-[#e8f0ed]/10 text-[#e8f0ed]'
                   : 'text-[#e8f0ed]/60 hover:text-[#e8f0ed] hover:bg-[#e8f0ed]/05'
@@ -87,57 +87,48 @@ export default function Navbar() {
             <>
               {/* Points — from profile, falls back gracefully */}
               <div className="flex items-center gap-1.5 px-3 py-1.5
-                bg-[#e8f0ed]/08 border border-[#e8f0ed]/10 rounded-xl">
+                bg-[#e8f0ed]/08 border-2 border-[#c66f19fc] rounded-xl">
                 <Zap size={13} className="text-[#a8d5d0]" />
-                <span className="text-xs font-medium text-[#a8d5d0]">
+                <span className="text-xs font-medium text-[#d5d3a8]">
                   {profile?.points?.toLocaleString() ?? '—'} pts
                 </span>
               </div>
 
               {/* Tier badge — from profile */}
-              {profile?.tier && (
+              {/* {profile?.tier && (
                 <span className={`text-[10px] font-medium px-2.5 py-1
                   rounded-full ${TIER_COLORS[profile.tier]}`}>
                   {profile.tier}
                 </span>
-              )}
+              )} */}
 
               {/* Account link — name from authUser (always available) */}
               <Link
                 href={`/user/${authUser.userId}`}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-xl
-                  border transition-colors text-sm ${
+                className={`flex items-center gap-2  transition-colors ${
                     isActive('/user')
                       ? 'bg-[#e8f0ed]/10 border-[#e8f0ed]/20 text-[#e8f0ed]'
-                      : 'border-[#e8f0ed]/15 text-[#e8f0ed]/70 hover:text-[#e8f0ed] hover:border-[#e8f0ed]/30'
+                      : 'border-[#e8f0ed]/15 text-[#e8f0ed]/70 hover:text-[#e8f0ed] hover:scale-110 '
                   }`}
               >
-                {profile?.avatarUrl ? (
-                  <Image
-                    src={profile.avatarUrl}
-                    alt='user'
-                    width={20}
-                    height={20}
-                    className="rounded-full object-cover"
-                  />
-                ) : (
-                  <div className="w-5 h-5 rounded-full bg-[#a8d5d0]/20
-                    flex items-center justify-center">
-                    <User size={11} className="text-[#a8d5d0]" />
+                 
+                  <div className="w-7 h-7 rounded-full bg-[#a8d5d0]/20
+                    flex items-center justify-center shadow-inner shadow-[#064d3e] hover:shadow-[#9c670c] transition-all ">
+                    <User size={15} className="text-[#ffffff]" />
                   </div>
-                )}
+                
                 {authUser?.name?.split(' ')[0] ?? ""}  {/* first name only */}
               </Link>
 
               {/* Logout */}
               <button
                 onClick={handleLogout}
-                className="p-2 rounded-xl text-[#e8f0ed]/50
+                className="flex pl-10 p-2 rounded-xl text-[#e8f0ed]
                   hover:text-[#e8f0ed] hover:bg-[#e8f0ed]/08
-                  transition-colors"
+                   hover:cursor-pointer hover:scale-110 transition-all"
                 title="Log out"
               >
-                <LogOut size={15} />
+                <LogOut size={20} />
               </button>
             </>
           ) : (

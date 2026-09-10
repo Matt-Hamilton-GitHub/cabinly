@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { CabinType } from '@/app/places/page'
+import { CabinType } from '@/app/lib/types'
 
 interface CabinSelectorProps {
   cabins: CabinType[]           // was cabins, now fed from cabinsRef
@@ -30,14 +30,14 @@ const CabinCard = ({
 }) => (
   <div
     onClick={onSelect}
-    className={`border rounded-2xl overflow-hidden cursor-pointer
+    className={`border-2 rounded-2xl overflow-hidden cursor-pointer
       transition-all duration-150 ${
         selected
           ? 'border-[#0f3d3e] border-[1.5px]'
           : 'border-[#0f3d3e]/10 hover:border-[#a8d5d0]'
       }`}
   >
-    <div className="h-28 relative bg-gradient-to-br from-[#0f3d3e] to-[#1a5c5e]">
+    <div className="h-50 relative bg-gradient-to-br from-[#0f3d3e] to-[#1a5c5e]">
       {cabin.imageUrl && (
         <Image
           fill

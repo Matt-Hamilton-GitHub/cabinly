@@ -18,17 +18,7 @@ export default function Footer() {
       </div>
       <div className=" w-full px-6">
         <div className="flex  flex-wrap  justify-center items-center md:items-baseline  gap-5 mb-8">
-          {/* <div className="flex flex-col justify-center items-center w-10">
-       <Link className="" href="/">
-            <Image
-              className="w-10 rounded-lg"
-              src={cabinlyLogo}
-              alt="cabinly-logo"
-            />
-            <h2 className="text-white">Cabinly</h2>
-          </Link>
-       <p className="text-[#f9f9f9] text-sm">Crafting unforgettable adventures guided by local experts since 2015.</p>
-      </div> */}
+  
           <div className=" p-10 border-[#ffffffae] ">
             <h4 className="font-semibold mb-4 ">Explore</h4>
             <ul className=" gap-5 space-y-2 text-[#f9f9f9] text-sm ">

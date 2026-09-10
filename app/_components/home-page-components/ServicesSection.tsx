@@ -39,7 +39,7 @@ const perks = [
 
 const ServicesSection = () => {
   return (
-    <section id="build" className="py-24 bg-white relative overflow-hidden">
+    <section id="build" className="textile py-24 bg-white relative overflow-hidden">
 
       {/* Subtle bg decoration */}
       <div className="absolute top-0 right-0 w-96 h-96 pointer-events-none
