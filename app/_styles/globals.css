@@ -582,7 +582,7 @@ select:focus {
 .scroll-indicator {
   animation: float 2s ease-in-out infinite;
 }
-
+/* 
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -594,7 +594,7 @@ select:focus {
 ::-webkit-scrollbar-thumb {
   background: #ff6b35;
   border-radius: 4px;
-}
+} */
 
 .cabin-card {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -615,15 +615,15 @@ select:focus {
   border: 2px solid rgba(255, 107, 53, 0.2);
 }
 
-.filter-btn.active {
+/* .filter-btn.active {
   background: linear-gradient(135deg, #ff6b35 0%, #ff4500 100%);
   border-color: #ff6b35;
   color: black;
-}
+} */
 
-.filter-btn:hover {
+/* .filter-btn:hover {
   border-color: #ff6b35;
-}
+} */
 
 .amenity-tag {
   transition: all 0.2s ease;
@@ -655,16 +655,16 @@ input::placeholder {
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 1px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  /* background: #0a0a0a; */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ff6b35;
-  border-radius: 4px;
+  /* background: #ff6b35;
+  border-radius: 4px; */
 }
 
 .price-badge {

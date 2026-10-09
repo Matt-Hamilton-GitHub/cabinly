@@ -15,7 +15,7 @@ const HomePage = () => {
         <DestinationSection />
         <CabinsSection />
         <ActivitiesSection />
-        {/* <BundlesSection /> */}
+        <BundlesSection />
         <ServicesSection />
         <MeetLocalsSection />
     </>

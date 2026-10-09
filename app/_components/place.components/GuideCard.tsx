@@ -1,83 +1,141 @@
 import Image from 'next/image'
-import { GuideType } from '@/app/places/page'
+import { Star, Award, Users } from 'lucide-react'
+import { GuideType } from '@/app/lib/types'
 
 const StarRating = ({ rating }: { rating: number }) => (
-  <div className="flex items-center gap-0.5">
+  <div className="flex items-center gap-0.5 justify-end">
     {[1, 2, 3, 4, 5].map((star) => (
-      <span key={star} className={`text-sm ${
-        star <= Math.round(rating) ? 'text-[#a8d5d0]' : 'text-gray-200'
-      }`}>★</span>
+      <Star
+        key={star}
+        size={13}
+        className={
+          star <= Math.round(rating)
+            ? 'fill-[#c9a96e] text-[#c9a96e]'
+            : 'fill-[#0f3d3e]/10 text-[#0f3d3e]/10'
+        }
+      />
     ))}
   </div>
 )
 
-const GuideCard = ({ guide }: { guide: GuideType }) => (
-  <div className="flex items-start gap-4 border border-[#0f3d3e]/10
-    rounded-2xl p-4">
+const getInitials = (name: string = '') =>
+  name
+    .split(' ')
+    .filter(Boolean)
+    .map((n) => n[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase()
 
-    {/* Avatar — image or initials fallback */}
-    <div className="w-12 h-12 rounded-full flex-shrink-0 overflow-hidden
-      bg-[#e1f5ee] flex items-center justify-center">
-      {guide.imgUrl ? (
-        <Image
-          src={guide.imgUrl}
-          alt={guide.name}
-          width={48}
-          height={48}
-          className="object-cover w-full h-full"
-        />
-      ) : (
-        <span className="text-sm font-medium text-[#085041]">
-          {guide.initials}
+const GuideCard = ({ guide }: { guide: GuideType }) => {
+  const rating = guide.rating ?? 0
+  const tags = guide.tags ?? []
+
+  return (
+    <div
+      className="group relative flex items-start gap-6 rounded-3xl p-6 sm:p-7
+        bg-gradient-to-br from-white to-[#fbfaf6] border border-[#0f3d3e]/[0.08]
+        transition-all duration-300 hover:-translate-y-0.5
+        hover:border-[#c9a96e]/50
+        hover:shadow-[0_24px_48px_-28px_rgba(15,61,62,0.45)]"
+    >
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#c9a96e]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+
+      {/* Avatar — image or initials fallback */}
+      <div className="relative flex-shrink-0">
+        <div className="absolute -inset-1 rounded-full bg-gradient-to-br
+          from-[#ecdcb0] via-[#c9a96e] to-[#8a6d35]" />
+        <div className="relative w-20 h-20 rounded-full overflow-hidden
+          bg-[#0a2c2d] flex items-center justify-center border-2 border-white">
+          {guide.imgUrl ? (
+            <Image
+              src={guide.imgUrl}
+              alt={guide.name}
+              width={80}
+              height={80}
+              className="object-cover w-full h-full"
+            />
+          ) : (
+            <span className="font-serif text-2xl text-[#ecdcb0]">
+              {guide.initials ?? getInitials(guide.name)}
+            </span>
+          )}
+        </div>
+        <span className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full
+          bg-[#0f3d3e] border-2 border-[#c9a96e] flex items-center justify-center">
+          <Award size={13} className="text-[#c9a96e]" />
         </span>
-      )}
-    </div>
+      </div>
 
-    {/* Info */}
-    <div className="flex-1 min-w-0">
-      <p className="text-sm font-medium text-[#0f3d3e]">{guide.name}</p>
-      <p className="text-xs text-gray-400 mt-0.5">
-        {guide.role} · {guide.yrsExp} years experience  {/* yearsExperience → yrsExp */}
-      </p>
-      <p className="text-xs text-gray-500 leading-relaxed mt-2">{guide.bio}</p>
-      <div className="flex flex-wrap gap-1.5 mt-3">
-        {guide.tags && guide.tags.map((tag) => (
-          <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full
-            bg-[#e1f5ee] text-[#085041]">
-            {tag}
-          </span>
-        ))}
+      {/* Info */}
+      <div className="flex-1 min-w-0">
+        <p className="font-serif text-2xl text-[#0f3d3e] leading-tight">
+          {guide.name}
+        </p>
+        <p className="text-[11px] tracking-[0.2em] uppercase text-[#b8975a] mt-1.5">
+          {guide.role}
+          <span className="text-[#0f3d3e]/30 mx-2">·</span>
+          <span className="text-[#0f3d3e]/50">{guide.yrsExp} yrs experience</span>
+        </p>
+        <p className="text-sm text-[#0f3d3e]/55 font-light leading-relaxed mt-4">
+          {guide.bio}
+        </p>
+        {tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-5">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-[11px] px-3 py-1 rounded-full bg-[#0f3d3e]/[0.05]
+                  text-[#0f3d3e]/70 border border-[#0f3d3e]/[0.08]
+                  group-hover:border-[#c9a96e]/40 transition-colors"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Rating */}
+      <div className="text-right flex-shrink-0 pl-2">
+        <p className="font-serif text-4xl text-[#0f3d3e] leading-none">
+          {rating.toFixed(1)}
+        </p>
+        <div className="mt-2">
+          <StarRating rating={rating} />
+        </div>
+        <p className="text-[10px] tracking-[0.2em] uppercase text-[#0f3d3e]/40
+          mt-2 flex items-center gap-1.5 justify-end">
+          <Users size={11} />
+          {guide.reviewCount ?? 0} reviews
+        </p>
       </div>
     </div>
-
-    {/* Rating */}
-    <div className="text-right flex-shrink-0">
-      <p className="text-sm font-medium text-[#0f3d3e]">
-        {guide.rating.toFixed(1)}
-      </p>
-      <StarRating rating={guide.rating} />
-      <p className="text-[10px] text-gray-400 mt-0.5">
-        {guide.reviewCount} reviews
-      </p>
-    </div>
-  </div>
-)
+  )
+}
 
 const GuideList = ({ guides }: { guides: GuideType[] }) => (
-  
   <section>
-    <p className="text-[10px] font-medium tracking-[0.2em] uppercase
-      text-[#a8d5d0] mb-1">
+    <p className="text-[10px] font-medium tracking-[0.3em] uppercase mb-2
+      flex items-center gap-3 text-[#b8975a]">
+      <span className="h-px w-8 bg-[#c9a96e]/60" />
       Your guide
     </p>
-    <h2 className="text-xl font-medium text-[#0f3d3e] mb-4">
+    <h2 className="font-serif text-3xl sm:text-4xl text-[#0f3d3e] mb-8 tracking-tight">
       Meet the local experts
     </h2>
-    <div className="flex flex-col gap-3">
-      {guides && guides.map((guide) => (
-        <GuideCard key={guide._id} guide={guide} />
-      ))}
-    </div>
+    {guides && guides.length > 0 ? (
+      <div className="flex flex-col gap-5">
+        {guides.map((guide) => (
+          <GuideCard key={guide._id} guide={guide} />
+        ))}
+      </div>
+    ) : (
+      <p className="text-sm text-[#0f3d3e]/45 font-light py-8 text-center
+        rounded-3xl border border-dashed border-[#0f3d3e]/15 bg-[#fbfaf6]">
+        Local guides for this destination will be announced soon.
+      </p>
+    )}
   </section>
 )
 
