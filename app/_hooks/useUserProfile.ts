@@ -1,5 +1,5 @@
 // hooks/useUserProfile.ts
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQuery,  useQueryClient } from '@tanstack/react-query'
 import { useUserContext } from '@/app/contexts/UserContext'
 import { UserType } from '@/app/lib/types'
 

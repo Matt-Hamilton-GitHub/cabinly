@@ -61,7 +61,7 @@ const PlaceStats = ({ place }: { place: TPlace }) => {
     },
     {
       icon: <Star size={20} />,
-      value: (place as any).rating ?? '–',
+      value: place.rating ?? '–',
       label: 'Avg rating',
       highlight: true,
     },

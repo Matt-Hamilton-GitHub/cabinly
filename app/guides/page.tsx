@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import { useGuides } from '../_hooks/useQuides'
 import SpinnerBoxJump from '../_components/SpinnerBoxJump'
 import {
@@ -9,6 +8,7 @@ import {
   ChevronUp, Crown, Medal, Award
 } from 'lucide-react'
 import { GuideType } from '../lib/types'
+import Image from 'next/image'
 
 // ─── Helpers ─────────────────────────────────────────────────────
 
@@ -48,7 +48,7 @@ const Avatar = ({
         justify-center flex-shrink-0 border-2 border-[#a8d5d0]/30"
     >
       {guide.imgUrl ? (
-        <img
+        <Image
           src={guide.imgUrl}
           alt={guide.name}
           width={dims}
@@ -358,7 +358,7 @@ export default function GuidesPage() {
         ) : (
           <div className="flex flex-col items-center justify-center h-48">
             <p className="text-sm text-gray-400">
-              No guides found for "{search}"
+              No guides found for &quot;{search}&quot;
             </p>
             <button
               onClick={() => setSearch('')}

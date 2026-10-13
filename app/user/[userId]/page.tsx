@@ -12,8 +12,9 @@ import {
 import Link from 'next/link'
 
 import { ALL_MEDALS } from '../../lib/medals'
-import { BookingType } from '@/app/lib/types'
+import { BookingType, UserType } from '@/app/lib/types'
 import { formatDate } from '@/app/_utils/utils'
+import Image from 'next/image'
 
 // ─── Types ───────────────────────────────────────────────────────
 
@@ -23,7 +24,7 @@ type TierName = 'Explorer' | 'Adventurer' | 'Pioneer' | 'Summit'
 // ─── Constants ───────────────────────────────────────────────────
 
 const GOLD = '#c9a96e'
-const GOLD_LIGHT = '#ecdcb0'
+
 
 const TIERS: TierName[] = ['Explorer', 'Adventurer', 'Pioneer', 'Summit']
 
@@ -148,7 +149,7 @@ const CardHeading = ({
 const OverviewTab = ({
   user, bookings, onNavigate,
 }: {
-  user: any; bookings: BookingType[]; onNavigate: (t: TabType) => void
+  user: UserType; bookings: BookingType[]; onNavigate: (t: TabType) => void
 }) => {
   const tier       = (user.tier ?? 'Explorer') as TierName
   const points     = user.points ?? 0
@@ -162,9 +163,9 @@ const OverviewTab = ({
       )))
   const ptsToNext  = Math.max(0, thresholds.max - points)
 
-  const earnedMedals: string[] = (user.medals ?? []).filter((m: any) => m)
-  const allBookings: any[] = (bookings as any[]) ?? user.bookings ?? []
-  const nextTrip = allBookings.find((b: any) => b.status === 'upcoming')
+  const earnedMedals: string[] = (user.medals ?? []).filter((m: string) => m)
+  const allBookings = (bookings) ?? user.bookings ?? []
+  const nextTrip = allBookings.find((b) => b.status === 'upcoming')
 
   const quickStats = [
     { icon: <MapPin size={18} />,       label: 'Trips',      val: user.completedTrips?.length ?? 0 },
@@ -281,10 +282,19 @@ const OverviewTab = ({
             </CardHeading>
             {nextTrip ? (
               <div className="flex items-center gap-6">
-                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br
+                <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-br
                   from-[#0f3d3e] to-[#1a5c5e] flex items-center justify-center
                   flex-shrink-0 shadow-lg">
-                  <Mountain size={28} className="text-[#c9a96e]" />
+                  {/* <Mountain size={28} className="text-[#c9a96e]" /> */}
+                
+                  <Image
+                  src={nextTrip.placeRef?.images_url[0]}
+                  alt={`${nextTrip.placeRef?.title} place image`}
+                  fill
+                  className="relative object-cover grayscale-50 rounded-2xl border-2"
+                  quality={10}
+                  loading="lazy"
+                  unoptimized />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-serif text-2xl text-[#0f3d3e] truncate">
@@ -302,7 +312,7 @@ const OverviewTab = ({
                 </div>
                 <span className="text-[10px] tracking-widest uppercase px-3 py-1.5
                   rounded-full bg-[#e1f5ee] text-[#085041] font-medium">
-                  Upcoming
+                  {nextTrip.status}
                 </span>
               </div>
             ) : (
@@ -428,7 +438,7 @@ const OverviewTab = ({
 
 // ─── Trips Tab ───────────────────────────────────────────────────
 
-const BookingCard = ({ booking }: { booking: any }) => {
+const BookingCard = ({ booking }: { booking}) => {
   const statusStyle =
     booking.status === 'upcoming'
       ? 'bg-[#e1f5ee] text-[#085041]'
@@ -442,9 +452,17 @@ const BookingCard = ({ booking }: { booking: any }) => {
       <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b
         from-[#c9a96e] to-[#c9a96e]/0" />
       <div className="flex items-start gap-6">
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#0f3d3e]
+        <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-[#0f3d3e]
           to-[#1a5c5e] flex items-center justify-center flex-shrink-0 shadow-md">
-          <MapPin size={22} className="text-[#c9a96e]" />
+          {/* <MapPin size={22} className="text-[#c9a96e]" /> */}
+          <Image
+                  src={booking.placeRef?.images_url[0]}
+                  alt={`${booking.placeRef?.title} place image`}
+                  fill
+                  className="relative object-cover grayscale-50 rounded-2xl border-2"
+                  quality={10}
+                  loading="lazy"
+                  unoptimized />
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-3">
@@ -491,9 +509,9 @@ const BookingCard = ({ booking }: { booking: any }) => {
 }
 
 const TripsTab = ({ bookings }: { bookings: BookingType[] }) => {
-  const upcoming  = bookings.filter((b: any) => b.status === 'upcoming')
-  const past      = bookings.filter((b: any) => b.status === 'completed')
-  const cancelled = bookings.filter((b: any) => b.status === 'cancelled')
+  const upcoming  = bookings.filter((b) => b.status === 'upcoming')
+  const past      = bookings.filter((b) => b.status === 'completed')
+  const cancelled = bookings.filter((b) => b.status === 'cancelled')
 
   if (bookings.length === 0) {
     return (
@@ -521,13 +539,13 @@ const TripsTab = ({ bookings }: { bookings: BookingType[] }) => {
 
   const Group = ({
     label, title, list,
-  }: { label: string; title: string; list: any[] }) =>
+  }: { label: string; title: string; list }) =>
     list.length > 0 ? (
       <div>
         <SectionLabel>{label}</SectionLabel>
         <SectionTitle>{title}</SectionTitle>
         <div className="space-y-5">
-          {list.map((b: any) => <BookingCard key={b._id} booking={b} />)}
+          {list.map((b) => <BookingCard key={b._id} booking={b} />)}
         </div>
       </div>
     ) : null
@@ -543,7 +561,7 @@ const TripsTab = ({ bookings }: { bookings: BookingType[] }) => {
 
 // ─── Medals Tab ──────────────────────────────────────────────────
 
-const MedalsTab = ({ user }: { user: any }) => {
+const MedalsTab = ({ user }: { user}) => {
   const [hoveredInfo, setHoveredInfo] = useState(false)
   const earnedIds: string[] = user.medals ?? []
   const pct = ALL_MEDALS.length
@@ -670,7 +688,7 @@ const MedalsTab = ({ user }: { user: any }) => {
 
 // ─── Rewards Tab ─────────────────────────────────────────────────
 
-const RewardsTab = ({ user }: { user: any }) => {
+const RewardsTab = ({ user }: { user}) => {
   const pts = user.points ?? 0
   return (
     <div className="space-y-10 acct-fade">
@@ -735,7 +753,7 @@ const FieldLabel = ({ children }: { children: React.ReactNode }) => (
   </label>
 )
 
-const SettingsTab = ({ user }: { user: any }) => {
+const SettingsTab = ({ user }: { user}) => {
   const [name, setName]   = useState(user.name ?? '')
   const [email, setEmail] = useState(user.email ?? '')
   const [saved, setSaved] = useState(false)

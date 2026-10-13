@@ -5,7 +5,7 @@ import { useUserContext } from '../contexts/UserContext'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Mail, Lock, ArrowRight, Mountain } from 'lucide-react'
-import { useUserProfile } from '../_hooks/useUserProfile'
+
 
 export default function Login() {
   const [email, setEmail]       = useState('')
@@ -271,7 +271,7 @@ export default function Login() {
 
           {/* Sign up link */}
           <p className="text-center text-sm text-gray-400">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link href="/sign-up"
               className="text-[#0f3d3e] font-medium hover:text-[#a8d5d0]
               transition-colors">

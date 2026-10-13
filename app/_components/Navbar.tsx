@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter, usePathname } from 'next/navigation'
-import { Mountain, LogOut, User, Menu, X, Zap } from 'lucide-react'
+import {  LogOut, User, Menu, X, Zap } from 'lucide-react'
 import { useState } from 'react'
 import cabinlyLogo from '../../public/_assets/icon.png'
 import { useUserContext } from '../contexts/UserContext'

@@ -5,7 +5,6 @@ import User from "@/app/lib/mdb-models/User";
 import Place from "@/app/lib/mdb-models/Place";
 import Cabin from "@/app/lib/mdb-models/Cabin";
 import Activity from "@/app/lib/mdb-models/Activity";
-import { getTier } from "@/app/lib/points";
 
 import jwt from 'jsonwebtoken';
 import { getNights } from "@/app/_utils/utils";

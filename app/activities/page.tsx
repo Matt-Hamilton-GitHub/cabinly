@@ -2,11 +2,12 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { useActivities } from '../_hooks/useActivities'
 import SpinnerBoxJump from '../_components/SpinnerBoxJump'
+import type { ActivityType, ActivityPlaceRef } from '../lib/types'
 import {
-  Mountain, Waves, Trees, Bike, Fish,
+  Mountain, Waves, Bike, Fish,
   Building, Camera, Zap, ArrowRight, Users, Clock
 } from 'lucide-react'
 
@@ -28,56 +29,47 @@ const DIFFICULTY_COLORS: Record<string, string> = {
   'Advanced':     'bg-red-50 text-red-600',
 }
 
-const PlaceChip = ({
-  place,
-  onClick,
-}: {
-  place: { _id: string; title: string; country: string; flag: string; images_url: string[] }
-  onClick: () => void
-}) => (
-
-  <button
-    onClick={onClick}
+const PlaceChip = ({ place }: { place: ActivityPlaceRef }) => (
+  <Link
+    href={`/places/${place._id}`}
     className="flex items-center gap-2.5 pl-1.5 pr-3 py-1.5 rounded-full
       border border-[#0f3d3e]/10 hover:border-[#a8d5d0] hover:bg-[#f8faf9]
       transition-all group hover:cursor-pointer shadow-inner shadow-[#d3d2d2]"
   >
     <div className="w-7 h-7 rounded-full overflow-hidden relative flex-shrink-0
       bg-gradient-to-br from-[#0f3d3e] to-[#1a5c5e]">
-      {place?.images_url?.[0] && (
+      {place.images_url?.[0] && (
         <Image
-          src={place?.images_url[0]}
-          alt={place?.title}
+          src={place.images_url[0]}
+          alt={place.title}
           fill
           className="object-cover"
           quality={10}
-          loading='lazy'
+          loading="lazy"
           unoptimized
         />
       )}
     </div>
-    <span className="text-xs font-medium text-[#0f3d3e]">{place?.title}</span>
-    <span className="text-sm">
-      {place?.flag && (
-        <Image
-          src={`https://flagcdn.com/w20/${place.flag.toLowerCase()}.png`}
-          alt={place?.country}
-          width={14}
-          height={10}
-          className="rounded-sm"
-          quality={10}
-          loading='lazy'
-          unoptimized
-        />
-      )}
-    </span>
+    <span className="text-xs font-medium text-[#0f3d3e]">{place.title}</span>
+    {place.flag && (
+      <Image
+        src={`https://flagcdn.com/w20/${place.flag.toLowerCase()}.png`}
+        alt={place.country}
+        width={14}
+        height={10}
+        className="rounded-sm"
+        quality={10}
+        loading="lazy"
+        unoptimized
+      />
+    )}
     <ArrowRight size={15} className="text-[#0f3d3e]
       group-hover:text-[#01473f] group-hover:translate-x-0.5 transition-all" />
-  </button>
+  </Link>
 )
 
-const ActivityCard = ({ activity }: { activity: any }) => {
-  const router = useRouter()
+const ActivityCard = ({ activity }: { activity: ActivityType }) => {
+  const place = activity.placesRef
 
   return (
     <div className="border-3 border-[#0f3d3e]/15 rounded-2xl p-5
@@ -100,7 +92,7 @@ const ActivityCard = ({ activity }: { activity: any }) => {
       {/* Meta */}
       <div className="flex items-center gap-3 mb-4 flex-wrap">
         <span className={`text-[12px] px-2 py-0.5 rounded-full
-          ${DIFFICULTY_COLORS[activity.difficulty]}`}>
+          ${DIFFICULTY_COLORS[activity.difficulty] ?? ''}`}>
           {activity.difficulty}
         </span>
         <span className="flex items-center gap-1 text-[12px] text-gray-400">
@@ -114,31 +106,30 @@ const ActivityCard = ({ activity }: { activity: any }) => {
         </span>
       </div>
 
-      {/* Places offering this activity */}
-      <div className="border-t border-[#0f3d3e]/06 pt-3">
-        <p className="text-[12px] text-gray-400 mb-2 font-light">
-          Available at {activity.placeRef?.length } destination
-        </p>
-        <div className="flex flex-wrap gap-2">
-            <PlaceChip
-              key={activity.placeRef}
-              place={activity.placeRef}
-              onClick={() => router.push(`/places/${activity.placeRef._id}`)}
-            />
-         
+      {/* Place offering this activity */}
+      {place && (
+        <div className="border-t border-[#0f3d3e]/[0.06] pt-3">
+          <p className="text-[12px] text-gray-400 mb-2 font-light">
+            Available at
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <PlaceChip place={place} />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
 
 const ActivitiesPage = () => {
-  const { data: activities, isLoading } = useActivities()
-  const [activeLabel, setActiveLabel] = useState('All')
+  const { data, isLoading } = useActivities()
+  const activities: ActivityType[] = data ?? []
+  const [activeLabel, setActiveLabel] = useState<string>('All')
 
-  const labels = ['All', ...new Set((activities ?? []).map((a) => a.label))]
+  // Array.from(new Set(...)) works with any TS target; spreading a Set does not.
+  const labels: string[] = ['All', ...Array.from(new Set(activities.map((a) => a.label)))]
 
-  const filtered = (activities ?? []).filter(
+  const filtered = activities.filter(
     (a) => activeLabel === 'All' || a.label === activeLabel
   )
 

@@ -4,10 +4,7 @@ import User from '@/app/lib/mdb-models/User'
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import jwt from 'jsonwebtoken'
-import Booking from '@/app/lib/mdb-models/Booking'
-import Cabin from '@/app/lib/mdb-models/Cabin'
-import Activity from '@/app/lib/mdb-models/Activity'
-import Place from '@/app/lib/mdb-models/Place'
+
 
 export async function GET(
   _req: Request,

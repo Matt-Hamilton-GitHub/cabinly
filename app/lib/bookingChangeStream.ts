@@ -2,7 +2,6 @@
 import Booking from './mdb-models/Booking'
 import Cabin from './mdb-models/Cabin'
 import Activity from './mdb-models/Activity'
-import User from './mdb-models/User'
 import { connectMDB } from './mongodb'
 
 console.log('booking watcher activated')

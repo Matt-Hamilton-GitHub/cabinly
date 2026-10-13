@@ -8,8 +8,8 @@ import { TPlace } from "@/app/lib/types";
 const PlaceHero = ({ place }: { place: TPlace }) => {
   const router = useRouter();
   const image = place.images_url?.[0];
-  const tags: string[] = (place as any).tags ?? [];
-  const location = [place.region, place.country, (place as any).continent].filter(
+  const tags: string[] = place.tags ?? [];
+  const location = [place.region, place.country, place.continent].filter(
     Boolean,
   ) as string[];
 
@@ -73,9 +73,9 @@ const PlaceHero = ({ place }: { place: TPlace }) => {
               border-[#f4efe2]/25 text-[#f4efe2]"
           >
             <Star size={13} className="fill-[#c9a96e] text-[#c9a96e]" />
-            {(place as any).rating}
+            {place.rating}
             <span className="text-[#f4efe2]/50 font-light">
-              ({(place as any).reviewCount})
+              ({place.reviewCount})
             </span>
           </span>
         </div>

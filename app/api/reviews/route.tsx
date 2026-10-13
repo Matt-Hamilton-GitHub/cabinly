@@ -3,7 +3,7 @@ import { connectMDB } from "@/app/lib/mongodb"
 import Review from "@/app/lib/mdb-models/Review"
 import { NextResponse } from "next/server"
 
-export async function GET(_req: Request) {
+export async function GET() {
   try {
     await connectMDB()
     const reviews = await Review.find({})

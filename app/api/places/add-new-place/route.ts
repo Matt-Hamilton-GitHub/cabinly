@@ -1,6 +1,6 @@
 import Place from "@/app/lib/mdb-models/Place";
 import { connectMDB } from "@/app/lib/mongodb";
-import { TPlace } from "@/app/lib/types";
+
 import { NextResponse } from "next/server";
 
 

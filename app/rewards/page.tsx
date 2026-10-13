@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import {
   Zap, ArrowLeft, Star, Home, MapPin,
-  CheckCircle2, Users, Gift, Trophy,
+  CheckCircle2, 
   ArrowRight, Info
 } from 'lucide-react'
 
@@ -195,10 +195,10 @@ export default function RewardsInfo() {
           </h1>
           <p className="text-[#e8f0ed]/55 font-light text-lg leading-relaxed
             max-w-xl">
-            Summit Points are Cabinly's way of rewarding you for exploring
+            Summit Points are Cabinly&apos;s way of rewarding you for exploring
             the world. Earn them by booking, completing activities, and
             building community. Spend them on gear, upgrades, and experiences
-            you won't find anywhere else.
+            you won&apos;t find anywhere else.
           </p>
         </div>
       </div>
@@ -268,7 +268,7 @@ export default function RewardsInfo() {
             </h2>
             <p className="text-sm text-gray-400 font-light max-w-md mx-auto">
               From gear discounts to VIP mountain experiences — your points
-              open doors that aren't available to regular bookings.
+              open doors that aren&apos;t available to regular bookings.
             </p>
           </div>
 
@@ -402,8 +402,8 @@ export default function RewardsInfo() {
                 leading-relaxed mb-6">
                 Alongside points, you earn permanent medals for completing
                 specific adventures — your first hike, your first ski day,
-                visiting multiple continents. Medals can't be bought or lost.
-                They're a record of everywhere you've been.
+                visiting multiple continents. Medals can&apos;t be bought or lost.
+                They&apos;re a record of everywhere you&apos;ve been.
               </p>
               <Link href="/account?tab=medals"
                 className="inline-flex items-center gap-2 text-sm

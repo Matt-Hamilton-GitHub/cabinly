@@ -40,7 +40,7 @@ const Highlight = ({ icon, title, sub, gold }: HighlightItem) => (
 
 const PlaceAbout = ({ place }: { place: TPlace }) => {
   const reviewTotal =
-    (place as any).reviewCount ?? place.reviews?.length ?? 0;
+    place.reviewCount ?? place.reviews?.length ?? 0;
 
   const highlights: HighlightItem[] = [
     {
@@ -60,7 +60,7 @@ const PlaceAbout = ({ place }: { place: TPlace }) => {
     },
     {
       icon: <Star size={20} />,
-      title: `${(place as any).rating ?? "–"} / 5 rating`,
+      title: `${place.rating ?? "–"} / 5 rating`,
       sub: `${reviewTotal} reviews`,
       gold: true,
     },

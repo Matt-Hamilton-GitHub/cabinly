@@ -23,7 +23,7 @@ function setAuthCookie(res: NextResponse, token: string) {
   })
 }
 
-function safeUser(user: any) { 
+function safeUser(user) { 
   return {
     userId:    user._id.toString(),
     name:      user.name,
@@ -58,7 +58,7 @@ export async function userLogIn(req: Request) {
     return res
 
   } catch (err) {
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 }) // fix 5
+  return NextResponse.json({ error: `Internal server error: ${err}` }, { status: 500 }) // fix 5
   }
 }
 

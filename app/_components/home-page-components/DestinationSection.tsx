@@ -1,10 +1,24 @@
 import { TOP3 } from "@/app/lib/data";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { Star, ArrowUpRight, ArrowRight, Sparkles } from "lucide-react";
 
+interface IDemoDestination {
+  id: number
+  title: string
+  stat_img: StaticImageData
+  tag: string
+  rating: string
+  desc: string
+  srtPrice: number
+  dest_ref_url: string
+
+}
+
 const FALLBACK_DESCRIPTION =
   "Majestic peaks, pristine snow, and legendary skiing trails";
+
+
 
 const DestinationSection = () => {
   return (
@@ -38,7 +52,7 @@ const DestinationSection = () => {
 
         {/* Cards */}
         <div className="grid md:grid-cols-3 gap-8">
-          {TOP3.map((place: any) => (
+          {TOP3.map((place: IDemoDestination) => (
             <article
               key={place.id}
               className="group relative rounded-[2rem] overflow-hidden bg-white
@@ -93,7 +107,7 @@ const DestinationSection = () => {
               {/* Body */}
               <div className="p-7 bg-gradient-to-b from-white to-[#fbfaf6]">
                 <p className="text-[#0f3d3e]/55 mb-6 font-light text-sm leading-relaxed">
-                  {place.description ?? FALLBACK_DESCRIPTION}
+                  {place.desc ?? FALLBACK_DESCRIPTION}
                 </p>
 
                 <div className="flex items-center justify-between pt-5 border-t

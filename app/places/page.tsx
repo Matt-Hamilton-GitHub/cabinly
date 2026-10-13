@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import SpinnerBoxJump from '../_components/SpinnerBoxJump'
 import PlaceCard from '../_components/PlaceCard'
-import { TPlace } from '../lib/types'
+import type { TPlace, SeasonsType } from '../lib/types'
 import {
   Mountain, Waves, Trees, Sun, Snowflake,
   Leaf, Globe, Footprints, Bike, Fish, Building,
@@ -228,8 +228,8 @@ const PlacesPage = () => {
     const list = places.filter((p) => {
       if (filters.type     !== 'All'      && p.type    !== filters.type)    return false
       if (filters.country  !== 'All'      && p.country !== filters.country) return false
-      if (filters.season   !== 'All year' && !p.seasons?.includes(filters.season as any)) return false
-      if (filters.activity !== 'All'      && !p.activities?.some((a: any) => (a.label ?? a.name) === filters.activity)) return false
+      if (filters.season   !== 'All year' && !p.seasons?.includes(filters.season as SeasonsType)) return false
+      if (filters.activity !== 'All'      && !p.activities?.some((a) => (a.label ?? a.name) === filters.activity)) return false
       if (p.price > filters.maxPrice) return false
       return true
     })
@@ -240,12 +240,12 @@ const PlacesPage = () => {
     return sorted
   }, [places, filters, sort])
 
-  const countFor = (key: keyof TPlace, val: string) =>
+  const countFor = (key: 'type' | 'country' | 'seasons' | 'activities', val: string) =>
     val === 'All' || val === 'All year'
       ? places.length
-      : places.filter((p: any) => {
-          if (key === 'seasons')    return p.seasons?.includes(val)
-          if (key === 'activities') return p.activities?.some((a: any) => (a.label ?? a.name) === val)
+      : places.filter((p) => {
+          if (key === 'seasons')    return p.seasons?.includes(val as SeasonsType)
+          if (key === 'activities') return p.activities?.some((a) => (a.label ?? a.name) === val)
           return p[key] === val
         }).length
 
@@ -512,7 +512,7 @@ const PlacesPage = () => {
               <div className="flex gap-6 flex-row items-stretch justify-center
                 flex-wrap pl-fade">
                 {filtered.map((p, idx) => (
-                  <PlaceCard key={(p as any)._id ?? idx} place={p} />
+                  <PlaceCard key={p._id ?? idx} place={p} />
                 ))}
               </div>
             ) : (

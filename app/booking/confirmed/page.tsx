@@ -1,95 +1,101 @@
 // app/booking/confirmed/page.tsx
-'use client'
+"use client";
 
-import { useSearchParams } from 'next/navigation'
-import Link from 'next/link'
-import { CheckCircle2, XCircle, Clock, AlertCircle } from 'lucide-react'
-import { useUserContext } from '@/app/contexts/UserContext'
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { CheckCircle2, XCircle, Clock, AlertCircle } from "lucide-react";
+import { Suspense } from "react";
+import SpinnerBoxJump from "@/app/_components/SpinnerBoxJump";
+
 const STATES = {
   success: {
     icon: <CheckCircle2 size={52} className="text-[#a8d5d0]" />,
-    title: 'Booking confirmed!',
-    desc: 'Your adventure is locked in. Check your account for trip details and get ready to explore.',
-    cta: 'Browse destinations',
-    href: '/places',
-    bg: 'bg-[#e1f5ee]',
+    title: "Booking confirmed!",
+    desc: "Your adventure is locked in. Check your account for trip details and get ready to explore.",
+    cta: "Browse destinations",
+    href: "/places",
+    bg: "bg-[#e1f5ee]",
   },
   expired: {
     icon: <Clock size={52} className="text-[#633806]" />,
-    title: 'Link expired',
-    desc: 'This confirmation link is more than 24 hours old. Your booking has been automatically cancelled. You can make a new booking anytime.',
-    cta: 'Browse destinations',
-    href: '/places',
-    bg: 'bg-[#faeeda]',
+    title: "Link expired",
+    desc: "This confirmation link is more than 24 hours old. Your booking has been automatically cancelled. You can make a new booking anytime.",
+    cta: "Browse destinations",
+    href: "/places",
+    bg: "bg-[#faeeda]",
   },
   upcoming: {
     icon: <CheckCircle2 size={52} className="text-[#a8d5d0]" />,
-    title: 'Already confirmed',
-    desc: 'This booking has already been confirmed. You\'re all set!',
-    cta: 'Go home',
-    href: '/',
-    bg: 'bg-[#e1f5ee]',
+    title: "Already confirmed",
+    desc: "This booking has already been confirmed. You're all set!",
+    cta: "Go home",
+    href: "/",
+    bg: "bg-[#e1f5ee]",
   },
   cancelled: {
     icon: <XCircle size={52} className="text-red-400" />,
-    title: 'Booking cancelled',
-    desc: 'This booking was cancelled. You can make a new booking anytime.',
-    cta: 'Browse destinations',
-    href: '/places',
-    bg: 'bg-red-50',
+    title: "Booking cancelled",
+    desc: "This booking was cancelled. You can make a new booking anytime.",
+    cta: "Browse destinations",
+    href: "/places",
+    bg: "bg-red-50",
   },
   notfound: {
     icon: <AlertCircle size={52} className="text-gray-400" />,
-    title: 'Booking not found',
-    desc: 'We couldn\'t find this booking. It may have already expired and been removed.',
-    cta: 'Browse destinations',
-    href: '/places',
-    bg: 'bg-gray-50',
+    title: "Booking not found",
+    desc: "We couldn't find this booking. It may have already expired and been removed.",
+    cta: "Browse destinations",
+    href: "/places",
+    bg: "bg-gray-50",
   },
   invalid: {
     icon: <XCircle size={52} className="text-red-400" />,
-    title: 'Invalid link',
-    desc: 'This confirmation link is invalid. Please check your email for the correct link.',
-    cta: 'Browse destinations',
-    href: '/places',
-    bg: 'bg-red-50',
+    title: "Invalid link",
+    desc: "This confirmation link is invalid. Please check your email for the correct link.",
+    cta: "Browse destinations",
+    href: "/places",
+    bg: "bg-red-50",
   },
   reserved: {
     icon: <Clock size={52} className="text-[#a8d5d0]" />,
-    title: 'Cabin reserved!',
-    desc: 'Your cabin is being held for 24 hours. We\'ve sent a confirmation email — click the link inside to secure your booking before it expires.',
-    cta: 'Return home',
-    href: '/',
-    bg: 'bg-[#e1f5ee]',
+    title: "Cabin reserved!",
+    desc: "Your cabin is being held for 24 hours. We've sent a confirmation email — click the link inside to secure your booking before it expires.",
+    cta: "Return home",
+    href: "/",
+    bg: "bg-[#e1f5ee]",
   },
-}
+};
 
-
-export default function BookingConfirmedPage() {
-  const searchParams = useSearchParams()
+function BookingConfirmedContent() {
+  const searchParams = useSearchParams();
   const status = searchParams.get('status') as keyof typeof STATES ?? 'invalid'
-  const state  = STATES[status] ?? STATES.invalid
-  const {authUser} = useUserContext()
-   return (
+  const state = STATES[status] ?? STATES.invalid;
+
+  return (
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="max-w-md w-full text-center">
-
         {/* Icon circle */}
-        <div className={`w-24 h-24 rounded-full ${state.bg} flex items-center
-          justify-center mx-auto mb-6`}>
+        <div
+          className={`w-24 h-24 rounded-full ${state.bg} flex items-center
+          justify-center mx-auto mb-6`}
+        >
           {state.icon}
         </div>
 
         {/* Text */}
-        <p className="text-[10px] font-medium tracking-[0.25em] uppercase
-          text-[#a8d5d0] mb-3">
+        <p
+          className="text-[10px] font-medium tracking-[0.25em] uppercase
+          text-[#a8d5d0] mb-3"
+        >
           Booking status
         </p>
         <h1 className="font-serif text-3xl text-[#0f3d3e] mb-4">
           {state.title}
         </h1>
-        <p className="text-sm text-gray-500 font-light leading-relaxed mb-8
-          max-w-sm mx-auto">
+        <p
+          className="text-sm text-gray-500 font-light leading-relaxed mb-8
+          max-w-sm mx-auto"
+        >
           {state.desc}
         </p>
 
@@ -113,5 +119,13 @@ export default function BookingConfirmedPage() {
         </div> */}
       </div>
     </div>
-  )
+  );
+}
+
+export default function BookingConfirmedPage() {
+  return (
+    <Suspense fallback={<SpinnerBoxJump />}>
+      <BookingConfirmedContent />
+    </Suspense>
+  );
 }

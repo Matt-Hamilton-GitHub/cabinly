@@ -1,6 +1,6 @@
 'use client'
 
-import { ReservationProvider } from "../contexts/ReservationContext"
+
 import { useUserContext } from "../contexts/UserContext"
 import { useEffect } from "react"
 
@@ -15,9 +15,9 @@ export default function AccountLayout({ children }) {
     
 
     return (
-        <ReservationProvider>
+       
             <div className="h-screen">
                {children}
             </div>
-        </ReservationProvider>)
+       )
 }

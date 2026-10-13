@@ -1,4 +1,4 @@
-import Home from './_components/Home'
+
 import HomePage from './_components/home-page-components/HomePage';
 
 

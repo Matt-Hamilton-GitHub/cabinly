@@ -1,7 +1,6 @@
 'use client'
 
 import Link from "next/link"
-import * as motion from "motion/react-client"
 import DiscoverPlaceCard from "./DiscoverPlaceCard"
 import places from '../../public/_assets/places-info/places'
 import { useState } from "react"

@@ -1,15 +1,15 @@
 import mongoose, { Schema } from 'mongoose'
 
-const MedalSchema = new Schema(
-  {
-    id:          { type: String, required: true },
-    name:        { type: String, required: true },
-    emoji:       { type: String, required: true },
-    description: { type: String, required: true },
-    earnedAt:    { type: String, default: null },  // null = locked
-  },
-  { _id: false }  // no separate _id for subdocuments
-)
+// const MedalSchema = new Schema(
+//   {
+//     id:          { type: String, required: true },
+//     name:        { type: String, required: true },
+//     emoji:       { type: String, required: true },
+//     description: { type: String, required: true },
+//     earnedAt:    { type: String, default: null },  // null = locked
+//   },
+//   { _id: false }  // no separate _id for subdocuments
+// )
 
 const UserSchema = new mongoose.Schema(
   {

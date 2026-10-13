@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { truncate } from 'node:fs/promises'
+
 
 const CabinSchema = new mongoose.Schema({
   name: { type: String, required: true },

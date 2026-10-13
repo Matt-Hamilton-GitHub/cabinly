@@ -66,12 +66,12 @@ export default function NotFound() {
         </p>
 
         <h1 className="font-serif text-4xl text-[#e8f0ed] leading-[1.1] mb-4">
-          This trail doesn't exist
+          This trail does not exist
         </h1>
 
         <p className="text-[#e8f0ed]/50 font-light leading-relaxed mb-10
           max-w-sm mx-auto">
-          Looks like you've wandered off the map. The page you're looking
+          Looks like you have wandered off the map. The page you are looking
           for has either moved, been removed, or never existed in the
           first place.
         </p>

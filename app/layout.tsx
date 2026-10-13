@@ -22,6 +22,7 @@ const geistSans = Geist({
 const museoModerno = MuseoModerno({ weight: "400", subsets: ["latin"] });
 const alumniSansPri = Alumni_Sans_Pinstripe({
   weight: "400",
+  subsets: ["latin"],
   variable: "--alumni-sans-pinstripe",
 });
 const geistMono = Geist_Mono({
@@ -44,7 +45,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: "Cabinly",
-  description: "Rent your fevorite cabin in the most amazing places",
+  description: "Find a place to embrace your human experience",
 };
 
 export default function RootLayout({

@@ -3,8 +3,6 @@
 
 import { useState, useEffect } from "react"
 import SpinnerBoxJump from "./SpinnerBoxJump"
-import { SquarePlus } from "lucide-react"
-import Link from "next/link"
 import DisplayGroups from "./DisplayGroups"
 
 type ActivityType = {

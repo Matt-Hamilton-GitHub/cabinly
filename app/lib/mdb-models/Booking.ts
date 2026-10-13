@@ -1,26 +1,26 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose, { Schema } from "mongoose";
 
 const BookingSchema = new Schema(
   {
     userRef: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
     },
     placeRef: {
       type: Schema.Types.ObjectId,
-      ref: 'Place',
+      ref: "Place",
       required: true,
     },
     cabinRef: {
       type: Schema.Types.ObjectId,
-      ref: 'Cabin',
+      ref: "Cabin",
       required: true,
     },
     activities: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Activity',
+        ref: "Activity",
       },
     ],
     from: {
@@ -45,20 +45,20 @@ const BookingSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ['pending', 'upcoming', 'completed', 'cancelled'],
-      default: 'pending',
+      enum: ["pending", "upcoming", "completed", "cancelled"],
+      default: "pending",
     },
-    expiresAt : {
+    expiresAt: {
       type: Date,
-      default: () => new Date(Date.now() + 24 * 60 * 60 * 1000)
+      default: () => new Date(Date.now() + 24 * 60 * 60 * 1000),
     },
   },
   {
     timestamps: true,
-  }
-)
+  },
+);
 
-BookingSchema.index({expiresAt: 1},{expireAfterSeconds:0})
+BookingSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 export default mongoose.models.Booking ||
-  mongoose.model('Booking', BookingSchema, 'Bookings')
+  mongoose.model("Booking", BookingSchema, "Bookings");

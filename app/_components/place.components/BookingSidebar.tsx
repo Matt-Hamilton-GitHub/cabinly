@@ -5,7 +5,6 @@ import {
   Heart,
   ChevronDown,
   ChevronUp,
-  Info,
   Minus,
   Plus,
   Check,
@@ -23,7 +22,6 @@ import {
 import { getNights } from "@/app/_utils/utils";
 import { useRouter } from "next/navigation";
 import { useUserContext } from "@/app/contexts/UserContext";
-import { useInvalidateProfile } from "@/app/_hooks/useUserProfile";
 
 // ─── Types ───────────────────────────────────────────────────────
 
@@ -139,7 +137,7 @@ interface PriceSummaryProps {
   signedActivities: ActivityType[];
   selectedDate: AvailableDateType | undefined;
   adults: number;
-  children: number;
+  childCount: number;
   wishlist: boolean;
   onWishlistToggle: () => void;
   breakdownOpen: boolean;
@@ -154,7 +152,7 @@ const PriceSummary = ({
   signedActivities,
   selectedDate,
   adults,
-  children: childCount,
+  childCount: childCount,
   wishlist,
   onWishlistToggle,
   breakdownOpen,
@@ -164,9 +162,13 @@ const PriceSummary = ({
   bookingError,
 }: PriceSummaryProps) => {
   const totalGuests = adults + childCount;
-  const nights = selectedDate ? getNights(selectedDate.from, selectedDate.to) : 0;
+  const nights = selectedDate
+    ? getNights(selectedDate.from, selectedDate.to)
+    : 0;
 
-  const cabinSubtotal = selectedCabin ? selectedCabin.pricePerNight * nights : 0;
+  const cabinSubtotal = selectedCabin
+    ? selectedCabin.pricePerNight * nights
+    : 0;
 
   const activitiesSubtotal = signedActivities.reduce(
     (sum, act) => sum + act.price * totalGuests,
@@ -196,7 +198,9 @@ const PriceSummary = ({
               <span className="font-serif text-5xl text-[#f4efe2]">
                 ${selectedCabin.pricePerNight}
               </span>
-              <span className="text-sm text-[#f4efe2]/45 font-light">/ night</span>
+              <span className="text-sm text-[#f4efe2]/45 font-light">
+                / night
+              </span>
             </div>
           ) : (
             <p className="text-sm text-[#f4efe2]/50">No cabin selected</p>
@@ -401,7 +405,9 @@ const ActivityToggle = ({
                     : "border-[#0f3d3e]/20"
                 }`}
             >
-              {signed && <Check size={12} className="text-[#c9a96e]" strokeWidth={3} />}
+              {signed && (
+                <Check size={12} className="text-[#c9a96e]" strokeWidth={3} />
+              )}
             </div>
           </button>
         );
@@ -431,7 +437,6 @@ const BookingSidebar = ({
   place,
   selectedCabinId,
   signedActivityIds,
-  onCabinChange,
   onActivityChange,
 }: BookingSidebarProps) => {
   const [selectedDate, setSelectedDate] = useState<
@@ -457,8 +462,12 @@ const BookingSidebar = ({
   const [isBookingLoading, setIsBookingLoading] = useState(false);
   const { authUser } = useUserContext();
 
-  const nights = selectedDate ? getNights(selectedDate.from, selectedDate.to) : 0;
-  const cabinSubtotal = selectedCabin ? selectedCabin.pricePerNight * nights : 0;
+  const nights = selectedDate
+    ? getNights(selectedDate.from, selectedDate.to)
+    : 0;
+  const cabinSubtotal = selectedCabin
+    ? selectedCabin.pricePerNight * nights
+    : 0;
   const activitiesSubtotal = signedActivities.reduce(
     (sum, act) => sum + act.price * (adults + children),
     0,
@@ -512,6 +521,7 @@ const BookingSidebar = ({
         status: true,
         msg: "Something went wrong. Please try again.",
       });
+      console.log(err);
     } finally {
       setIsBookingLoading(false);
     }
@@ -524,12 +534,17 @@ const BookingSidebar = ({
         : [...signedActivityIds, id],
     );
 
-  useEffect(() => {
-    if (maxGuests < adults + children) {
-      setAdults(1);
-      setChildren(0);
-    }
-  }, [selectedCabin]);
+    
+
+const cabinMaxGuests = selectedCabin?.maxGuests;
+
+useEffect(() => {
+  if (cabinMaxGuests == null) return;
+  const nextAdults = Math.min(adults, cabinMaxGuests);
+  const nextChildren = Math.min(children, cabinMaxGuests - nextAdults);
+  if (nextAdults !== adults) setAdults(nextAdults);
+  if (nextChildren !== children) setChildren(nextChildren);
+}, [cabinMaxGuests, adults, children]);
 
   return (
     <aside
@@ -588,7 +603,7 @@ const BookingSidebar = ({
         signedActivities={signedActivities}
         selectedDate={selectedDate}
         adults={adults}
-        children={children}
+        childCount={children}
         wishlist={wishlist}
         onWishlistToggle={() => setWishlist((w) => !w)}
         breakdownOpen={breakdownOpen}

@@ -97,7 +97,10 @@ export type CabinType = {
   _id: string
   name: string
   description: string
-  coordinates: number[]
+  coordinates: {
+  type: 'Point'
+  coordinates: [number, number]  // [lng, lat]
+}
   discount: number
   rating: number
   pricePerNight: number
@@ -118,7 +121,7 @@ export type TPlace = {
   continent: string
   flag: string
   description: string
-  images_url: string
+  images_url: string[]
   tags: PlaceTagType[]
   seasons: SeasonsType[]
   badge?: 'Popular' | 'New' | 'Trending'
@@ -132,21 +135,22 @@ export type TPlace = {
   reviews: ReviewType[]
   availableDates: AvailableDateType[]
   coordinates: {
-    coordinates: number[]
-  }
+  type: 'Point'
+  coordinates: [number, number]  // [lng, lat]
+}
 }
 
 export type BookingStatusType = 'pending' | 'upcoming' | 'completed' | 'cancelled'
 export type BookingType = {
   _id: string
-  placeRef: string
-  cabinRef: string
-  activities: string[]
+  placeRef:  TPlace
+  cabinRef:  CabinType
+  activities:  ActivityType[]
   from: string
   to: string
   guests: number
-  totalPaid: Date
-  pointsEarned: Date
+  totalPaid: number
+  pointsEarned: number
   status: BookingStatusType
 }
 

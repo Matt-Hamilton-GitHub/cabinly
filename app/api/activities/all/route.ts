@@ -4,7 +4,7 @@ import { connectMDB } from '@/app/lib/mongodb'
 import Activity from '@/app/lib/mdb-models/Activity'
 import Place from '@/app/lib/mdb-models/Place'
 
-export async function GET(_req: Request) {
+export async function GET() {
   try {
     await connectMDB()
 
