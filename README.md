@@ -182,15 +182,6 @@ npm run start     # serve the production build
 
 ---
 
-## Screenshots
-
-<!-- Replace with real images, e.g. stored in /docs -->
-| Landing | Places & filters | Destination | Booking sidebar |
-| --- | --- | --- | --- |
-| _screenshot_ | _screenshot_ | _screenshot_ | _screenshot_ |
-
----
-
 ## Roadmap
 
 - [ ] **Server-authoritative pricing:** recompute `totalPaid` (cabin nights, activities, fee, discounts) on the server instead of accepting it from the client.
@@ -217,7 +208,7 @@ npm run start     # serve the production build
 ## Author
 
 **Matt Hamilton**
-[GitHub](https://github.com/YOUR-USERNAME) · [LinkedIn](https://linkedin.com/in/YOUR-PROFILE) · matt.hamilton.v@gmail.com
+[LinkedIn]([https://www.linkedin.com/in/matt-hamilton-v/] · matt.hamilton.v@gmail.com
 
 ---
 
